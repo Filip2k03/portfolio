@@ -5,23 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stephan | Full Stack Developer</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS (CDN for demo, use CLI for production!) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
-
   <!-- AOS CSS & JS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-  <!-- Custom Colors & Futuristic Styles -->
   <style>
     :root {
       --dominant: #210B2C;
@@ -42,6 +37,8 @@
       backdrop-filter: blur(12px);
       border: 1.5px solid rgba(255,255,255,0.08);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      opacity: 1; /* fallback for no JS */
+      transition: opacity 0.3s;
     }
     .glow {
       box-shadow: var(--glow);
@@ -74,9 +71,33 @@
     ::selection {
       background: #FFD16644;
     }
+    /* PHP Elephant shadow for 3D effect */
+    .elephant-shadow {
+      filter: blur(8px);
+      opacity: 0.3;
+      transform: scaleX(1.1) scaleY(0.5);
+    }
   </style>
 </head>
 <body class="scroll-smooth">
+
+  <!-- PHP Elephant SVG (floating, animated) -->
+  <div id="php-elephant-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:100px;">
+    <svg id="php-elephant" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Elephant body -->
+      <ellipse cx="60" cy="50" rx="45" ry="28" fill="#BC96E6" stroke="#FFD166" stroke-width="4"/>
+      <!-- Ear -->
+      <ellipse cx="35" cy="55" rx="12" ry="16" fill="#FFD166" opacity="0.7"/>
+      <!-- Trunk -->
+      <path d="M100 60 Q115 70 100 80" stroke="#FFD166" stroke-width="6" fill="none" />
+      <!-- Eye -->
+      <circle cx="90" cy="50" r="4" fill="#210B2C"/>
+      <!-- PHP text -->
+      <text x="48" y="60" font-family="Orbitron, Segoe UI, sans-serif" font-size="18" font-weight="bold" fill="#210B2C" letter-spacing="2">PHP</text>
+      <!-- Shadow -->
+      <ellipse class="elephant-shadow" cx="70" cy="78" rx="30" ry="7" fill="#210B2C"/>
+    </svg>
+  </div>
 
   <!-- Navbar -->
   <nav class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
@@ -200,6 +221,26 @@
     gsap.from("nav", { duration: 1, y: -80, opacity: 0 });
     gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4 });
     gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 0.5 });
+
+    // Animate PHP Elephant up and down on scroll (3D style)
+    const elephant = document.getElementById('php-elephant-container');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    function animateElephant() {
+      const amplitude = 40; // px
+      const period = 600; // px
+      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
+      gsap.to(elephant, { y, duration: 0.6, ease: "power2.out" });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(animateElephant);
+        ticking = true;
+      }
+    });
+    // Initial animation
+    gsap.fromTo(elephant, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
   </script>
 </body>
 </html>
