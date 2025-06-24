@@ -148,6 +148,78 @@
         0% { background-position: 0 0; }
         100% { background-position: 200px 200px; }
       }
+      /* Lamp wire and lamp styles */
+      .lamp-wire {
+        position: fixed;
+        top: 0;
+        left: 60px;
+        width: 4px;
+        height: 120px;
+        background: linear-gradient(to bottom, #FFD166 60%, #BC96E6 100%);
+        z-index: 50;
+        transition: height 0.5s;
+      }
+      .lamp-bulb {
+        position: fixed;
+        top: 120px;
+        left: 40px;
+        width: 48px;
+        height: 48px;
+        background: #FFD166;
+        border-radius: 50%;
+        box-shadow: 0 0 60px 20px #FFD16688, 0 0 0 8px #FFD16644;
+        z-index: 51;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.5s, box-shadow 0.5s;
+      }
+      .lamp-bulb.dark {
+        background: #23263B;
+        box-shadow: 0 0 16px 2px #23263B88;
+      }
+      .lamp-switch {
+        position: fixed;
+        top: 180px;
+        left: 60px;
+        z-index: 52;
+        background: #FFD166;
+        color: #210B2C;
+        border-radius: 9999px;
+        padding: 6px 18px;
+        font-family: 'Orbitron', monospace;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #FFD16688;
+        border: 2px solid #FFD166;
+        transition: background 0.3s, color 0.3s;
+      }
+      .lamp-switch.dark {
+        background: #23263B;
+        color: #FFD166;
+        border: 2px solid #23263B;
+      }
+      /* p tag style for visibility */
+      .lamp-p {
+        background: rgba(33,11,44,0.85);
+        color: #FFD166;
+        border-radius: 1em;
+        padding: 0.5em 1.2em;
+        margin: 1em 0;
+        font-size: 1.2em;
+        font-family: 'Share Tech Mono', 'Orbitron', monospace, sans-serif;
+        box-shadow: 0 0 16px #FFD16644;
+        display: inline-block;
+        transition: background 0.3s, color 0.3s;
+      }
+      .dark-mode .lamp-p {
+        background: rgba(44,22,60,0.95);
+        color: #BC96E6;
+        box-shadow: 0 0 12px #BC96E644;
+      }
+      .dark-mode {
+        background: linear-gradient(135deg, #181824 0%, #23263B 100%) !important;
+      }
     </style>
   </head>
   <body>
