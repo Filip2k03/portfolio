@@ -148,105 +148,91 @@
         0% { background-position: 0 0; }
         100% { background-position: 200px 200px; }
       }
-      /* Lamp wire and lamp styles */
-      .lamp-wire {
-        position: fixed;
-        top: 0;
-        left: 60px;
-        width: 4px;
-        height: 120px;
-        background: linear-gradient(to bottom, #FFD166 60%, #BC96E6 100%);
-        z-index: 50;
-        transition: height 0.5s;
+      /* Neon border spark animation */
+      @keyframes neon-spark {
+        0%, 100% {
+          box-shadow:
+            0 0 8px #00ffe7,
+            0 0 16px #00ffe7,
+            0 0 32px #00ffe7,
+            0 0 0px #FFD166;
+          border-color: #00ffe7;
+        }
+        10% {
+          box-shadow:
+            0 0 16px #FFD166,
+            0 0 32px #00ffe7,
+            0 0 48px #FFD166,
+            0 0 8px #00ffe7;
+          border-color: #FFD166;
+        }
+        20% {
+          box-shadow:
+            0 0 24px #00ffe7,
+            0 0 48px #FFD166,
+            0 0 16px #00ffe7,
+            0 0 0px #FFD166;
+          border-color: #00ffe7;
+        }
+        30% {
+          box-shadow:
+            0 0 32px #FFD166,
+            0 0 16px #00ffe7,
+            0 0 32px #FFD166,
+            0 0 8px #00ffe7;
+          border-color: #FFD166;
+        }
+        40% {
+          box-shadow:
+            0 0 16px #00ffe7,
+            0 0 32px #FFD166,
+            0 0 48px #00ffe7,
+            0 0 0px #FFD166;
+          border-color: #00ffe7;
+        }
+        50% {
+          box-shadow:
+            0 0 24px #FFD166,
+            0 0 48px #00ffe7,
+            0 0 16px #FFD166,
+            0 0 8px #00ffe7;
+          border-color: #FFD166;
+        }
+        60% {
+          box-shadow:
+            0 0 32px #00ffe7,
+            0 0 16px #FFD166,
+            0 0 32px #00ffe7,
+            0 0 0px #FFD166;
+          border-color: #00ffe7;
+        }
+        70% {
+          box-shadow:
+            0 0 16px #FFD166,
+            0 0 32px #00ffe7,
+            0 0 48px #FFD166,
+            0 0 8px #00ffe7;
+          border-color: #FFD166;
+        }
+        80% {
+          box-shadow:
+            0 0 24px #00ffe7,
+            0 0 48px #FFD166,
+            0 0 16px #00ffe7,
+            0 0 0px #FFD166;
+          border-color: #00ffe7;
+        }
+        90% {
+          box-shadow:
+            0 0 32px #FFD166,
+            0 0 16px #00ffe7,
+            0 0 32px #FFD166,
+            0 0 8px #00ffe7;
+          border-color: #FFD166;
+        }
       }
-      .lamp-bulb {
-        position: fixed;
-        top: 120px;
-        left: 40px;
-        width: 48px;
-        height: 48px;
-        background: #FFD166;
-        border-radius: 50%;
-        box-shadow: 0 0 60px 20px #FFD16688, 0 0 0 8px #FFD16644;
-        z-index: 51;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.5s, box-shadow 0.5s;
-      }
-      .lamp-bulb.dark {
-        background: #23263B;
-        box-shadow: 0 0 16px 2px #23263B88;
-      }
-      /* .lamp-switch {
-        position: fixed;
-        top: 180px;
-        left: 60px;
-        z-index: 52;
-        background: #FFD166;
-        color: #210B2C;
-        border-radius: 9999px;
-        padding: 6px 18px;
-        font-family: 'Orbitron', monospace;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 8px #FFD16688;
-        border: 2px solid #FFD166;
-        transition: background 0.3s, color 0.3s;
-      }
-      .lamp-switch.dark {
-        background: #23263B;
-        color: #FFD166;
-        border: 2px solid #23263B;
-      } */
-      /* p tag style for visibility */
-      .lamp-p {
-        background: rgba(33,11,44,0.85);
-        color: #FFD166;
-        border-radius: 1em;
-        padding: 0.5em 1.2em;
-        margin: 1em 0;
-        font-size: 1.2em;
-        font-family: 'Share Tech Mono', 'Orbitron', monospace, sans-serif;
-        box-shadow: 0 0 16px #FFD16644;
-        display: inline-block;
-        transition: background 0.3s, color 0.3s;
-      }
-      .dark-mode .lamp-p {
-        background: rgba(44,22,60,0.95);
-        color: #BC96E6;
-        box-shadow: 0 0 12px #BC96E644;
-      }
-      .dark-mode {
-        background: linear-gradient(135deg, #181824 0%, #23263B 100%) !important;
-      }
-
-      /* Add a lamp handle for pulling */
-      .lamp-handle {
-        position: fixed;
-        top: 150px;
-        right: 56px;
-        width: 16px;
-        height: 32px;
-        background: #FFD166;
-        border-radius: 8px;
-        z-index: 53;
-        cursor: grab;
-        box-shadow: 0 2px 8px #FFD16688;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.3s;
-      }
-      .lamp-handle:active {
-        background: #BC96E6;
-      }
-      .lamp-handle-dot {
-        width: 8px;
-        height: 8px;
-        background: #BC96E6;
-        border-radius: 50%;
-        margin: auto;
+      .neon-border.spark {
+        animation: neon-spark 2.2s infinite;
       }
     </style>
   </head>
@@ -334,7 +320,7 @@
           <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <!-- Tech stack item -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- HTML SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -354,7 +340,7 @@
               </span>
             </div>
             <!-- JavaScript / React -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- JS SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -376,7 +362,7 @@
               </span>
             </div>
             <!-- Tailwind / Bootstrap -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- Tailwind SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -395,7 +381,7 @@
               </span>
             </div>
             <!-- PHP / Laravel -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- PHP SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -414,7 +400,7 @@
               </span>
             </div>
             <!-- Python / Django -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- Python SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -434,7 +420,7 @@
               </span>
             </div>
             <!-- MySQL / MongoDB -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- MySQL SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -453,7 +439,7 @@
               </span>
             </div>
             <!-- REST API -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- API SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -466,7 +452,7 @@
               </span>
             </div>
             <!-- Firebase / AWS -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- Firebase SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -486,7 +472,7 @@
               </span>
             </div>
             <!-- C# -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- C# SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -499,7 +485,7 @@
               </span>
             </div>
             <!-- Expo -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- Expo SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -513,7 +499,7 @@
               </span>
             </div>
             <!-- Android Studio -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- Android Studio SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -528,7 +514,7 @@
               </span>
             </div>
             <!-- Kotlin -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- Kotlin SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -542,7 +528,7 @@
               </span>
             </div>
             <!-- XML -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- XML SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -555,7 +541,7 @@
               </span>
             </div>
             <!-- Vue / Vite -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span class="flex space-x-2 mb-3">
                 <!-- Vue SVG -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -575,7 +561,7 @@
               </span>
             </div>
             <!-- Next.js -->
-            <div class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            <div class="glass neon-border spark rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
               <span>
                 <!-- Next.js SVG (simple text) -->
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
