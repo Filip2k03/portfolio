@@ -1,242 +1,314 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stephan | Full Stack Developer</title>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Stephan | Full Stack Developer</title>
 
-  <!-- Google Fonts for modern style -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts for modern style -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS (CDN for demo, use CLI for production!) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Alpine.js -->
-  <script src="https://unpkg.com/alpinejs" defer></script>
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Tailwind CSS (CDN for demo, use CLI for production!) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Alpine.js -->
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-  <style>
-    :root {
-      --dominant: #210B2C;
-      --secondary: #BC96E6;
-      --accent: #FFD166;
-      --glass: rgba(44, 22, 60, 0.7);
-      --glow: 0 0 16px #FFD166, 0 0 32px #BC96E6;
-    }
-    body {
-      font-family: 'Montserrat', 'Segoe UI', 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #210B2C 0%, #311C3B 100%);
-      color: white;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .glass {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255,255,255,0.08);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-      opacity: 1;
-      transition: opacity 0.3s;
-    }
-    .glow {
-      box-shadow: var(--glow);
-      text-shadow: 0 0 8px #FFD166, 0 0 16px #BC96E6;
-      font-family: 'Orbitron', 'Montserrat', sans-serif;
-      letter-spacing: 0.08em;
-    }
-    .neon-border {
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 8px var(--accent), 0 0 16px var(--secondary);
-    }
-    .futuristic-btn {
-      background: linear-gradient(90deg, #FFD166 0%, #BC96E6 100%);
-      color: #210B2C;
-      font-weight: bold;
-      border-radius: 9999px;
-      box-shadow: 0 0 16px #FFD16688, 0 0 32px #BC96E688;
-      transition: transform 0.2s, box-shadow 0.2s;
-      font-family: 'Orbitron', 'Montserrat', sans-serif;
-      letter-spacing: 0.05em;
-    }
-    .futuristic-btn:hover {
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 0 32px #FFD166, 0 0 64px #BC96E6;
-    }
-    .futuristic-link {
-      color: var(--accent);
-      text-decoration: underline;
-      transition: color 0.2s;
-      font-family: 'Orbitron', 'Montserrat', sans-serif;
-    }
-    .futuristic-link:hover {
-      color: var(--secondary);
-    }
-    ::selection {
-      background: #FFD16644;
-    }
-    /* UFO Glow */
-    .ufo-glow {
-      filter: drop-shadow(0 0 16px #FFD166) drop-shadow(0 0 32px #BC96E6);
-    }
-  </style>
-</head>
-<body class="scroll-smooth font-montserrat">
+    <style>
+      :root {
+        --dominant: #210B2C;
+        --secondary: #BC96E6;
+        --accent: #FFD166;
+        --glass: rgba(44, 22, 60, 0.7);
+        --glow: 0 0 16px #FFD166, 0 0 32px #BC96E6;
+      }
+      body {
+        font-family: 'Montserrat', 'Segoe UI', 'Orbitron', sans-serif;
+        background: linear-gradient(135deg, #210B2C 0%, #311C3B 100%);
+        color: white;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      .glass {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+      .glow {
+        box-shadow: var(--glow);
+        text-shadow: 0 0 8px #FFD166, 0 0 16px #BC96E6;
+        font-family: 'Orbitron', 'Montserrat', sans-serif;
+        letter-spacing: 0.08em;
+      }
+      .neon-border {
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 8px var(--accent), 0 0 16px var(--secondary);
+      }
+      .futuristic-btn {
+        background: linear-gradient(90deg, #FFD166 0%, #BC96E6 100%);
+        color: #210B2C;
+        font-weight: bold;
+        border-radius: 9999px;
+        box-shadow: 0 0 16px #FFD16688, 0 0 32px #BC96E688;
+        transition: transform 0.2s, box-shadow 0.2s;
+        font-family: 'Orbitron', 'Montserrat', sans-serif;
+        letter-spacing: 0.05em;
+      }
+      .futuristic-btn:hover {
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 0 32px #FFD166, 0 0 64px #BC96E6;
+      }
+      .futuristic-link {
+        color: var(--accent);
+        text-decoration: underline;
+        transition: color 0.2s;
+        font-family: 'Orbitron', 'Montserrat', sans-serif;
+      }
+      .futuristic-link:hover {
+        color: var(--secondary);
+      }
+      ::selection {
+        background: #FFD16644;
+      }
+      /* UFO Glow */
+      .ufo-glow {
+        filter: drop-shadow(0 0 16px #FFD166) drop-shadow(0 0 32px #BC96E6);
+      }
+    </style>
+  </head>
+  <body class="scroll-smooth font-montserrat">
 
-  <!-- UFO SVG (floating, animated) -->
-  <div id="ufo-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:100px;">
-    <svg id="ufo-svg" class="ufo-glow" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- UFO Body -->
-      <ellipse cx="60" cy="50" rx="38" ry="14" fill="#BC96E6" stroke="#FFD166" stroke-width="4"/>
-      <!-- Dome -->
-      <ellipse cx="60" cy="42" rx="18" ry="8" fill="#FFD166" opacity="0.8"/>
-      <!-- Lights -->
-      <circle cx="40" cy="50" r="3" fill="#FFD166"/>
-      <circle cx="60" cy="54" r="3" fill="#FFD166"/>
-      <circle cx="80" cy="50" r="3" fill="#FFD166"/>
-      <!-- Beam -->
-      <polygon points="55,64 65,64 80,90 40,90" fill="#FFD16644"/>
-    </svg>
-  </div>
-
-  <!-- Navbar -->
-  <nav class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
-    <h1 class="text-3xl font-extrabold glow tracking-widest">Stephan.dev</h1>
-    <div class="space-x-8 text-lg hidden md:flex font-orbitron">
-      <a href="#about" class="hover:text-[#FFD166] transition">About</a>
-      <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
-      <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
-      <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
+    <!-- UFO SVG (floating, animated) -->
+    <div id="ufo-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:100px;">
+      <svg id="ufo-svg" class="ufo-glow" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- UFO Body -->
+        <ellipse cx="60" cy="50" rx="38" ry="14" fill="#BC96E6" stroke="#FFD166" stroke-width="4"/>
+        <!-- Dome -->
+        <ellipse cx="60" cy="42" rx="18" ry="8" fill="#FFD166" opacity="0.8"/>
+        <!-- Lights -->
+        <circle cx="40" cy="50" r="3" fill="#FFD166"/>
+        <circle cx="60" cy="54" r="3" fill="#FFD166"/>
+        <circle cx="80" cy="50" r="3" fill="#FFD166"/>
+        <!-- Beam -->
+        <polygon points="55,64 65,64 80,90 40,90" fill="#FFD16644"/>
+      </svg>
     </div>
-    <!-- Mobile menu icon -->
-    <div x-data="{ open: false }" class="md:hidden">
-      <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
-        <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
-      </button>
-      <div x-show="open" class="absolute right-4 mt-2 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron">
+
+    <!-- Navbar -->
+    <nav class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
+      <h1 class="text-3xl font-extrabold glow tracking-widest">Stephan.dev</h1>
+      <div class="space-x-8 text-lg hidden md:flex font-orbitron">
         <a href="#about" class="hover:text-[#FFD166] transition">About</a>
         <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
         <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
         <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
       </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="relative text-center py-32 md:py-44">
-    <div class="absolute inset-0 pointer-events-none z-0">
-      <div class="w-72 h-72 bg-[#FFD16633] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2"></div>
-      <div class="w-40 h-40 bg-[#BC96E644] rounded-full blur-2xl absolute bottom-0 right-1/3"></div>
-    </div>
-    <div class="relative z-10">
-      <h2 class="text-6xl md:text-7xl font-extrabold glow mb-6 tracking-tight font-orbitron">Hi, I'm Stephan</h2>
-      <p class="text-2xl md:text-3xl text-[#BC96E6] mb-8 font-medium tracking-wide font-montserrat">Full Stack Developer <span class="text-[#FFD166]">|</span> React, Django, PHP, SQL</p>
-      <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
-        <a href="#projects" class="futuristic-btn px-8 py-4 text-xl">See Projects</a>
-        <a href="resume.pdf" download class="px-8 py-4 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-bold hover:bg-[#FFD16622] transition text-xl font-orbitron">Download Resume</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="container mx-auto px-6 py-20">
-    <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
-      <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">About Me</h3>
-      <p class="text-[#BC96E6] text-xl leading-relaxed font-montserrat">
-        I'm a <span class="text-[#FFD166] font-semibold">Full Stack Developer</span> building modern apps and platforms with cutting-edge tech. I’ve created learning platforms, ecommerce solutions, and internal tools for businesses. <br><br>
-        Founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building POS systems and ecommerce for Myanmar and beyond.
-      </p>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
-    <div class="container mx-auto">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-[#BC96E6] text-xl font-medium font-montserrat">
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">HTML / CSS</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">JavaScript / React</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Tailwind / Bootstrap</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">PHP / Laravel</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Python / Django</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">MySQL / MongoDB</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">REST API</div>
-          <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Firebase / AWS</div>
+      <!-- Mobile menu icon -->
+      <div x-data="{ open: false }" class="md:hidden">
+        <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
+          <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        </button>
+        <div x-show="open" class="absolute right-4 mt-2 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron">
+          <a href="#about" class="hover:text-[#FFD166] transition">About</a>
+          <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
+          <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
+          <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
         </div>
       </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- Projects -->
-  <section id="projects" class="py-20 container mx-auto px-6">
-    <h3 class="text-4xl font-bold text-[#FFD166] mb-10 glow text-center font-orbitron">Projects</h3>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] transition-all duration-300 flex flex-col items-start">
-        <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">Find iPhone Myanmar</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin dashboard.</p>
-        <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+    <!-- Hero Section -->
+    <section class="relative text-center py-32 md:py-44">
+      <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="w-72 h-72 bg-[#FFD16633] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2"></div>
+        <div class="w-40 h-40 bg-[#BC96E644] rounded-full blur-2xl absolute bottom-0 right-1/3"></div>
       </div>
-      <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] transition-all duration-300 flex flex-col items-start">
-        <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">PayVia</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Laravel + Vue.</p>
-        <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+      <div class="relative z-10">
+        <h2 class="text-6xl md:text-7xl font-extrabold glow mb-6 tracking-tight font-orbitron">Hi, I'm Stephan</h2>
+        <p class="text-2xl md:text-3xl text-[#BC96E6] mb-8 font-medium tracking-wide font-montserrat">Full Stack Developer <span class="text-[#FFD166]">|</span> React, Django, PHP, SQL</p>
+        <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
+          <a href="#projects" class="futuristic-btn px-8 py-4 text-xl">See Projects</a>
+          <a href="resume.pdf" download class="px-8 py-4 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-bold hover:bg-[#FFD16622] transition text-xl font-orbitron">Download Resume</a>
+        </div>
       </div>
-      <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] transition-all duration-300 flex flex-col items-start">
-        <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">MBLogistics Express</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
-        <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="container mx-auto px-6 py-20">
+      <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
+        <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">About Me</h3>
+        <p class="text-[#BC96E6] text-xl leading-relaxed font-montserrat">
+          I'm a <span class="text-[#FFD166] font-semibold">Full Stack Developer</span> building modern apps and platforms with cutting-edge tech. I’ve created learning platforms, ecommerce solutions, and internal tools for businesses. <br><br>
+          Founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building POS systems and ecommerce for Myanmar and beyond.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact -->
-  <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
-    <div class="container mx-auto text-center">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-lg mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">Let's Connect</h3>
-        <p class="text-[#BC96E6] mb-8 text-lg font-montserrat">Send me a message and let’s build something great.</p>
-        <form action="mailto:stephanfilip7@gmail.com" method="POST" enctype="text/plain" class="space-y-5">
-          <input type="text" name="name" placeholder="Your Name" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
-          <input type="email" name="email" placeholder="Your Email" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
-          <textarea name="message" placeholder="Your Message" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat"></textarea>
-          <button type="submit" class="futuristic-btn w-full py-3 text-xl">Send</button>
-        </form>
+    <!-- Skills -->
+    <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
+      <div class="container mx-auto">
+        <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
+          <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-[#BC96E6] text-xl font-medium font-montserrat">
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">HTML / CSS</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">JavaScript / React</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Tailwind / Bootstrap</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">PHP / Laravel</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Python / Django</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">MySQL / MongoDB</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">REST API</div>
+            <div class="py-4 neon-border rounded-xl hover:scale-105 transition">Firebase / AWS</div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="text-center py-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
-    &copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a>
-  </footer>
+    <!-- Projects -->
+    <section id="projects" class="py-20 container mx-auto px-6">
+      <h3 class="text-4xl font-bold text-[#FFD166] mb-10 glow text-center font-orbitron">Projects</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
+          <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">Find iPhone Myanmar</h4>
+          <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin dashboard.</p>
+          <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        </div>
+        <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
+          <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">PayVia</h4>
+          <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Laravel + Vue.</p>
+          <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        </div>
+        <div class="glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+          <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">MBLogistics Express</h4>
+          <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
+          <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        </div>
+      </div>
+    </section>
 
-  <!-- GSAP Animation -->
-  <script>
-    // Navbar and section fade-in
-    gsap.from("nav", { duration: 1, y: -80, opacity: 0 });
-    gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4 });
-    gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 0.5 });
+    <!-- Work Experience -->
+    <section id="experience" class="py-20 px-6">
+      <div class="container mx-auto">
+        <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
+          <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Work Experience</h3>
+          <div class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">Myanmar Web Eng</h4>
+                <p class="text-lg text-[#FFD166] font-montserrat">OJT (Internship)</p>
+              </div>
+              <div class="text-right md:text-left mt-2 md:mt-0 text-[#BC96E6] font-montserrat">
+                Oct 2024 – Jan 2025 <span class="text-[#FFD166]">(3 months)</span>
+              </div>
+            </div>
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">MIT</h4>
+                <p class="text-lg text-[#FFD166] font-montserrat">Web Developer</p>
+              </div>
+              <div class="text-right md:text-left mt-2 md:mt-0 text-[#BC96E6] font-montserrat">
+                Mar 2025 – May 2025 <span class="text-[#FFD166]">(2 months)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    // Animate UFO up and down on scroll (3D style)
-    const ufo = document.getElementById('ufo-container');
-    let ticking = false;
-    function animateUFO() {
-      const amplitude = 40; // px
-      const period = 600; // px
-      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
-      gsap.to(ufo, { y, duration: 0.6, ease: "power2.out" });
-      ticking = false;
-    }
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(animateUFO);
-        ticking = true;
+    <!-- Education -->
+    <section id="education" class="py-20 px-6 bg-[#2E1F3C]">
+      <div class="container mx-auto">
+        <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
+          <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Education</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">MST University</h4>
+              <p class="text-lg text-[#FFD166] font-montserrat">NCC Level 4 & Level 5</p>
+              <p class="text-[#BC96E6] font-montserrat">2024/2025 – <span class="text-[#FFD166]">Present</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="certificates" class="py-20 px-6">
+      <div class="container mx-auto">
+        <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
+          <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Certificates</h3>
+          <div class="overflow-x-auto">
+            <div class="flex space-x-6 min-w-[320px]">
+              <!-- Example certificate images, update src as needed -->
+              <div class="flex-shrink-0 w-56">
+                <img src="/assets/certificates/cert1.png" alt="Certificate 1" class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]"/>
+                <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
+              </div>
+              <div class="flex-shrink-0 w-56">
+                <img src="/assets/certificates/cert2.png" alt="Certificate 2" class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]"/>
+                <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
+              </div>
+              <div class="flex-shrink-0 w-56">
+                <img src="/assets/certificates/cert3.png" alt="Certificate 3" class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]"/>
+                <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
+              </div>
+              <!-- Add more certificates as needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
+      <div class="container mx-auto text-center">
+        <div class="glass rounded-3xl p-10 shadow-xl max-w-lg mx-auto">
+          <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">Let's Connect</h3>
+          <p class="text-[#BC96E6] mb-8 text-lg font-montserrat">Send me a message and let’s build something great.</p>
+          <form action="mailto:stephanfilip7@gmail.com" method="POST" enctype="text/plain" class="space-y-5">
+            <input type="text" name="name" placeholder="Your Name" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
+            <input type="email" name="email" placeholder="Your Email" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
+            <textarea name="message" placeholder="Your Message" required class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat"></textarea>
+            <button type="submit" class="futuristic-btn w-full py-3 text-xl">Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
+      &copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a>
+    </footer>
+
+    <!-- GSAP Animation -->
+    <script>
+      // Navbar and section fade-in
+      gsap.from("nav", { duration: 1, y: -80, opacity: 0 });
+      gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4 });
+      gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 0.5 });
+
+      // Animate UFO up and down on scroll (3D style)
+      const ufo = document.getElementById('ufo-container');
+      let ticking = false;
+      function animateUFO() {
+        const amplitude = 40; // px
+        const period = 600; // px
+        const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
+        gsap.to(ufo, { y, duration: 0.6, ease: "power2.out" });
+        ticking = false;
       }
-    });
-    // Initial animation
-    gsap.fromTo(ufo, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
-  </script>
-</body>
-</html>
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(animateUFO);
+          ticking = true;
+        }
+      });
+      // Initial animation
+      gsap.fromTo(ufo, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+    </script>
+  </body>
+  </html>
