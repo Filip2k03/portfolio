@@ -270,6 +270,10 @@
         </div>
       </div>
     </nav>
+    <!-- Lamp wire, bulb, and switch -->
+<div class="lamp-wire" id="lampWire"></div>
+<div class="lamp-bulb" id="lampBulb"></div>
+<button class="lamp-switch" id="lampSwitch">Light Mode</button>
 
     <!-- Hero Section -->
     <section class="relative text-center py-32 md:py-44">
@@ -828,6 +832,34 @@
       showOptions();
     }
   });
+  // Lamp mode logic
+  const lampWire = document.getElementById('lampWire');
+  const lampBulb = document.getElementById('lampBulb');
+  const lampSwitch = document.getElementById('lampSwitch');
+  const body = document.body;
+
+  let isDark = false;
+  lampSwitch.onclick = function() {
+    isDark = !isDark;
+    if (isDark) {
+      lampWire.style.height = '40px';
+      lampBulb.classList.add('dark');
+      lampSwitch.classList.add('dark');
+      lampSwitch.textContent = 'Dark Mode';
+      body.classList.add('dark-mode');
+    } else {
+      lampWire.style.height = '120px';
+      lampBulb.classList.remove('dark');
+      lampSwitch.classList.remove('dark');
+      lampSwitch.textContent = 'Light Mode';
+      body.classList.remove('dark-mode');
+    }
+  };
+  // Default to light mode
+  lampWire.style.height = '120px';
+
+  // Optional: Make all <p> tags use lamp-p class for visibility
+  document.querySelectorAll('p').forEach(p => p.classList.add('lamp-p'));
     </script>
   </body>
   </html>
