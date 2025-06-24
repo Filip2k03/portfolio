@@ -155,19 +155,24 @@
     <!-- Add this as the first child of <body> for animated circuit background -->
     <div class="circuit-bg"></div>
 
-    <!-- UFO SVG (floating, animated) -->
-    <div id="ufo-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:100px;">
-      <svg id="ufo-svg" class="ufo-glow" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- UFO Body -->
-        <ellipse cx="60" cy="50" rx="38" ry="14" fill="#BC96E6" stroke="#FFD166" stroke-width="4"/>
-        <!-- Dome -->
-        <ellipse cx="60" cy="42" rx="18" ry="8" fill="#FFD166" opacity="0.8"/>
-        <!-- Lights -->
-        <circle cx="40" cy="50" r="3" fill="#FFD166"/>
-        <circle cx="60" cy="54" r="3" fill="#FFD166"/>
-        <circle cx="80" cy="50" r="3" fill="#FFD166"/>
-        <!-- Beam -->
-        <polygon points="55,64 65,64 80,90 40,90" fill="#FFD16644"/>
+    <!-- Robot SVG (floating, animated) -->
+    <div id="robot-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:120px;">
+      <svg id="robot-svg" class="ufo-glow" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Robot Head -->
+        <ellipse cx="60" cy="70" rx="40" ry="32" fill="#23263B" stroke="#FFD166" stroke-width="4"/>
+        <!-- Eyes -->
+        <ellipse cx="45" cy="70" rx="8" ry="12" fill="#00ffe7" stroke="#BC96E6" stroke-width="2"/>
+        <ellipse cx="75" cy="70" rx="8" ry="12" fill="#00ffe7" stroke="#BC96E6" stroke-width="2"/>
+        <!-- Mouth -->
+        <rect x="50" y="90" width="20" height="6" rx="3" fill="#FFD166" opacity="0.7"/>
+        <!-- Antenna -->
+        <rect x="57" y="28" width="6" height="24" rx="3" fill="#FFD166"/>
+        <circle cx="60" cy="28" r="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
+        <!-- Cheek lights -->
+        <circle cx="35" cy="85" r="4" fill="#FFD166"/>
+        <circle cx="85" cy="85" r="4" fill="#FFD166"/>
+        <!-- Head shine -->
+        <ellipse cx="60" cy="60" rx="18" ry="8" fill="#fff" opacity="0.08"/>
       </svg>
     </div>
 
@@ -201,7 +206,7 @@
         <div class="w-40 h-40 bg-[#FFD16644] rounded-full blur-2xl absolute bottom-0 right-1/3"></div>
       </div>
       <div class="relative z-10">
-        <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">Hi, I'm Stephan</h2>
+        <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">Hi, I'm Filip</h2>
         <div class="neon-divider"></div>
         <p class="text-2xl md:text-3xl text-[#00ffe7] mb-8 font-led tracking-wider">Full Stack Developer <span class="text-[#FFD166]">|</span> React, Django, PHP, SQL</p>
         <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
@@ -629,24 +634,24 @@
       gsap.from("section", { duration: 1.3, opacity: 1, stagger: 0.4 });
       gsap.from(".glass", { duration: 1.2, opacity: 1, y: 40, stagger: 0.3, delay: 0.5 });
 
-      // Animate UFO up and down on scroll (3D style)
-      const ufo = document.getElementById('ufo-container');
+      // Animate Robot Head up and down on scroll (3D style)
+      const robot = document.getElementById('robot-container');
       let ticking = false;
-      function animateUFO() {
+      function animateRobot() {
         const amplitude = 40; // px
         const period = 600; // px
         const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
-        gsap.to(ufo, { y, duration: 0.6, ease: "power2.out" });
+        gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
         ticking = false;
       }
       window.addEventListener('scroll', () => {
         if (!ticking) {
-          window.requestAnimationFrame(animateUFO);
+          window.requestAnimationFrame(animateRobot);
           ticking = true;
         }
       });
       // Initial animation
-      gsap.fromTo(ufo, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+      gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
     </script>
   </body>
   </html>
