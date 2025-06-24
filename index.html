@@ -690,25 +690,44 @@
     messages.scrollTop = messages.scrollHeight;
   }
 
-  // Show options
+  // Show options (all as buttons, not hrefs, for in-chat display)
   function showOptions() {
     botSay(
       `How would you like to contact me?<br>
       <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://t.me/stephanfilip7" target="_blank">Telegram</a>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://facebook.com/stephanfilip7" target="_blank">Facebook</a>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://wa.me/959954480806" target="_blank">WhatsApp</a>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://github.com/Filip2k03" target="_blank">GitHub</a>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://www.linkedin.com/in/stephanfilip7" target="_blank">LinkedIn</a>
-      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank">Upwork</a>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
       `
     );
   }
 
-  // Expose showPhone to window for inline onclick
+  // Expose all show* functions to window for inline onclick
   window.showPhone = function() {
     botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
   };
+  window.showtg = function() {
+    botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip7" target="_blank" class="futuristic-link">Open Telegram</a>');
+  };
+  window.showfb = function() {
+    botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
+  };
+  window.showwa = function() {
+    botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
+  };
+  window.showgh = function() {
+    botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
+  };
+  window.showli = function() {
+    botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
+  };
+  window.showup = function() {
+    botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
+  };
+ 
 
   // Initial greeting with options
   botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
