@@ -621,6 +621,21 @@
         </div>
       </div>
     </section>
+    
+    <div id="chatbot-widget" style="position:fixed;right:24px;bottom:24px;z-index:100;">
+  <button id="chatbot-toggle" class="bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-4 text-2xl hover:scale-110 transition focus:outline-none">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+  <div id="chatbot-window" class="hidden glass rounded-2xl shadow-2xl p-4 w-80 max-w-full" style="margin-bottom:12px;">
+    <div class="font-led text-lg mb-2">🤖 ChatBot</div>
+    <div id="chatbot-messages" class="h-40 overflow-y-auto text-[#BC96E6] text-base font-montserrat mb-3 bg-[#210B2C]/60 rounded-lg p-2"></div>
+    <form id="chatbot-form" autocomplete="off" class="flex flex-col gap-2">
+      <textarea id="chatbot-input" rows="1" placeholder="Type your phone number..." required class="rounded-lg px-3 py-2 bg-[#311C3B] border-2 border-[#FFD166] text-white focus:outline-none resize-none"></textarea>
+      <button type="submit" class="futuristic-btn py-2 text-base">Send</button>
+    </form>
+  </div>
+</div>
+
 
     <!-- Footer -->
     <footer class="text-center py-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
@@ -652,6 +667,51 @@
       });
       // Initial animation
       gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+
+      // Chatbot toggle
+  const toggleBtn = document.getElementById('chatbot-toggle');
+  const chatWindow = document.getElementById('chatbot-window');
+  toggleBtn.addEventListener('click', () => {
+    chatWindow.classList.toggle('hidden');
+  });
+
+  // Chatbot logic
+  const messages = document.getElementById('chatbot-messages');
+  const form = document.getElementById('chatbot-form');
+  const input = document.getElementById('chatbot-input');
+
+  // Initial greeting
+  function botSay(msg) {
+    messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function userSay(msg) {
+    messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+  botSay("Hi! Please enter your phone number to chat.");
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const val = input.value.trim();
+    if (!val) return;
+    userSay(val);
+
+    // Simple phone validation
+    const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
+    if (phonePattern.test(val)) {
+      botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
+      input.value = "";
+      input.disabled = true;
+      setTimeout(() => {
+        input.disabled = false;
+        input.value = "";
+        botSay("You can enter another phone number if you want.");
+      }, 5000);
+    } else {
+      botSay("That doesn't look like a valid phone number. Please try again.");
+    }
+  });
     </script>
   </body>
   </html>
