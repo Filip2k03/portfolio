@@ -178,7 +178,7 @@
         background: #23263B;
         box-shadow: 0 0 16px 2px #23263B88;
       }
-      .lamp-switch {
+      /* .lamp-switch {
         position: fixed;
         top: 180px;
         left: 60px;
@@ -198,7 +198,7 @@
         background: #23263B;
         color: #FFD166;
         border: 2px solid #23263B;
-      }
+      } */
       /* p tag style for visibility */
       .lamp-p {
         background: rgba(33,11,44,0.85);
@@ -219,6 +219,34 @@
       }
       .dark-mode {
         background: linear-gradient(135deg, #181824 0%, #23263B 100%) !important;
+      }
+
+      /* Add a lamp handle for pulling */
+      .lamp-handle {
+        position: fixed;
+        top: 150px;
+        left: 56px;
+        width: 16px;
+        height: 32px;
+        background: #FFD166;
+        border-radius: 8px;
+        z-index: 53;
+        cursor: grab;
+        box-shadow: 0 2px 8px #FFD16688;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s;
+      }
+      .lamp-handle:active {
+        background: #BC96E6;
+      }
+      .lamp-handle-dot {
+        width: 8px;
+        height: 8px;
+        background: #BC96E6;
+        border-radius: 50%;
+        margin: auto;
       }
     </style>
   </head>
@@ -270,10 +298,9 @@
         </div>
       </div>
     </nav>
-    <!-- Lamp wire, bulb, and switch -->
+    <!-- Lamp wire and bulb (remove the button) -->
 <div class="lamp-wire" id="lampWire"></div>
 <div class="lamp-bulb" id="lampBulb"></div>
-<button class="lamp-switch" id="lampSwitch">Light Mode</button>
 
     <!-- Hero Section -->
     <section class="relative text-center py-32 md:py-44">
@@ -832,34 +859,79 @@
       showOptions();
     }
   });
-  // Lamp mode logic
-  const lampWire = document.getElementById('lampWire');
-  const lampBulb = document.getElementById('lampBulb');
-  const lampSwitch = document.getElementById('lampSwitch');
-  const body = document.body;
+  // Lamp wire drag logic (no button)
+  document.addEventListener('DOMContentLoaded', function () {
+    const lampWire = document.getElementById('lampWire');
+    const lampBulb = document.getElementById('lampBulb');
+    const lampHandle = document.getElementById('lampHandle');
+    const body = document.body;
 
-  let isDark = false;
-  lampSwitch.onclick = function() {
-    isDark = !isDark;
-    if (isDark) {
-      lampWire.style.height = '40px';
-      lampBulb.classList.add('dark');
-      lampSwitch.classList.add('dark');
-      lampSwitch.textContent = 'Dark Mode';
-      body.classList.add('dark-mode');
-    } else {
-      lampWire.style.height = '120px';
-      lampBulb.classList.remove('dark');
-      lampSwitch.classList.remove('dark');
-      lampSwitch.textContent = 'Light Mode';
-      body.classList.remove('dark-mode');
+    let isDark = false;
+    let dragging = false;
+    let startY = 0;
+    let startHeight = 120;
+
+    // Set lamp mode based on wire length
+    function setLampModeByHeight(height) {
+      if (height < 80) {
+        lampWire.style.height = '40px';
+        lampBulb.classList.add('dark');
+        body.classList.add('dark-mode');
+        isDark = true;
+      } else {
+        lampWire.style.height = '120px';
+        lampBulb.classList.remove('dark');
+        body.classList.remove('dark-mode');
+        isDark = false;
+      }
+      // Move handle to end of wire
+      lampHandle.style.top = (parseInt(lampWire.style.height) + 30) + 'px';
     }
-  };
-  // Default to light mode
-  lampWire.style.height = '120px';
 
-  // Optional: Make all <p> tags use lamp-p class for visibility
-  document.querySelectorAll('p').forEach(p => p.classList.add('lamp-p'));
+    // Initial state
+    lampWire.style.height = '120px';
+    setLampModeByHeight(120);
+
+    // Drag events
+    lampHandle.addEventListener('mousedown', function(e) {
+      dragging = true;
+      startY = e.clientY;
+      startHeight = parseInt(lampWire.style.height);
+      lampHandle.style.cursor = 'grabbing';
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      let delta = e.clientY - startY;
+      let newHeight = Math.max(40, Math.min(120, startHeight + delta));
+      lampWire.style.height = newHeight + 'px';
+      lampHandle.style.top = (newHeight + 30) + 'px';
+      setLampModeByHeight(newHeight);
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (dragging) {
+        dragging = false;
+        lampHandle.style.cursor = 'grab';
+        document.body.style.userSelect = '';
+        // Snap to nearest mode
+        let currentHeight = parseInt(lampWire.style.height);
+        if (currentHeight < 80) {
+          lampWire.style.height = '40px';
+          lampHandle.style.top = '70px';
+          setLampModeByHeight(40);
+        } else {
+          lampWire.style.height = '120px';
+          lampHandle.style.top = '150px';
+          setLampModeByHeight(120);
+        }
+      }
+    });
+
+    // Make all <p> tags use lamp-p class for visibility
+    document.querySelectorAll('p').forEach(p => p.classList.add('lamp-p'));
+  });
     </script>
   </body>
   </html>
