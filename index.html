@@ -680,7 +680,7 @@
   const form = document.getElementById('chatbot-form');
   const input = document.getElementById('chatbot-input');
 
-  // Initial greeting
+  // Helper functions
   function botSay(msg) {
     messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
     messages.scrollTop = messages.scrollHeight;
@@ -689,7 +689,30 @@
     messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
     messages.scrollTop = messages.scrollHeight;
   }
-  botSay("Hi! Please enter your phone number to chat.");
+
+  // Show options
+  function showOptions() {
+    botSay(
+      `How would you like to contact me?<br>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://t.me/stephanfilip7" target="_blank">Telegram</a>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://facebook.com/stephanfilip7" target="_blank">Facebook</a>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://wa.me/959954480806" target="_blank">WhatsApp</a>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://github.com/Filip2k03" target="_blank">GitHub</a>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://www.linkedin.com/in/stephanfilip7" target="_blank">LinkedIn</a>
+      <a class="futuristic-btn my-1 px-3 py-1 inline-block" href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank">Upwork</a>
+      `
+    );
+  }
+
+  // Expose showPhone to window for inline onclick
+  window.showPhone = function() {
+    botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
+  };
+
+  // Initial greeting with options
+  botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
+  showOptions();
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -706,10 +729,12 @@
       setTimeout(() => {
         input.disabled = false;
         input.value = "";
-        botSay("You can enter another phone number if you want.");
+        botSay("You can enter another phone number or choose a contact option below:");
+        showOptions();
       }, 5000);
     } else {
-      botSay("That doesn't look like a valid phone number. Please try again.");
+      botSay("That doesn't look like a valid phone number. Please try again or choose a contact option below:");
+      showOptions();
     }
   });
     </script>
