@@ -553,29 +553,29 @@
     </div>
   </section>
   <!-- UFO Data Disk Project Card Example (replace a project card in your Projects section) -->
-<div
+<!-- <div
   class="ufo-project-card glass rounded-full shadow-2xl p-8 flex flex-col items-center justify-center overflow-hidden group relative"
-  style="width:260px;height:260px;margin:auto;">
+  style="width:260px;height:260px;margin:auto;"> -->
   <!-- UFO Disk SVG -->
-  <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;">
+  <!-- <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;">
     <ellipse cx="90" cy="110" rx="70" ry="30" fill="#1a0933" stroke="#00ffe7" stroke-width="4"/>
-    <ellipse cx="90" cy="110" rx="60" ry="20" fill="#00ffe733"/>
+    <ellipse cx="90" cy="110" rx="60" ry="20" fill="#00ffe733"/> -->
     <!-- Pins/Contacts -->
-    <rect x="30" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
+    <!-- <rect x="30" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
     <rect x="142" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
     <rect x="85" y="150" width="10" height="18" rx="3" fill="#FFD166"/>
-  </svg>
+  </svg> -->
   <!-- Scan Line -->
-  <svg width="180" height="180" class="absolute inset-0 pointer-events-none" style="z-index:2;">
+  <!-- <svg width="180" height="180" class="absolute inset-0 pointer-events-none" style="z-index:2;">
     <rect class="scan-line" x="0" y="-180" width="180" height="16" fill="#00ffe7aa" rx="8"/>
-  </svg>
+  </svg> -->
   <!-- Project Content -->
-  <div class="relative z-10 text-center">
+  <!-- <div class="relative z-10 text-center">
     <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">MBLogistics Express</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
         <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live site</a> 
   </div>
-</div>
+</div> -->
 
   <!-- Skills -->
   <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
@@ -1038,6 +1038,38 @@
       </div>
     </div>
   </section>
+   <!-- AI Temple Project Card -->
+  <section class="py-20 container mx-auto px-6">
+    <div class="ufo-project-card glass rounded-full shadow-2xl p-8 flex flex-col items-center justify-center overflow-hidden group relative"
+      style="width:260px;height:260px;margin:auto;">
+      <!-- Temple SVG Illustration -->
+      <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;">
+        <!-- Glass dome -->
+        <ellipse cx="90" cy="90" rx="70" ry="40" fill="#fff" opacity="0.08"/>
+        <ellipse cx="90" cy="110" rx="60" ry="24" fill="#00ffe744" />
+        <!-- Temple base -->
+        <rect x="50" y="120" width="80" height="18" rx="8" fill="#210B2C" stroke="#00ffe7" stroke-width="3"/>
+        <!-- Temple body -->
+        <rect x="70" y="90" width="40" height="40" rx="10" fill="#1a0933" stroke="#FFD166" stroke-width="3"/>
+        <!-- Data tree (glowing) -->
+        <ellipse cx="90" cy="80" rx="14" ry="8" fill="#00ffe7" opacity="0.5"/>
+        <rect x="87" y="80" width="6" height="18" rx="3" fill="#ffe600" />
+        <!-- Robot monk (meditating) -->
+        <circle cx="90" cy="105" r="8" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
+        <rect x="86" y="113" width="8" height="10" rx="3" fill="#FFD166" />
+        <!-- Light rays -->
+        <path d="M90 60 L90 40" stroke="#FFD166" stroke-width="2" opacity="0.7"/>
+        <path d="M90 60 L75 50" stroke="#00ffe7" stroke-width="2" opacity="0.5"/>
+        <path d="M90 60 L105 50" stroke="#00ffe7" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <!-- Project Content -->
+      <div class="relative z-10 text-center">
+        <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">AI Temple</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">A serene, futuristic temple where robot monks meditate under glowing data trees. The temple is built from transparent glass and shifting light.</p>
+        <span class="futuristic-link">Concept Art / Cyber World</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Contact -->
   <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
@@ -1418,6 +1450,33 @@ function animateShootingStar() {
   }});
 }
 setInterval(animateShootingStar, 12000);
+
+  // --- Footer UFO Animation ---
+  const ufo = document.getElementById('footer-ufo-svg');
+  const ufoBeam = document.getElementById('ufo-beam');
+  let ufoVisible = true;
+
+  function toggleUFO() {
+    if (ufoVisible) {
+      gsap.to(ufo, { y: -20, duration: 0.5, ease: "power2.out" });
+      gsap.to(ufoBeam, { opacity: 0.7, duration: 0.5 });
+    } else {
+      gsap.to(ufo, { y: 0, duration: 0.5, ease: "power2.out" });
+      gsap.to(ufoBeam, { opacity: 0, duration: 0.5 });
+    }
+    ufoVisible = !ufoVisible;
+  }
+  setInterval(toggleUFO, 5000);
+  // --- Footer UFO Shooter Animation --- 
+  const footerUFO = document.getElementById('footer-ufo-shooter');
+  footerUFO.addEventListener('click', () => {
+    const ufoBeam = document.getElementById('ufo-beam');
+    if (ufoBeam.style.opacity === '0') {
+      ufoBeam.style.opacity = '0.7';
+      setTimeout(() => ufoBeam.style.opacity = '0', 500);
+      abductFooterIcon();
+    }
+  });
 
 </script>
 </body>
