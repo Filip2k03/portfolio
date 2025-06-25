@@ -951,14 +951,7 @@
   scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-  // Show/hide and scroll to top
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    scrollBtn.classList.toggle('hidden', window.scrollY < 300);
-  });
-  scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  
     </script>
   </body>
   </html>
