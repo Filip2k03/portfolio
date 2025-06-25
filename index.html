@@ -1000,7 +1000,28 @@
     &copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a>
   </footer>
 
-  <!-- GSAP Animation -->
+  <!-- Footer Robot Shooter Feature -->
+  <div id="footer-robot-shooter" style="position:fixed;left:24px;bottom:0;z-index:100;display:flex;align-items:end;">
+    <svg id="footer-robot-svg" width="90" height="120" viewBox="0 0 90 120" fill="none" style="cursor:pointer;">
+      <!-- Robot body -->
+      <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+      <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+      <!-- Eyes -->
+      <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7"/>
+      <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057"/>
+      <!-- Gun arm -->
+      <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2"/>
+      <!-- Gun tip -->
+      <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+      <!-- Antenna -->
+      <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff"/>
+      <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+    </svg>
+  </div>
+  <div id="robot-shot-msg" style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
+    <span id="robot-shot-text"></span>
+  </div>
+
   <script>
     // Navbar and section fade-in
     gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
@@ -1106,24 +1127,10 @@
         setTimeout(() => {
           input.disabled = false;
           input.value = "";
-          botSay("You can enter another phone number or choose a contact option below:");
-          showOptions();
-        }, 5000);
+        }, 2000);
       } else {
-        botSay("That doesn't look like a valid phone number. Please try again or choose a contact option below:");
-        showOptions();
+        botSay("Please enter a valid phone number or use the buttons below.");
       }
-    });
-
-    // Theme toggle logic
-    const themeBtn = document.getElementById('theme-toggle');
-    let dark = true;
-    themeBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      dark = !dark;
-      themeBtn.innerHTML = dark
-        ? '<i class="fa-solid fa-moon"></i>'
-        : '<i class="fa-solid fa-sun"></i>';
     });
 
     // Typing effect for roles
@@ -1156,6 +1163,47 @@
       }
     }
     typeRole();
+    // Rare Footer Robot Shooter Feature
+  const robotSVG = document.getElementById('footer-robot-svg');
+  const shotMsg = document.getElementById('robot-shot-msg');
+  const shotText = document.getElementById('robot-shot-text');
+  const rareMsgs = [
+    "CYBERPUNK MODE ACTIVATED <===",
+    "HIRE ME FOR YOUR NEXT PROJECT!",
+    "GLITCH IN THE SYSTEM!",
+    "SKY BLUE ENERGY BLAST!",
+    "FULL STACK POWER!",
+    "REACT + DJANGO = ❤️",
+    "NEON DREAMS ONLY",
+    "CODE LIKE IT'S 2077",
+    "HELLO, WORLD!",
+    "FILIP IS ONLINE <==="
+  ];
+  robotSVG.addEventListener('click', () => {
+    const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
+    shotText.textContent = msg;
+    shotMsg.style.display = 'block';
+    shotMsg.style.left = '110px';
+    shotMsg.style.bottom = '110px';
+    shotMsg.style.opacity = '1';
+    let pos = 110, opacity = 1;
+    function animateShot() {
+      pos += 24;
+      opacity -= 0.03;
+      shotMsg.style.left = pos + 'px';
+      shotMsg.style.opacity = opacity;
+      if (pos < window.innerWidth - 300 && opacity > 0) {
+        requestAnimationFrame(animateShot);
+      } else {
+        shotMsg.style.display = 'none';
+      }
+    }
+    animateShot();
+    // Gun flash effect
+    const gunTip = robotSVG.querySelector('circle[cx="82"]');
+    gunTip.setAttribute('fill', '#fff');
+    setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 120);
+  });
 
     // Show/hide and scroll to top
     const scrollBtn = document.getElementById('scrollTopBtn');
