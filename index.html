@@ -378,6 +378,17 @@
       .neon-divider {
         width: 60px;
       }
+      #footer-robot-shooter {
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      footer.flex {
+        flex-direction: column !important;
+        align-items: center !important;
+      }
     }
   </style>
 </head>
@@ -996,28 +1007,28 @@
   </button>
 
   <!-- Footer -->
-  <footer class="text-center py-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
-    &copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a>
+  <footer class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
+    <div class="flex items-end">
+      <div id="footer-robot-shooter" class="mr-4">
+        <svg id="footer-robot-svg" width="90" height="120" viewBox="0 0 90 120" fill="none" style="cursor:pointer;">
+          <!-- Robot body -->
+          <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+          <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+          <!-- Eyes -->
+          <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7"/>
+          <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057"/>
+          <!-- Gun arm -->
+          <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2"/>
+          <!-- Gun tip -->
+          <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+          <!-- Antenna -->
+          <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff"/>
+          <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+        </svg>
+      </div>
+      <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
+    </div>
   </footer>
-
-  <!-- Footer Robot Shooter Feature -->
-  <div id="footer-robot-shooter" style="position:fixed;left:24px;bottom:0;z-index:100;display:flex;align-items:end;">
-    <svg id="footer-robot-svg" width="90" height="120" viewBox="0 0 90 120" fill="none" style="cursor:pointer;">
-      <!-- Robot body -->
-      <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
-      <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
-      <!-- Eyes -->
-      <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7"/>
-      <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057"/>
-      <!-- Gun arm -->
-      <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2"/>
-      <!-- Gun tip -->
-      <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
-      <!-- Antenna -->
-      <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff"/>
-      <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
-    </svg>
-  </div>
   <div id="robot-shot-msg" style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
     <span id="robot-shot-text"></span>
   </div>
