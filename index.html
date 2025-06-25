@@ -1061,6 +1061,7 @@
   const terminal = document.getElementById('terminal-intro');
   const termText = document.getElementById('terminal-text');
   const termCursor = document.getElementById('terminal-cursor');
+
   function typeTerminal() {
     if (termIdx < terminalLines.length) {
       if (charIdx < terminalLines[termIdx].length) {
@@ -1074,15 +1075,25 @@
       }
     } else {
       setTimeout(() => {
-        gsap.to(terminal, { opacity: 0, duration: 0.7, onComplete: () => terminal.remove() });
+        // Fade out terminal intro and remove it
+        terminal.style.transition = "opacity 0.7s";
+        terminal.style.opacity = 0;
+        setTimeout(() => terminal.remove(), 700);
       }, 700);
     }
   }
+
   // Blinking cursor
   setInterval(() => {
-    termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+    if (termCursor) {
+      termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+    }
   }, 400);
-  typeTerminal();
+
+  // Start typing after DOM is loaded
+  window.addEventListener('DOMContentLoaded', function () {
+    typeTerminal();
+  });
 
     // Navbar and section fade-in
     gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
