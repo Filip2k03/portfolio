@@ -284,24 +284,22 @@
 
   <!-- Robot SVG (floating, animated) -->
   <div id="robot-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none" style="width:120px;height:120px;">
-    <svg id="robot-svg" class="ufo-glow" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Robot Head -->
-      <ellipse cx="60" cy="70" rx="40" ry="32" fill="#23263B" stroke="#FFD166" stroke-width="4"/>
-      <!-- Eyes -->
-      <ellipse cx="45" cy="70" rx="8" ry="12" fill="#00ffe7" stroke="#BC96E6" stroke-width="2"/>
-      <ellipse cx="75" cy="70" rx="8" ry="12" fill="#00ffe7" stroke="#BC96E6" stroke-width="2"/>
-      <!-- Mouth -->
-      <rect x="50" y="90" width="20" height="6" rx="3" fill="#FFD166" opacity="0.7"/>
-      <!-- Antenna -->
-      <rect x="57" y="28" width="6" height="24" rx="3" fill="#FFD166"/>
-      <circle cx="60" cy="28" r="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
-      <!-- Cheek lights -->
-      <circle cx="35" cy="85" r="4" fill="#FFD166"/>
-      <circle cx="85" cy="85" r="4" fill="#FFD166"/>
-      <!-- Head shine -->
-      <ellipse cx="60" cy="60" rx="18" ry="8" fill="#fff" opacity="0.08"/>
-    </svg>
-  </div>
+  <svg class="tech-icon ufo-glow" viewBox="0 0 100 100" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <rect x="10" y="10" width="80" height="80" rx="15" fill="#2E1F3C" stroke="#00ffe7" stroke-width="3"/>
+    <circle cx="35" cy="40" r="8" fill="#00ffe7" filter="url(#glow)"/>
+    <circle cx="65" cy="40" r="8" fill="#00ffe7" filter="url(#glow)"/>
+    <path d="M30 65 Q50 80 70 65" stroke="#00ffe7" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </svg>
+</div>
 
   <!-- Navbar -->
   <nav class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
@@ -310,13 +308,13 @@
       <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
         <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
       </button>
+      <button id="theme-toggle" class="fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none">
+    <i class="fa-solid fa-moon"></i>
+  </button>
       <a href="#about" class="hover:text-[#FFD166] transition">About</a>
       <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
       <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
       <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
-      <button id="theme-toggle" class="fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none">
-    <i class="fa-solid fa-moon"></i>
-  </button>
     </div>
     <!-- Mobile menu icon -->
     <div x-data="{ open: false }" class="md:hidden">
@@ -328,7 +326,6 @@
         <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
         <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
         <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
-        
       </div>
     </div>
   </nav>
