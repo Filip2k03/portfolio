@@ -26,6 +26,13 @@
         --accent: #00ffe7;
         --glass: rgba(44, 22, 60, 0.7);
         --glow: 0 0 16px #FFD166, 0 0 32px #BC96E6;
+        --btn-bg: linear-gradient(90deg, #00ffe7 0%, #FFD166 100%);
+        --btn-text: #210B2C;
+        --btn-hover-bg: linear-gradient(90deg, #FFD166 0%, #00ffe7 100%);
+        --btn-shadow: 0 0 24px #00ffe7cc, 0 0 48px #FFD16644;
+        --btn-hover-shadow: 0 0 48px #00ffe7, 0 0 96px #FFD166;
+        --nav-bg: rgba(33, 11, 44, 0.95);
+        --nav-border: #00ffe7;
       }
       body {
         font-family: 'Montserrat', 'Segoe UI', 'Orbitron', sans-serif;
@@ -98,15 +105,15 @@
       .futuristic-btn {
         font-family: 'Orbitron', 'Share Tech Mono', monospace, sans-serif;
         letter-spacing: 0.08em;
-        background: linear-gradient(90deg, #00ffe7 0%, #FFD166 100%);
-        color: #210B2C;
+        background: var(--btn-bg);
+        color: var(--btn-text);
         border: none;
-        box-shadow: 0 0 24px #00ffe7cc, 0 0 48px #FFD16644;
+        box-shadow: var(--btn-shadow);
         transition: transform 0.2s, box-shadow 0.2s;
       }
       .futuristic-btn:hover {
         transform: scale(1.08) translateY(-3px);
-        box-shadow: 0 0 48px #00ffe7, 0 0 96px #FFD166;
+        box-shadow: var(--btn-hover-shadow);
       }
       .futuristic-link {
         color: var(--accent);
