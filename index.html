@@ -234,6 +234,25 @@
       .neon-border.spark {
         animation: neon-spark 2.2s infinite;
       }
+
+      /* Light mode styles */
+      .light-mode {
+        background: linear-gradient(135deg, #fff 0%, #f3e9ff 100%) !important;
+        color: #210B2C !important;
+      }
+      .light-mode .glass,
+      .light-mode .robotic-panel {
+        background: rgba(255,255,255,0.7) !important;
+        color: #210B2C !important;
+        border-color: #FFD166 !important;
+      }
+      .light-mode .neon-border {
+        border-color: #FFD166 !important;
+        box-shadow: 0 0 8px #FFD166, 0 0 16px #FFD166;
+      }
+      .light-mode .glow {
+        text-shadow: 0 0 8px #FFD166, 0 0 16px #FFD166;
+      }
     </style>
   </head>
   <body>
@@ -292,7 +311,10 @@
         <div class="w-40 h-40 bg-[#FFD16644] rounded-full blur-2xl absolute bottom-0 right-1/3"></div>
       </div>
       <div class="relative z-10">
-        <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">Hi, I'm Filip</h2>
+        <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">
+          Hi, I'm Filip<br>
+          <span id="typed-role" class="block text-3xl md:text-4xl mt-4"></span>
+        </h2>
         <div class="neon-divider"></div>
         <p class="text-2xl md:text-3xl text-[#00ffe7] mb-8 font-led tracking-wider">Full Stack Developer <span class="text-[#FFD166]">|</span> React, Django, PHP, SQL</p>
         <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
@@ -826,7 +848,7 @@
     botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
   };
   window.showtg = function() {
-    botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip7" target="_blank" class="futuristic-link">Open Telegram</a>');
+    botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
   };
   window.showfb = function() {
     botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
@@ -872,7 +894,57 @@
       showOptions();
     }
   });
-  
+
+  // Theme toggle logic
+  const themeBtn = document.getElementById('theme-toggle');
+  let dark = true;
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    dark = !dark;
+    themeBtn.innerHTML = dark
+      ? '<i class="fa-solid fa-moon"></i>'
+      : '<i class="fa-solid fa-sun"></i>';
+  });
+
+  // Typing effect for roles
+  const roles = [
+    "Full Stack Developer",
+    "React & Django Specialist",
+    "UI/UX Enthusiast",
+    "Tech Entrepreneur"
+  ];
+  let roleIdx = 0, charIdx = 0, typing = true;
+  const typedRole = document.getElementById('typed-role');
+  function typeRole() {
+    if (typing) {
+      if (charIdx < roles[roleIdx].length) {
+        typedRole.textContent += roles[roleIdx][charIdx++];
+        setTimeout(typeRole, 70);
+      } else {
+        typing = false;
+        setTimeout(typeRole, 1200);
+      }
+    } else {
+      if (charIdx > 0) {
+        typedRole.textContent = roles[roleIdx].slice(0, --charIdx);
+        setTimeout(typeRole, 30);
+      } else {
+        typing = true;
+        roleIdx = (roleIdx + 1) % roles.length;
+        setTimeout(typeRole, 400);
+      }
+    }
+  }
+  typeRole();
+
+  // Show/hide and scroll to top
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('hidden', window.scrollY < 300);
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
     </script>
   </body>
   </html>
