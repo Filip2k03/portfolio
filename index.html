@@ -396,18 +396,11 @@
 </head>
 
 <body>
-  <!-- Loader should be FIRST inside <body> -->
-  <div id="filip-loader"
-    style="position:fixed;z-index:10000;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0617;">
-    <h1 class="glitch" data-text="Filip is online"
-      style="font-size:3rem;color:#00ffe7;text-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;font-family:'Orbitron','Share Tech Mono',monospace;letter-spacing:0.1em;">
-      Filip is online
-    </h1>
-  </div>
+  <!-- Loader removed -->
 
   <!-- Terminal Intro should be after loader -->
   <div id="terminal-intro"
-    style="display:none;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:#0f0617;">
+    style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:#0f0617;">
     <div
       style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:#00ffe7;box-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;padding:2rem 3rem;border-radius:1.5rem;min-width:340px;">
       <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
@@ -1057,61 +1050,39 @@
   </div>
 
   <script>
-    // Loader and Terminal Intro logic
-    const loader = document.getElementById('filip-loader');
-    const terminal = document.getElementById('terminal-intro');
-    const termText = document.getElementById('terminal-text');
-    const termCursor = document.getElementById('terminal-cursor');
-    const terminalLines = [
-      "Initializing cyberpunk portfolio...",
-      "Loading assets...",
-      "Skills: React, Django, UI/UX, Tech Entrepreneur",
-      "Welcome, runner. Enjoy the neon ride!"
-    ];
-    let termIdx = 0, charIdx = 0;
-
-    // Show loader, then terminal, then remove both
-    window.addEventListener('DOMContentLoaded', function () {
-      // Loader visible by default
-      setTimeout(() => {
-        // Hide loader
-        loader.style.transition = "opacity 0.7s";
-        loader.style.opacity = 0;
-        setTimeout(() => {
-          loader.remove();
-          // Show terminal intro
-          terminal.style.display = "flex";
-          setTimeout(typeTerminal, 400);
-        }, 700);
-      }, 1400); // Loader duration
-    });
-
-    // Terminal typing effect
-    function typeTerminal() {
-      if (termIdx < terminalLines.length) {
-        if (charIdx < terminalLines[termIdx].length) {
-          termText.textContent += terminalLines[termIdx][charIdx++];
-          setTimeout(typeTerminal, 38);
-        } else {
-          termText.textContent += "\n";
-          charIdx = 0;
-          termIdx++;
-          setTimeout(typeTerminal, 500);
-        }
+    // --- Terminal Intro ---
+  const terminalLines = [
+    "Initializing cyberpunk portfolio...",
+    "Loading assets...",
+    "Skills: React, Django, UI/UX, Tech Entrepreneur",
+    "Welcome, runner. Enjoy the neon ride!"
+  ];
+  let termIdx = 0, charIdx = 0;
+  const terminal = document.getElementById('terminal-intro');
+  const termText = document.getElementById('terminal-text');
+  const termCursor = document.getElementById('terminal-cursor');
+  function typeTerminal() {
+    if (termIdx < terminalLines.length) {
+      if (charIdx < terminalLines[termIdx].length) {
+        termText.textContent += terminalLines[termIdx][charIdx++];
+        setTimeout(typeTerminal, 38);
       } else {
-        setTimeout(() => {
-          terminal.style.transition = "opacity 0.7s";
-          terminal.style.opacity = 0;
-          setTimeout(() => terminal.remove(), 700);
-        }, 700);
+        termText.textContent += "\n";
+        charIdx = 0;
+        termIdx++;
+        setTimeout(typeTerminal, 500);
       }
+    } else {
+      setTimeout(() => {
+        gsap.to(terminal, { opacity: 0, duration: 0.7, onComplete: () => terminal.remove() });
+      }, 700);
     }
-    // Blinking cursor
-    setInterval(() => {
-      if (termCursor) {
-        termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
-      }
-    }, 400);
+  }
+  // Blinking cursor
+  setInterval(() => {
+    termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+  }, 400);
+  typeTerminal();
 
     // Navbar and section fade-in
     gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
@@ -1306,6 +1277,8 @@
       shotMsg.style.bottom = '110px';
       shotMsg.style.opacity = '1';
       let pos = 110, opacity = 1;
+
+     
 
       // Gun flash effect
       gunTip.setAttribute('fill', '#fff');
