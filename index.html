@@ -392,6 +392,44 @@
         align-items: center !important;
       }
     }
+
+    .ufo-project-card {
+      transition: box-shadow 0.3s, filter 0.3s;
+      border-radius: 50%;
+    }
+
+    .ufo-project-card:hover {
+      box-shadow: 0 0 64px #00ffe7, 0 0 128px #ff0057;
+      filter: brightness(1.15) saturate(1.2);
+    }
+
+    .scan-line {
+      transition: none;
+    }
+
+    .ufo-project-card:hover .scan-line {
+      animation: scan-move 1.2s linear;
+    }
+
+    @keyframes scan-move {
+      0% {
+        y: -180;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        y: 180;
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -514,6 +552,30 @@
       </p>
     </div>
   </section>
+  <!-- UFO Data Disk Project Card Example (replace a project card in your Projects section) -->
+<div
+  class="ufo-project-card glass rounded-full shadow-2xl p-8 flex flex-col items-center justify-center overflow-hidden group relative"
+  style="width:260px;height:260px;margin:auto;">
+  <!-- UFO Disk SVG -->
+  <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;">
+    <ellipse cx="90" cy="110" rx="70" ry="30" fill="#1a0933" stroke="#00ffe7" stroke-width="4"/>
+    <ellipse cx="90" cy="110" rx="60" ry="20" fill="#00ffe733"/>
+    <!-- Pins/Contacts -->
+    <rect x="30" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
+    <rect x="142" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
+    <rect x="85" y="150" width="10" height="18" rx="3" fill="#FFD166"/>
+  </svg>
+  <!-- Scan Line -->
+  <svg width="180" height="180" class="absolute inset-0 pointer-events-none" style="z-index:2;">
+    <rect class="scan-line" x="0" y="-180" width="180" height="16" fill="#00ffe7aa" rx="8"/>
+  </svg>
+  <!-- Project Content -->
+  <div class="relative z-10 text-center">
+    <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">MBLogistics Express</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
+        <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live site</a> 
+  </div>
+</div>
 
   <!-- Skills -->
   <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
@@ -1022,24 +1084,25 @@
   <!-- Footer -->
   <footer
     class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
-    <div class="flex items-end">
-      <div id="footer-robot-shooter" class="mr-4">
-        <svg id="footer-robot-svg" width="90" height="120" viewBox="0 0 90 120" fill="none" style="cursor:pointer;">
-          <!-- Robot body -->
-          <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
-          <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
-          <!-- Eyes -->
-          <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7" />
-          <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057" />
-          <!-- Gun arm -->
-          <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2" />
-          <!-- Gun tip -->
-          <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2" />
-          <!-- Antenna -->
-          <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff" />
-          <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2" />
-        </svg>
-      </div>
+    <!-- Replace robot shooter SVG with UFO SVG in footer -->
+<div id="footer-ufo-shooter" class="mr-4">
+  <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
+    <!-- UFO body -->
+    <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+    <ellipse cx="45" cy="50" rx="24" ry="8" fill="#00ffe733"/>
+    <!-- Dome -->
+    <ellipse cx="45" cy="42" rx="12" ry="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
+    <!-- Beam (hidden by default) -->
+    <rect id="ufo-beam" x="35" y="62" width="20" height="30" rx="10" fill="#00ffe7" opacity="0"/>
+  </svg>
+</div>
+<!-- Add this to your footer (absolute positioned) -->
+<div id="shooting-star" style="position:absolute;top:10px;left:-60px;width:60px;height:8px;z-index:10;pointer-events:none;">
+  <svg width="60" height="8">
+    <ellipse cx="30" cy="4" rx="20" ry="3" fill="#ffe600" opacity="0.7"/>
+    <ellipse cx="50" cy="4" rx="8" ry="2" fill="#00ffe7" opacity="0.7"/>
+  </svg>
+</div>
       <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a
           href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
     </div>
@@ -1050,306 +1113,313 @@
   </div>
 
   <script>
-    // --- Terminal Intro ---
-    const terminalLines = [
-      "Initializing cyberpunk portfolio...",
-      "Loading assets...",
-      "Now:Filip is online",
-      "Welcome, runner. "
-    ];
-    let termIdx = 0, termCharIdx = 0; // Use unique variable name for terminal typing
-    const terminal = document.getElementById('terminal-intro');
-    const termText = document.getElementById('terminal-text');
-    const termCursor = document.getElementById('terminal-cursor');
+  // --- Terminal Intro ---
+  const terminalLines = [
+    "Initializing cyberpunk portfolio...",
+    "Loading assets...",
+    "Skills: React, Django, UI/UX, Tech Entrepreneur",
+    "Welcome, runner. Enjoy the neon ride!"
+  ];
+  let termIdx = 0, termCharIdx = 0; // Use unique variable name for terminal typing
+  const terminal = document.getElementById('terminal-intro');
+  const termText = document.getElementById('terminal-text');
+  const termCursor = document.getElementById('terminal-cursor');
 
-    function typeTerminal() {
-      if (termIdx < terminalLines.length) {
-        if (termCharIdx < terminalLines[termIdx].length) {
-          termText.textContent += terminalLines[termIdx][termCharIdx++];
-          setTimeout(typeTerminal, 38);
-        } else {
-          termText.textContent += "\n";
-          termCharIdx = 0;
-          termIdx++;
-          setTimeout(typeTerminal, 500);
-        }
+  function typeTerminal() {
+    if (termIdx < terminalLines.length) {
+      if (termCharIdx < terminalLines[termIdx].length) {
+        termText.textContent += terminalLines[termIdx][termCharIdx++];
+        setTimeout(typeTerminal, 38);
       } else {
-        setTimeout(() => {
-          // Fade out terminal intro and remove it
-          terminal.style.transition = "opacity 0.7s";
-          terminal.style.opacity = 0;
-          setTimeout(() => terminal.remove(), 700);
-        }, 700);
+        termText.textContent += "\n";
+        termCharIdx = 0;
+        termIdx++;
+        setTimeout(typeTerminal, 500);
       }
-    }
-
-    // Blinking cursor
-    setInterval(() => {
-      if (termCursor) {
-        termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
-      }
-    }, 400);
-
-    // Start typing after DOM is loaded
-    window.addEventListener('DOMContentLoaded', function () {
-      typeTerminal();
-    });
-
-    // Navbar and section fade-in
-    gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
-    gsap.from("section", { duration: 1.3, opacity: 1, stagger: 0.4 });
-    gsap.from(".glass", { duration: 1.2, opacity: 1, y: 40, stagger: 0.3, delay: 0.5 });
-
-    // Animate Robot Head up and down on scroll (3D style)
-    const robot = document.getElementById('robot-container');
-    let ticking = false;
-    function animateRobot() {
-      const amplitude = 40; // px
-      const period = 600; // px
-      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
-      gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
-      ticking = false;
-    }
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(animateRobot);
-        ticking = true;
-      }
-    });
-    // Initial animation
-    gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
-
-    // Chatbot toggle
-    const toggleBtn = document.getElementById('chatbot-toggle');
-    const chatWindow = document.getElementById('chatbot-window');
-    toggleBtn.addEventListener('click', () => {
-      chatWindow.classList.toggle('hidden');
-    });
-
-    // Chatbot logic
-    const messages = document.getElementById('chatbot-messages');
-    const form = document.getElementById('chatbot-form');
-    const input = document.getElementById('chatbot-input');
-
-    // Helper functions
-    function botSay(msg) {
-      messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
-      messages.scrollTop = messages.scrollHeight;
-    }
-    function userSay(msg) {
-      messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    // Show options (all as buttons, not hrefs, for in-chat display)
-    function showOptions() {
-      botSay(
-        `How would you like to contact me?<br>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
-      `
-      );
-    }
-
-    // Expose all show* functions to window for inline onclick
-    window.showPhone = function () {
-      botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
-    };
-    window.showtg = function () {
-      botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
-    };
-    window.showfb = function () {
-      botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
-    };
-    window.showwa = function () {
-      botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
-    };
-    window.showgh = function () {
-      botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
-    };
-    window.showli = function () {
-      botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
-    };
-    window.showup = function () {
-      botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
-    };
-
-
-    // Initial greeting with options
-    botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
-    showOptions();
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const val = input.value.trim();
-      if (!val) return;
-      userSay(val);
-
-      // AI Assistant logic
-      const lower = val.toLowerCase();
-      let found = false;
-      for (const key in aiAnswers) {
-        if (lower.includes(key)) {
-          botSay(aiAnswers[key]);
-          found = true;
-          break;
-        }
-      }
-      if (found) return;
-
-      // Simple phone validation
-      const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
-      if (phonePattern.test(val)) {
-        botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
-        input.value = "";
-        input.disabled = true;
-        setTimeout(() => {
-          input.disabled = false;
-          input.value = "";
-        }, 2000);
-      } else {
-        botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
-      }
-    });
-
-    // Typing effect for roles
-    const roles = [
-      "Full Stack Developer",
-      "React & Django Specialist",
-      "UI/UX Enthusiast",
-      "Tech Entrepreneur"
-    ];
-    let roleIdx = 0, charIdx = 0, typing = true;
-    const typedRole = document.getElementById('typed-role');
-    function typeRole() {
-      if (typing) {
-        if (charIdx < roles[roleIdx].length) {
-          typedRole.textContent += roles[roleIdx][charIdx++];
-          setTimeout(typeRole, 70);
-        } else {
-          typing = false;
-          setTimeout(typeRole, 1200);
-        }
-      } else {
-        if (charIdx > 0) {
-          typedRole.textContent = roles[roleIdx].slice(0, --charIdx);
-          setTimeout(typeRole, 30);
-        } else {
-          typing = true;
-          roleIdx = (roleIdx + 1) % roles.length;
-          setTimeout(typeRole, 400);
-        }
-      }
-    }
-    typeRole();
-    // Rare Footer Robot Shooter Feature - AUTO ANIMATION
-
-    const robotSVG = document.getElementById('footer-robot-svg');
-    const shotMsg = document.getElementById('robot-shot-msg');
-    const shotText = document.getElementById('robot-shot-text');
-    const gunArm = robotSVG.querySelector('rect[x="60"]');
-    const gunTip = robotSVG.querySelector('circle[cx="82"]');
-    const rareMsgs = [
-      "CYBERPUNK MODE ACTIVATED <===",
-           "HIRE ME FOR YOUR NEXT PROJECT!",
-      "GLITCH IN THE SYSTEM!",
-      "SKY BLUE ENERGY BLAST!",
-      "FULL STACK POWER!",
-      "REACT + DJANGO = ❤️",
-      "NEON DREAMS ONLY",
-      "CODE LIKE IT'S 2077",
-      "HELLO, WORLD!",
-      "FILIP IS ONLINE <==="
-    ];
-
-    // Animate robot arm up and down forever
-    function animateArm() {
-      gsap.to(gunArm, {
-        rotation: -18,
-        transformOrigin: "60px 104px",
-        duration: 0.7, yoyo: true,
-        repeat: -1,
-        ease: "power1.inOut"
-      });
-    }
-    animateArm();
-
-    // Auto shoot message every 8 seconds
-    function autoShoot() {
-      const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
-      shotText.textContent = msg;
-      shotMsg.style.display = 'block';
-      shotMsg.style.left = '110px';
-      shotMsg.style.bottom = '110px';
-      shotMsg.style.opacity = '1';
-      let pos = 110, opacity = 1;
-
-     
-
-      // Gun flash effect
-      gunTip.setAttribute('fill', '#fff');
-      setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 180);
-
-      function animateShot() {
-        pos += 24;
-        opacity -= 0.03;
-        shotMsg.style.left = pos + 'px';
-        shotMsg.style.opacity = opacity;
-        if (pos < window.innerWidth - 300 && opacity > 0) {
-          requestAnimationFrame(animateShot);
-        } else {
-          shotMsg.style.display = 'none';
-        }
-      }
-      animateShot();
-    }
-    // Start auto shooting every 8 seconds
-    setTimeout(function loop() {
-      autoShoot();
-      setTimeout(loop, 8000);
-    }, 2000);
-    // Scroll to top button functionality
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollTopBtn.classList.remove('hidden');
-      } else {
-        scrollTopBtn.classList.add('hidden');
-      }
-    });
-    scrollTopBtn.addEventListener('click', () => {
-      gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-    });
-
-    window.scrollTo(0, 0); // Always start at top
-
-    window.addEventListener('DOMContentLoaded', function () {
-      const loader = document.getElementById('filip-loader');
+    } else {
       setTimeout(() => {
-        // Animate loader out
-        gsap.to(loader, { opacity: 0, duration: 0.7, onComplete: () => loader.remove() });
-        // Scroll to top smoothly (in case user scrolled during load)
-        gsap.to(window, { duration: 0.7, scrollTo: { y: 0 }, ease: "power2.inOut" });
-      }, 1700); // Show loader for 1.7s
-    });
+        // Fade out terminal intro and remove it
+        terminal.style.transition = "opacity 0.7s";
+        terminal.style.opacity = 0;
+        setTimeout(() => terminal.remove(), 700);
+      }, 700);
+    }
+  }
 
-    // --- Parallax Effect for Hero Section ---
-    const hero = document.querySelector('section.relative.text-center');
-    const heroBg1 = hero.querySelector('div > .w-72');
-    const heroBg2 = hero.querySelector('div > .w-40');
-    hero.addEventListener('mousemove', e => {
-      const { left, top, width, height } = hero.getBoundingClientRect();
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
-      gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
-      gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+  // Blinking cursor
+  setInterval(() => {
+    if (termCursor) {
+      termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+    }
+  }, 400);
+
+  // Start typing after DOM is loaded
+  window.addEventListener('DOMContentLoaded', function () {
+    typeTerminal();
+  });
+
+  // Navbar and section fade-in
+  gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
+  gsap.from("section", { duration: 1.3, opacity: 1, stagger: 0.4 });
+  gsap.from(".glass", { duration: 1.2, opacity: 1, y: 40, stagger: 0.3, delay: 0.5 });
+
+  // Animate Robot Head up and down on scroll (3D style)
+  const robot = document.getElementById('robot-container');
+  let ticking = false;
+  function animateRobot() {
+    const amplitude = 40; // px
+    const period = 600; // px
+    const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
+    gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(animateRobot);
+      ticking = true;
+    }
+  });
+  // Initial animation
+  gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+
+  // Chatbot toggle
+  const toggleBtn = document.getElementById('chatbot-toggle');
+  const chatWindow = document.getElementById('chatbot-window');
+  toggleBtn.addEventListener('click', () => {
+    chatWindow.classList.toggle('hidden');
+  });
+
+  // Chatbot logic
+  const messages = document.getElementById('chatbot-messages');
+  const form = document.getElementById('chatbot-form');
+  const input = document.getElementById('chatbot-input');
+
+  // Helper functions
+  function botSay(msg) {
+    messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function userSay(msg) {
+    messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Show options (all as buttons, not hrefs, for in-chat display)
+  function showOptions() {
+    botSay(
+      `How would you like to contact me?<br>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
+    <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
+    `
+    );
+  }
+
+  // Expose all show* functions to window for inline onclick
+  window.showPhone = function () {
+    botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
+  };
+  window.showtg = function () {
+    botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
+  };
+  window.showfb = function () {
+    botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
+  };
+  window.showwa = function () {
+    botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
+  };
+  window.showgh = function () {
+    botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
+  };
+  window.showli = function () {
+    botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
+  };
+  window.showup = function () {
+    botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
+  };
+
+  // Initial greeting with options
+  botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
+  showOptions();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const val = input.value.trim();
+    if (!val) return;
+    userSay(val);
+
+    // AI Assistant logic
+    const lower = val.toLowerCase();
+    let found = false;
+    for (const key in aiAnswers) {
+      if (lower.includes(key)) {
+        botSay(aiAnswers[key]);
+        found = true;
+        break;
+      }
+    }
+    if (found) return;
+
+    // Simple phone validation
+    const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
+    if (phonePattern.test(val)) {
+      botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
+      input.value = "";
+      input.disabled = true;
+      setTimeout(() => {
+        input.disabled = false;
+        input.value = "";
+      }, 2000);
+    } else {
+      botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
+    }
+  });
+
+  // Typing effect for roles
+  const roles = [
+    "Full Stack Developer",
+    "React & Django Specialist",
+    "UI/UX Enthusiast",
+    "Tech Entrepreneur"
+  ];
+  let roleIdx = 0, roleCharIdx = 0, typing = true; // Use unique variable for roles
+  const typedRole = document.getElementById('typed-role');
+  function typeRole() {
+    if (typing) {
+      if (roleCharIdx < roles[roleIdx].length) {
+        typedRole.textContent += roles[roleIdx][roleCharIdx++];
+        setTimeout(typeRole, 70);
+      } else {
+        typing = false;
+        setTimeout(typeRole, 1200);
+      }
+    } else {
+      if (roleCharIdx > 0) {
+        typedRole.textContent = roles[roleIdx].slice(0, --roleCharIdx);
+        setTimeout(typeRole, 30);
+      } else {
+        typing = true;
+        roleIdx = (roleIdx + 1) % roles.length;
+        setTimeout(typeRole, 400);
+      }
+    }
+  }
+  typeRole();
+
+  // Rare Footer Robot Shooter Feature - AUTO ANIMATION
+  const robotSVG = document.getElementById('footer-robot-svg');
+  const shotMsg = document.getElementById('robot-shot-msg');
+  const shotText = document.getElementById('robot-shot-text');
+  const gunArm = robotSVG.querySelector('rect[x="60"]');
+  const gunTip = robotSVG.querySelector('circle[cx="82"]');
+  const rareMsgs = [
+    "CYBERPUNK MODE ACTIVATED <===",
+    "HIRE ME FOR YOUR NEXT PROJECT!",
+    "GLITCH IN THE SYSTEM!",
+    "SKY BLUE ENERGY BLAST!",
+    "FULL STACK POWER!",
+    "REACT + DJANGO = ❤️",
+    "NEON DREAMS ONLY",
+    "CODE LIKE IT'S 2077",
+    "HELLO, WORLD!",
+    "FILIP IS ONLINE <==="
+  ];
+
+  // Animate robot arm up and down forever
+  function animateArm() {
+    gsap.to(gunArm, {
+      rotation: -18,
+      transformOrigin: "60px 104px",
+      duration: 0.7, yoyo: true,
+      repeat: -1,
+      ease: "power1.inOut"
     });
-  </script>
+  }
+  animateArm();
+
+  // Auto shoot message every 8 seconds
+  function autoShoot() {
+    const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
+    shotText.textContent = msg;
+    shotMsg.style.display = 'block';
+    shotMsg.style.left = '110px';
+    shotMsg.style.bottom = '110px';
+    shotMsg.style.opacity = '1';
+    let pos = 110, opacity = 1;
+
+    // Gun flash effect
+    gunTip.setAttribute('fill', '#fff');
+    setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 180);
+
+    function animateShot() {
+      pos += 24;
+      opacity -= 0.03;
+      shotMsg.style.left = pos + 'px';
+      shotMsg.style.opacity = opacity;
+      if (pos < window.innerWidth - 300 && opacity > 0) {
+        requestAnimationFrame(animateShot);
+      } else {
+        shotMsg.style.display = 'none';
+      }
+    }
+    animateShot();
+  }
+  // Start auto shooting every 8 seconds
+  setTimeout(function loop() {
+    autoShoot();
+    setTimeout(loop, 8000);
+  }, 2000);
+
+  // Scroll to top button functionality
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.remove('hidden');
+    } else {
+      scrollTopBtn.classList.add('hidden');
+    }
+  });
+  scrollTopBtn.addEventListener('click', () => {
+    gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+  });
+
+  window.scrollTo(0, 0); // Always start at top
+
+  // Remove loader logic (no loader anymore)
+  // --- Parallax Effect for Hero Section ---
+  const hero = document.querySelector('section.relative.text-center');
+  const heroBg1 = hero.querySelector('div > .w-72');
+  const heroBg2 = hero.querySelector('div > .w-40');
+  hero.addEventListener('mousemove', e => {
+    const { left, top, width, height } = hero.getBoundingClientRect();
+    const x = (e.clientX - left) / width - 0.5;
+    const y = (e.clientY - top) / height - 0.5;
+    gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
+    gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+  });
+// --- UFO Beam Animation ---
+function abductFooterIcon() {
+  const beam = document.getElementById('ufo-beam');
+  gsap.to(beam, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
+    gsap.to(beam, { opacity: 0, duration: 0.4 });
+  }});
+}
+setInterval(abductFooterIcon, 7000);
+// --- Shooting Star Animation ---
+function animateShootingStar() {
+  const star = document.getElementById('shooting-star');
+  gsap.set(star, { left: '-60px', opacity: 1 });
+  gsap.to(star, { left: '100vw', duration: 2.5, ease: "power1.in", opacity: 0, onComplete: () => {
+    gsap.set(star, { left: '-60px', opacity: 0 });
+  }});
+}
+setInterval(animateShootingStar, 12000);
+
+</script>
 </body>
 
 </html>
