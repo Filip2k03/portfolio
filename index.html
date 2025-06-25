@@ -394,6 +394,13 @@
 </head>
 
 <body>
+  <!-- Add this just after <body> tag -->
+<div id="filip-loader" style="position:fixed;z-index:9999;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0617;">
+  <h1 class="glitch" data-text="Filip is online" style="font-size:3rem;color:#00ffe7;text-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;font-family:'Orbitron','Share Tech Mono',monospace;letter-spacing:0.1em;">
+    Filip is online
+  </h1>
+</div>
+
   <!-- Animated circuit background -->
   <div class="circuit-bg"></div>
 
@@ -1237,7 +1244,7 @@ function autoShoot() {
 // Start auto shooting every 8 seconds
 setTimeout(function loop() {
   autoShoot();
-  setTimeout(loop, 1000);
+  setTimeout(loop, 8000);
 }, 2000);
 // Scroll to top button functionality
 const scrollTopBtn = document.getElementById('scrollTopBtn');
@@ -1250,6 +1257,18 @@ window.addEventListener('scroll', () => {
 });
 scrollTopBtn.addEventListener('click', () => {
   gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+});
+
+window.scrollTo(0, 0); // Always start at top
+
+window.addEventListener('DOMContentLoaded', function () {
+  const loader = document.getElementById('filip-loader');
+  setTimeout(() => {
+    // Animate loader out
+    gsap.to(loader, { opacity: 0, duration: 0.7, onComplete: () => loader.remove() });
+    // Scroll to top smoothly (in case user scrolled during load)
+    gsap.to(window, { duration: 0.7, scrollTo: { y: 0 }, ease: "power2.inOut" });
+  }, 1700); // Show loader for 1.7s
 });
   </script>
 </body>
