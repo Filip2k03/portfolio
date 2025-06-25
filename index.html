@@ -378,6 +378,7 @@
       .neon-divider {
         width: 60px;
       }
+
       #footer-robot-shooter {
         margin-bottom: 0.5rem;
         margin-right: 0;
@@ -385,6 +386,7 @@
         justify-content: center;
         width: 100%;
       }
+
       footer.flex {
         flex-direction: column !important;
         align-items: center !important;
@@ -395,11 +397,22 @@
 
 <body>
   <!-- Add this just after <body> tag -->
-<div id="filip-loader" style="position:fixed;z-index:9999;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0617;">
-  <h1 class="glitch" data-text="Filip is online" style="font-size:3rem;color:#00ffe7;text-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;font-family:'Orbitron','Share Tech Mono',monospace;letter-spacing:0.1em;">
-    Filip is online
-  </h1>
-</div>
+  <div id="filip-loader"
+    style="position:fixed;z-index:9999;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0617;">
+    <h1 class="glitch" data-text="Filip is online"
+      style="font-size:3rem;color:#00ffe7;text-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;font-family:'Orbitron','Share Tech Mono',monospace;letter-spacing:0.1em;">
+      Filip is online
+    </h1>
+  </div>
+
+  <!-- Cyberpunk Terminal Intro -->
+  <div id="terminal-intro"
+    style="position:fixed;z-index:10000;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0617;">
+    <div
+      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:#00ffe7;box-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;padding:2rem 3rem;border-radius:1.5rem;min-width:340px;">
+      <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
+    </div>
+  </div>
 
   <!-- Animated circuit background -->
   <div class="circuit-bg"></div>
@@ -486,7 +499,7 @@
 
       </h2>
       <div class="neon-divider"></div>
-      <span id="typed-role" class="block text-3xl md:text-4xl mt-4"></span>
+      <span id="typed-role" class="block text-3xl md:text-4xl mt-4">/</span>
       <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
         <a href="#projects" class="futuristic-btn px-10 py-5 text-2xl">See Projects</a>
         <a href="resume.pdf" download
@@ -1014,33 +1027,69 @@
   </button>
 
   <!-- Footer -->
-  <footer class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
+  <footer
+    class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
     <div class="flex items-end">
       <div id="footer-robot-shooter" class="mr-4">
         <svg id="footer-robot-svg" width="90" height="120" viewBox="0 0 90 120" fill="none" style="cursor:pointer;">
           <!-- Robot body -->
-          <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
-          <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
+          <ellipse cx="45" cy="90" rx="30" ry="18" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
+          <rect x="25" y="60" width="40" height="40" rx="14" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
           <!-- Eyes -->
-          <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7"/>
-          <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057"/>
+          <rect x="35" y="80" width="7" height="7" rx="2" fill="#00ffe7" />
+          <rect x="48" y="80" width="7" height="7" rx="2" fill="#ff0057" />
           <!-- Gun arm -->
-          <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2"/>
+          <rect x="60" y="100" width="22" height="8" rx="3" fill="#00cfff" stroke="#00ffe7" stroke-width="2" />
           <!-- Gun tip -->
-          <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+          <circle cx="82" cy="104" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2" />
           <!-- Antenna -->
-          <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff"/>
-          <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2"/>
+          <rect x="43" y="50" width="4" height="16" rx="2" fill="#00cfff" />
+          <circle cx="45" cy="50" r="4" fill="#00ffe7" stroke="#00cfff" stroke-width="2" />
         </svg>
       </div>
-      <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
+      <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a
+          href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
     </div>
   </footer>
-  <div id="robot-shot-msg" style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
+  <div id="robot-shot-msg"
+    style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
     <span id="robot-shot-text"></span>
   </div>
 
   <script>
+    // --- Terminal Intro ---
+    const terminalLines = [
+      "Initializing cyberpunk portfolio...",
+      "Loading assets...",
+      "Skills: React, Django, UI/UX, Tech Entrepreneur",
+      "Welcome, runner. Enjoy the neon ride!"
+    ];
+    let termIdx = 0, charIdx = 0;
+    const terminal = document.getElementById('terminal-intro');
+    const termText = document.getElementById('terminal-text');
+    const termCursor = document.getElementById('terminal-cursor');
+    function typeTerminal() {
+      if (termIdx < terminalLines.length) {
+        if (charIdx < terminalLines[termIdx].length) {
+          termText.textContent += terminalLines[termIdx][charIdx++];
+          setTimeout(typeTerminal, 38);
+        } else {
+          termText.textContent += "\n";
+          charIdx = 0;
+          termIdx++;
+          setTimeout(typeTerminal, 500);
+        }
+      } else {
+        setTimeout(() => {
+          gsap.to(terminal, { opacity: 0, duration: 0.7, onComplete: () => terminal.remove() });
+        }, 700);
+      }
+    }
+    // Blinking cursor
+    setInterval(() => {
+      termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+    }, 400);
+    typeTerminal();
     // Navbar and section fade-in
     gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
     gsap.from("section", { duration: 1.3, opacity: 1, stagger: 0.4 });
@@ -1136,6 +1185,18 @@
       if (!val) return;
       userSay(val);
 
+      // AI Assistant logic
+      const lower = val.toLowerCase();
+      let found = false;
+      for (const key in aiAnswers) {
+        if (lower.includes(key)) {
+          botSay(aiAnswers[key]);
+          found = true;
+          break;
+        }
+      }
+      if (found) return;
+
       // Simple phone validation
       const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
       if (phonePattern.test(val)) {
@@ -1147,7 +1208,7 @@
           input.value = "";
         }, 2000);
       } else {
-        botSay("Please enter a valid phone number or use the buttons below.");
+        botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
       }
     });
 
@@ -1183,93 +1244,105 @@
     typeRole();
     // Rare Footer Robot Shooter Feature - AUTO ANIMATION
 
-const robotSVG = document.getElementById('footer-robot-svg');
-const shotMsg = document.getElementById('robot-shot-msg');
-const shotText = document.getElementById('robot-shot-text');
-const gunArm = robotSVG.querySelector('rect[x="60"]');
-const gunTip = robotSVG.querySelector('circle[cx="82"]');
-const rareMsgs = [
-  "CYBERPUNK MODE ACTIVATED <===",
-  "HIRE ME FOR YOUR NEXT PROJECT!",
-  "GLITCH IN THE SYSTEM!",
-  "SKY BLUE ENERGY BLAST!",
-  "FULL STACK POWER!",
-  "REACT + DJANGO = ❤️",
-  "NEON DREAMS ONLY",
-  "CODE LIKE IT'S 2077",
-  "HELLO, WORLD!",
-  "FILIP IS ONLINE <==="
-];
+    const robotSVG = document.getElementById('footer-robot-svg');
+    const shotMsg = document.getElementById('robot-shot-msg');
+    const shotText = document.getElementById('robot-shot-text');
+    const gunArm = robotSVG.querySelector('rect[x="60"]');
+    const gunTip = robotSVG.querySelector('circle[cx="82"]');
+    const rareMsgs = [
+      "CYBERPUNK MODE ACTIVATED <===",
+      "HIRE ME FOR YOUR NEXT PROJECT!",
+      "GLITCH IN THE SYSTEM!",
+      "SKY BLUE ENERGY BLAST!",
+      "FULL STACK POWER!",
+      "REACT + DJANGO = ❤️",
+      "NEON DREAMS ONLY",
+      "CODE LIKE IT'S 2077",
+      "HELLO, WORLD!",
+      "FILIP IS ONLINE <==="
+    ];
 
-// Animate robot arm up and down forever
-function animateArm() {
-  gsap.to(gunArm, {
-    rotation: -18,
-    transformOrigin: "60px 104px",
-    duration: 0.7,
-    yoyo: true,
-    repeat: -1,
-    ease: "power1.inOut"
-  });
-}
-animateArm();
-
-// Auto shoot message every 8 seconds
-function autoShoot() {
-  const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
-  shotText.textContent = msg;
-  shotMsg.style.display = 'block';
-  shotMsg.style.left = '110px';
-  shotMsg.style.bottom = '110px';
-  shotMsg.style.opacity = '1';
-  let pos = 110, opacity = 1;
-
-  // Gun flash effect
-  gunTip.setAttribute('fill', '#fff');
-  setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 180);
-
-  function animateShot() {
-    pos += 24;
-    opacity -= 0.03;
-    shotMsg.style.left = pos + 'px';
-    shotMsg.style.opacity = opacity;
-    if (pos < window.innerWidth - 300 && opacity > 0) {
-      requestAnimationFrame(animateShot);
-    } else {
-      shotMsg.style.display = 'none';
+    // Animate robot arm up and down forever
+    function animateArm() {
+      gsap.to(gunArm, {
+        rotation: -18,
+        transformOrigin: "60px 104px",
+        duration: 0.7, yoyo: true,
+        repeat: -1,
+        ease: "power1.inOut"
+      });
     }
-  }
-  animateShot();
-}
-// Start auto shooting every 8 seconds
-setTimeout(function loop() {
-  autoShoot();
-  setTimeout(loop, 8000);
-}, 2000);
-// Scroll to top button functionality
-const scrollTopBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    scrollTopBtn.classList.remove('hidden');
-  } else {
-    scrollTopBtn.classList.add('hidden');
-  }
-});
-scrollTopBtn.addEventListener('click', () => {
-  gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-});
+    animateArm();
 
-window.scrollTo(0, 0); // Always start at top
+    // Auto shoot message every 8 seconds
+    function autoShoot() {
+      const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
+      shotText.textContent = msg;
+      shotMsg.style.display = 'block';
+      shotMsg.style.left = '110px';
+      shotMsg.style.bottom = '110px';
+      shotMsg.style.opacity = '1';
+      let pos = 110, opacity = 1;
 
-window.addEventListener('DOMContentLoaded', function () {
-  const loader = document.getElementById('filip-loader');
-  setTimeout(() => {
-    // Animate loader out
-    gsap.to(loader, { opacity: 0, duration: 0.7, onComplete: () => loader.remove() });
-    // Scroll to top smoothly (in case user scrolled during load)
-    gsap.to(window, { duration: 0.7, scrollTo: { y: 0 }, ease: "power2.inOut" });
-  }, 1700); // Show loader for 1.7s
-});
+      // Gun flash effect
+      gunTip.setAttribute('fill', '#fff');
+      setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 180);
+
+      function animateShot() {
+        pos += 24;
+        opacity -= 0.03;
+        shotMsg.style.left = pos + 'px';
+        shotMsg.style.opacity = opacity;
+        if (pos < window.innerWidth - 300 && opacity > 0) {
+          requestAnimationFrame(animateShot);
+        } else {
+          shotMsg.style.display = 'none';
+        }
+      }
+      animateShot();
+    }
+    // Start auto shooting every 8 seconds
+    setTimeout(function loop() {
+      autoShoot();
+      setTimeout(loop, 8000);
+    }, 2000);
+    // Scroll to top button functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.remove('hidden');
+      } else {
+        scrollTopBtn.classList.add('hidden');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+    });
+
+    window.scrollTo(0, 0); // Always start at top
+
+    window.addEventListener('DOMContentLoaded', function () {
+      const loader = document.getElementById('filip-loader');
+      setTimeout(() => {
+        // Animate loader out
+        gsap.to(loader, { opacity: 0, duration: 0.7, onComplete: () => loader.remove() });
+        // Scroll to top smoothly (in case user scrolled during load)
+        gsap.to(window, { duration: 0.7, scrollTo: { y: 0 }, ease: "power2.inOut" });
+      }, 1700); // Show loader for 1.7s
+    });
+
+    // --- Parallax Effect for Hero Section ---
+    const hero = document.querySelector('section.relative.text-center');
+    const heroBg1 = hero.querySelector('div > .w-72');
+    const heroBg2 = hero.querySelector('div > .w-40');
+    hero.addEventListener('mousemove', e => {
+      const { left, top, width, height } = hero.getBoundingClientRect();
+      const x = (e.clientX - left) / width - 0.5;
+      const y = (e.clientY - top) / height - 0.5;
+      gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
+      gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+    });
   </script>
 </body>
+
 </html>
