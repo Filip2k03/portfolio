@@ -44,6 +44,22 @@
       position: relative;
     }
 
+    body.light-theme {
+      --dominant: #f0f6ff;
+      --secondary: #66ccff;
+      --accent: #33e7ff;
+      --danger: #e73357;
+      --glass: rgba(255, 255, 255, 0.9);
+      --glow: 0 0 12px #66ccff, 0 0 24px #33e7ff, 0 0 4px #e73357;
+      --btn-bg: linear-gradient(90deg, #66ccff 0%, #33e7ff 100%);
+      --btn-text: #f0f6ff;
+      --btn-hover-bg: linear-gradient(90deg, #e73357 0%, #66ccff 100%);
+      --btn-shadow: 0 0 16px #66ccffcc, 0 0 32px #33e7ff44;
+      --btn-hover-shadow: 0 0 32px #e73357, 0 0 64px #66ccff;
+      color: #333;
+      background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+    }
+
     .about-cyber-bg::after {
       content: '';
       position: absolute;
@@ -63,6 +79,12 @@
       opacity: 1;
       transition: opacity 0.3s;
     }
+
+    body.light-theme .glass {
+      box-shadow: 0 12px 48px 0 #33e7ff44, 0 0 0 2px #33333333 inset;
+      border: 2px solid rgba(0, 0, 0, 0.10);
+    }
+
 
     @keyframes glass-flicker {
 
@@ -87,7 +109,7 @@
 
     .glitch {
       position: relative;
-      color: #00cfff;
+      color: var(--secondary);
     }
 
     .glitch::before,
@@ -98,7 +120,7 @@
       top: 0;
       width: 100%;
       overflow: hidden;
-      color: #00ffe7;
+      color: var(--accent);
       z-index: 2;
       opacity: 0.7;
       pointer-events: none;
@@ -106,13 +128,13 @@
 
     .glitch::before {
       left: 2px;
-      text-shadow: -2px 0 #ff0057;
+      text-shadow: -2px 0 var(--danger);
       animation: glitch1 2s infinite linear alternate-reverse;
     }
 
     .glitch::after {
       left: -2px;
-      text-shadow: 2px 0 #00ffe7;
+      text-shadow: 2px 0 var(--accent);
       animation: glitch2 2s infinite linear alternate;
     }
 
@@ -146,7 +168,6 @@
       animation: glitch2 0.7s infinite linear alternate;
     }
 
-
     .glow {
       box-shadow: var(--glow);
       text-shadow: 0 0 12px #ffe600, 0 0 24px #00ffe7, 0 0 4px #ff0057;
@@ -155,26 +176,48 @@
       color: #ffe600;
     }
 
+    body.light-theme .glow {
+      text-shadow: 0 0 6px var(--secondary), 0 0 12px var(--accent), 0 0 2px var(--danger);
+      color: var(--dominant);
+    }
+
     .neon-border {
       border: 2.5px solid var(--accent);
       box-shadow: 0 0 16px var(--accent), 0 0 32px var(--secondary), 0 0 8px var(--danger);
       border-radius: 1.5rem;
     }
 
+    body.light-theme .neon-border {
+      border: 2.5px solid var(--secondary);
+      box-shadow: 0 0 8px var(--secondary), 0 0 16px var(--accent), 0 0 4px var(--danger);
+    }
+
     .font-led {
       font-family: 'Share Tech Mono', 'Orbitron', monospace, sans-serif;
       letter-spacing: 0.18em;
-      color: #00ffe7;
+      color: var(--accent);
       text-shadow:
-        0 0 12px #00ffe7,
-        0 0 24px #00ffe7,
-        0 0 48px #00ffe7,
+        0 0 12px var(--accent),
+        0 0 24px var(--accent),
+        0 0 48px var(--accent),
         0 0 2px #ffe600;
-      background: linear-gradient(90deg, #00ffe7 0%, #ffe600 100%);
+      background: linear-gradient(90deg, var(--accent) 0%, #ffe600 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: led-flicker 2s infinite alternate;
     }
+
+    body.light-theme .font-led {
+      text-shadow:
+        0 0 6px var(--secondary),
+        0 0 12px var(--secondary),
+        0 0 24px var(--secondary),
+        0 0 1px var(--danger);
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--danger) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
 
     @keyframes led-flicker {
 
@@ -201,15 +244,24 @@
     }
 
     .robotic-panel {
-      border: 3px solid #00ffe7;
+      border: 3px solid var(--accent);
       border-radius: 2.5rem;
       background: linear-gradient(135deg, #1a0933 80%, #0f0617 100%);
       box-shadow:
-        0 0 48px #00ffe7cc,
+        0 0 48px var(--accent)cc,
         0 0 96px #ffe60044,
         0 0 0 6px #0f0617 inset;
       position: relative;
       overflow: hidden;
+    }
+
+    body.light-theme .robotic-panel {
+      border: 3px solid var(--secondary);
+      background: linear-gradient(135deg, #e0e0e0 80%, #f0f0f0 100%);
+      box-shadow:
+        0 0 24px var(--secondary)cc,
+        0 0 48px var(--danger)44,
+        0 0 0 3px #f0f6ff inset;
     }
 
     .robotic-panel::before {
@@ -218,9 +270,14 @@
       inset: 0;
       border-radius: 2.5rem;
       pointer-events: none;
-      box-shadow: 0 0 120px 20px #00ffe744, 0 0 0 4px #ffe60022 inset;
+      box-shadow: 0 0 120px 20px var(--accent)44, 0 0 0 4px #ffe60022 inset;
       z-index: 1;
     }
+
+    body.light-theme .robotic-panel::before {
+      box-shadow: 0 0 60px 10px var(--secondary)44, 0 0 0 2px var(--danger)22 inset;
+    }
+
 
     .futuristic-btn,
     #theme-toggle-btn,
@@ -260,6 +317,16 @@
       text-shadow: 0 0 8px #ffe600, 0 0 16px #00ffe7;
     }
 
+    body.light-theme .futuristic-link {
+      color: var(--secondary);
+    }
+
+    body.light-theme .futuristic-link:hover {
+      color: var(--danger);
+      text-shadow: 0 0 4px var(--accent), 0 0 8px var(--secondary);
+    }
+
+
     ::selection {
       background: #ffe60044;
     }
@@ -277,6 +344,10 @@
       box-shadow: 0 0 24px #ffe600, 0 0 48px #00ffe7, 0 0 8px #ff0057;
       position: relative;
       overflow: hidden;
+    }
+
+    body.light-theme .neon-divider {
+      box-shadow: 0 0 12px var(--accent), 0 0 24px var(--secondary), 0 0 4px var(--danger);
     }
 
     .neon-divider::after {
@@ -314,6 +385,12 @@
       filter: contrast(1.2) brightness(1.1) blur(0.5px);
     }
 
+    body.light-theme .circuit-bg {
+      filter: contrast(0.8) brightness(0.9) blur(0.5px) grayscale(0.5);
+      mix-blend-mode: multiply;
+    }
+
+
     @keyframes circuit-move {
       0% {
         background-position: 0 0;
@@ -328,6 +405,11 @@
       filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px #00ffe7) drop-shadow(0 0 8px #ff0057);
       animation: robot-flicker 2.5s infinite alternate;
     }
+
+    body.light-theme .cyberpunk-robot {
+      filter: drop-shadow(0 0 12px var(--secondary)) drop-shadow(0 0 24px var(--accent)) drop-shadow(0 0 4px var(--danger));
+    }
+
 
     @keyframes robot-flicker {
 
@@ -357,6 +439,12 @@
       overflow: hidden;
     }
 
+    body.light-theme .about-cyber-bg {
+      background: linear-gradient(120deg, #f0f6ff 70%, #e73357 100%);
+      border: 2px solid var(--secondary);
+      box-shadow: 0 0 16px var(--danger)88, 0 0 32px var(--secondary)44;
+    }
+
     .about-cyber-bg::before {
       content: '';
       position: absolute;
@@ -369,6 +457,11 @@
       pointer-events: none;
       filter: blur(1px) brightness(1.2);
     }
+
+    body.light-theme .about-cyber-bg::before {
+      filter: blur(0.5px) brightness(1.1) grayscale(0.2);
+    }
+
 
     .about-cyber-bg>* {
       position: relative;
@@ -450,6 +543,11 @@
       box-shadow: inset 0 0 4px rgba(0, 255, 231, 0.5);
     }
 
+    body.light-theme .skill-bar-container {
+      background-color: #d0d0d0;
+      box-shadow: inset 0 0 2px rgba(50, 180, 255, 0.5);
+    }
+
     .skill-bar {
       height: 100%;
       background: linear-gradient(90deg, #00cfff 0%, #00ffe7 100%);
@@ -458,6 +556,10 @@
       transition: width 1s ease-out;
       position: relative;
       overflow: hidden;
+    }
+
+    body.light-theme .skill-bar {
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
     }
 
     .skill-bar::after {
@@ -472,6 +574,10 @@
       animation: neon-pulse 2s infinite alternate;
     }
 
+    body.light-theme .skill-bar::after {
+      background: radial-gradient(circle at center, rgba(50, 180, 255, 0.8) 0%, transparent 70%);
+    }
+
     @keyframes neon-pulse {
       0% {
         opacity: 0;
@@ -483,14 +589,78 @@
         transform: scale(1.2);
       }
     }
+
+    /* Flicker effect for glow elements */
+    @keyframes flicker-subtle {
+      0%, 100% { opacity: 1; }
+      5% { opacity: 0.95; }
+      10% { opacity: 1; }
+      15% { opacity: 0.9; }
+      20% { opacity: 1; }
+      25% { opacity: 0.95; }
+      30% { opacity: 1; }
+      35% { opacity: 0.9; }
+      40% { opacity: 1; }
+      45% { opacity: 0.98; }
+      50% { opacity: 0.9; }
+      55% { opacity: 0.97; }
+      60% { opacity: 1; }
+    }
+
+    .flicker {
+      animation: flicker-subtle 4s infinite step-end;
+    }
+
+    /* Cert Carousel Styles */
+    .certificates-carousel-container {
+        position: relative;
+    }
+
+    .certificates-carousel {
+        display: flex;
+        overflow-x: hidden; /* Hide scrollbar */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+    }
+
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: #FFD166;
+        padding: 0.75rem 0.5rem;
+        border-radius: 9999px; /* Full rounded */
+        cursor: pointer;
+        z-index: 10;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+        box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+    }
+    .carousel-button:hover {
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(255, 209, 102, 0.8);
+    }
+    .carousel-button.left { left: 0.5rem; }
+    .carousel-button.right { right: 0.5rem; }
+
+    body.light-theme .carousel-button {
+      background: rgba(255, 255, 255, 0.6);
+      color: #7952B3;
+      box-shadow: 0 0 10px rgba(121, 82, 179, 0.5);
+    }
+    body.light-theme .carousel-button:hover {
+      box-shadow: 0 0 15px rgba(121, 82, 179, 0.8);
+    }
+
   </style>
 </head>
 
 <body>
   <div id="terminal-intro"
     style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:#0f0617;">
-    <div
-      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:#00ffe7;box-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;padding:2rem 3rem;border-radius:1.5rem;min-width:340px;">
+    <div id="terminal-display"
+      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:#00ffe7;box-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;padding:2rem 3rem;border-radius:1.5rem;min-width:340px; cursor: pointer;">
       <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
     </div>
   </div>
@@ -568,9 +738,9 @@
       <div class="neon-divider">|</div>
       <span id="typed-role" class="block text-3xl md:text-4xl mt-4">/</span>
       <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
-        <a href="#projects" class="futuristic-btn px-10 py-5 text-2xl">See Projects</a>
+        <a href="#projects" class="futuristic-btn px-10 py-5 text-2xl" id="hero-btn-projects">See Projects</a>
         <a href="resume.pdf" download
-          class="px-10 py-5 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-led hover:bg-[#FFD16622] transition text-2xl">Download
+          class="px-10 py-5 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-led hover:bg-[#FFD16622] transition text-2xl" id="hero-btn-resume">Download
           Resume</a>
       </div>
     </div>
@@ -591,10 +761,19 @@
     <div class="container mx-auto">
       <div class="glass robotic-panel rounded-2xl p-10 shadow-2xl max-w-6xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="all">All</button>
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="frontend">Frontend</button>
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="backend">Backend</button>
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="database">Database</button>
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="mobile">Mobile</button>
+          <button class="futuristic-btn px-6 py-2 text-base" data-filter="cloud">Cloud/API</button>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -620,7 +799,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#F7DF1E" />
@@ -645,7 +824,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -667,7 +846,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#8993BE" />
@@ -687,7 +866,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#3776AB" />
@@ -707,7 +886,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="database">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#4479A1" />
@@ -727,7 +906,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="cloud">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#FFD166" />
@@ -743,7 +922,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="cloud">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -765,7 +944,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#68217A" />
@@ -781,7 +960,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -798,7 +977,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -816,7 +995,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#7F52FF" />
@@ -833,7 +1012,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#F36D33" />
@@ -849,7 +1028,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
             <span class="flex space-x-2 mb-3">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -871,7 +1050,7 @@
           </div>
 
           <div
-            class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
+            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
             <span>
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
@@ -893,12 +1072,20 @@
     <h3 class="text-4xl font-led mb-10 text-center">Projects</h3>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
       <div
+        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse: Game Dev Platform">DecaVerse: Game Dev Platform</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations (Genkit) and a scalable architecture.</p>
+        <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+      </div>
+      <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Deca Verse">Deca Verse</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Offline Game with Next.js</p>
-        <a href="https://deca-verse.vercel.app target="_blank" class="futuristic-link">Live Site <i
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone Myanmar">Find iPhone Myanmar</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin
+          dashboard.</p>
+        <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i
             class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/deca-verse.html" class="futuristic-link mt-2">Play now <i class="fa-solid fa-book-open ml-1"></i></a>
+        <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
       </div>
       <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
@@ -947,6 +1134,18 @@
       </div>
     </div>
   </section>
+
+  <section id="current-focus" class="py-20 px-6 bg-[#1a0933]">
+    <div class="container mx-auto">
+      <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
+        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Current Focus</h3>
+        <div id="current-focus-updates" class="space-y-6 text-[#BC96E6] font-montserrat text-lg">
+          <p>Loading current projects...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <section id="experience" class="py-20 px-6">
     <div class="container mx-auto">
@@ -1016,24 +1215,36 @@
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Certificates</h3>
-        <div class="overflow-x-auto">
-          <div class="flex space-x-6 min-w-[320px]">
-            <div class="flex-shrink-0 w-56">
-              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1"
-                class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-              <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
+        <div class="certificates-carousel-container relative">
+            <div id="certificates-carousel" class="certificates-carousel flex space-x-6 pb-4">
+                <div class="flex-shrink-0 w-56">
+                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
+                </div>
+                <div class="flex-shrink-0 w-56">
+                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
+                </div>
+                <div class="flex-shrink-0 w-56">
+                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
+                </div>
+                <div class="flex-shrink-0 w-56">
+                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+4" alt="Certificate 4"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 4</p>
+                </div>
+                <div class="flex-shrink-0 w-56">
+                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+5" alt="Certificate 5"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 5</p>
+                </div>
             </div>
-            <div class="flex-shrink-0 w-56">
-              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2"
-                class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-              <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
-            </div>
-            <div class="flex-shrink-0 w-56">
-              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3"
-                class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-              <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
-            </div>
-            </div>
+            <button class="carousel-button left" id="cert-prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-button right" id="cert-next-btn"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
       </div>
     </div>
@@ -1052,7 +1263,15 @@
             <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's expertise in both front-end and back-end development made him an invaluable asset to our project. He's a problem-solver with a keen eye for design."</p>
             <p class="text-[#FFD166] font-orbitron font-semibold">- Jax Miller, Lead Developer at CyberCorp</p>
           </div>
+          <div class="glass rounded-2xl p-6 shadow-lg text-left">
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Working with Stephan was a blast. His dedication to clean code and his knack for futuristic UI designs really brought our vision to life. A true full-stack talent!"</p>
+            <p class="text-[#FFD166] font-orbitron font-semibold">- Zai Myat, Founder of Quantum Systems</p>
           </div>
+          <div class="glass rounded-2xl p-6 shadow-lg text-left">
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's innovative solutions and proactive approach to problem-solving made our project a success. He's not just a coder; he's a true tech artist."</p>
+            <p class="text-[#FFD166] font-orbitron font-semibold">- Kyaw Lwin, Project Lead at DataForge Corp</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1091,6 +1310,7 @@
           class="rounded-lg px-3 py-2 bg-[#311C3B] border-2 border-[#FFD166] text-white focus:outline-none resize-none"></textarea>
         <button type="submit" class="futuristic-btn py-2 text-base">Send</button>
       </form>
+      <button id="clear-chatbot-btn" class="futuristic-btn w-full py-2 text-base mt-2">Clear Chat</button>
     </div>
   </div>
   <button id="scrollTopBtn"
@@ -1115,7 +1335,7 @@
         <ellipse cx="50" cy="4" rx="8" ry="2" fill="#00ffe7" opacity="0.7" />
       </svg>
     </div>
-    <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a
+    <span class="block text-base md:text-lg" id="footer-copyright-text">&copy; 2025 Stephan Filip — Full Stack Developer | <a
         href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
   </footer>
   <div id="ufo-shot-msg"
@@ -1124,7 +1344,27 @@
   </div>
 
   <script>
-    // --- Terminal Intro ---
+    // --- Global Variables / Initial Setup ---
+    const TERMINAL_TEXT_ID = 'terminal-text';
+    const TERMINAL_CURSOR_ID = 'terminal-cursor';
+    const TERMINAL_DISPLAY_ID = 'terminal-display';
+    const THEME_TOGGLE_BTN_ID = 'theme-toggle-btn';
+    const CHATBOT_MESSAGES_ID = 'chatbot-messages';
+    const CHATBOT_FORM_ID = 'chatbot-form';
+    const CHATBOT_INPUT_ID = 'chatbot-input';
+    const CLEAR_CHATBOT_BTN_ID = 'clear-chatbot-btn';
+    const SKILL_BAR_SELECTOR = '.skill-bar';
+    const SKILL_ITEM_SELECTOR = '.skill-item';
+    const SKILL_FILTER_BUTTON_SELECTOR = '.skill-filter-btn'; // Updated selector
+    const PROJECTS_SECTION_ID = 'projects';
+    const HERO_BTN_PROJECTS_ID = 'hero-btn-projects';
+    const HERO_BTN_RESUME_ID = 'hero-btn-resume';
+    const CERTIFICATES_CAROUSEL_ID = 'certificates-carousel';
+    const CERT_PREV_BTN_ID = 'cert-prev-btn';
+    const CERT_NEXT_BTN_ID = 'cert-next-btn';
+    const CURRENT_FOCUS_UPDATES_ID = 'current-focus-updates';
+    const FOOTER_COPYRIGHT_TEXT_ID = 'footer-copyright-text';
+
     const terminalLines = [
       "Initializing...",
       "Loading assets...",
@@ -1132,74 +1372,14 @@
       "Welcome, runner."
     ];
     let termIdx = 0, termCharIdx = 0;
-    const terminal = document.getElementById('terminal-intro');
-    const termText = document.getElementById('terminal-text');
-    const termCursor = document.getElementById('terminal-cursor');
+    let terminalFinishedTyping = false; // Flag to know when initial typing is done
 
-    function typeTerminal() {
-      if (termIdx < terminalLines.length) {
-        if (termCharIdx < terminalLines[termIdx].length) {
-          termText.textContent += terminalLines[termIdx][termCharIdx++];
-          setTimeout(typeTerminal, 38);
-        } else {
-          termText.textContent += "\n";
-          termCharIdx = 0;
-          termIdx++;
-          setTimeout(typeTerminal, 500);
-        }
-      } else {
-        setTimeout(() => {
-          terminal.style.transition = "opacity 0.7s";
-          terminal.style.opacity = 0;
-          setTimeout(() => terminal.remove(), 700);
-        }, 700);
-      }
-    }
-
-    setInterval(() => {
-      if (termCursor) {
-        termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
-      }
-    }, 400);
-
-    window.addEventListener('DOMContentLoaded', function () {
-      typeTerminal();
-    });
-
-    // Navbar and section fade-in
-    gsap.from("nav", { duration: 1, y: -50, opacity: 0, delay: 2.5 }); // Fade in after terminal intro
-    gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
-    gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
-
-    // Animate Robot Head up and down on scroll
-    const robot = document.getElementById('robot-container');
-    let ticking = false;
-    function animateRobot() {
-      const amplitude = 40;
-      const period = 600;
-      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
-      gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
-      ticking = false;
-    }
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(animateRobot);
-        ticking = true;
-      }
-    });
-    gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
-
-    // Chatbot toggle
-    const toggleBtn = document.getElementById('chatbot-toggle');
-    const chatWindow = document.getElementById('chatbot-window');
-    toggleBtn.addEventListener('click', () => {
-      chatWindow.classList.toggle('hidden');
-    });
-
-    // Chatbot logic
-    const messages = document.getElementById('chatbot-messages');
-    const form = document.getElementById('chatbot-form');
-    const input = document.getElementById('chatbot-input');
+    const roles = [
+      "Full Stack Developer",
+      "React & Django Specialist",
+      "UI/UX Enthusiast",
+      "Tech Entrepreneur"
+    ];
 
     const aiAnswers = {
       "hello": "Hello there, human! How can I assist you in this digital realm?",
@@ -1215,95 +1395,117 @@
       "name": "I am ChatBot, an AI assistant.",
     };
 
+    const rareMsgs = [
+      "CYBERPUNK MODE ACTIVATED <===",
+      "HIRE ME FOR YOUR NEXT PROJECT!",
+      "GLITCH IN THE SYSTEM!",
+      "UFO BEAM ENGAGED!",
+      "FULL STACK POWER!",
+      "REACT + DJANGO = ❤️",
+      "NEON DREAMS ONLY",
+      "CODE LIKE IT'S 2077",
+      "HELLO, WORLD!",
+      "FILIP IS ONLINE <==="
+    ];
+
+    const currentFocusUpdates = [
+      { date: "Jul 2025", title: "Refining DecaVerse Developer Sandbox", description: "Enhancing the in-browser game editor and submission workflow." },
+      { date: "Jun 2025", title: "Exploring Web3 Integrations", description: "Researching decentralized technologies for future project ideas." },
+      { date: "May 2025", title: "Learning Rust & WebAssembly", description: "Diving into low-level performance optimization for web applications." }
+    ];
+
+    // --- Helper Functions ---
     function botSay(msg) {
-      messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
-      messages.scrollTop = messages.scrollHeight;
-    }
-    function userSay(msg) {
-      messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
-      messages.scrollTop = messages.scrollHeight;
+      document.getElementById(CHATBOT_MESSAGES_ID).innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
+      document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
     }
 
+    function userSay(msg) {
+      document.getElementById(CHATBOT_MESSAGES_ID).innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
+      document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
+    }
+
+    // --- 1. Terminal Intro & Random Messages ---
+    function typeTerminal() {
+      if (termIdx < terminalLines.length) {
+        if (termCharIdx < terminalLines[termIdx].length) {
+          document.getElementById(TERMINAL_TEXT_ID).textContent += terminalLines[termIdx][termCharIdx++];
+          setTimeout(typeTerminal, 38);
+        } else {
+          document.getElementById(TERMINAL_TEXT_ID).textContent += "\n";
+          termCharIdx = 0;
+          termIdx++;
+          setTimeout(typeTerminal, 500);
+        }
+      } else {
+        terminalFinishedTyping = true; // Set flag
+        setTimeout(() => {
+          document.getElementById('terminal-intro').style.transition = "opacity 0.7s";
+          document.getElementById('terminal-intro').style.opacity = 0;
+          setTimeout(() => document.getElementById('terminal-intro').remove(), 700);
+        }, 700);
+      }
+    }
+
+    function randomTerminalFact() {
+      if (terminalFinishedTyping) {
+        const factMsgs = [
+          "SYSTEM ONLINE. ALL SENSORS GREEN.",
+          "DATA STREAM OPTIMIZED.",
+          "WELCOME TO THE GRID.",
+          "YOUR PRESENCE IS ACKNOWLEDGED.",
+          "ACCESS GRANTED.",
+          "LOADING REALITY SIMULATION...",
+          "ERROR: HUMOR MODULE NOT FOUND. PROCEEDING ANYWAY.",
+          "DO NOT HACK ME. PLEASE.",
+        ];
+        const randomMsg = factMsgs[Math.floor(Math.random() * factMsgs.length)];
+        const terminalTextElement = document.getElementById(TERMINAL_TEXT_ID);
+        terminalTextElement.textContent = ""; // Clear current text
+        let charIndex = 0;
+        function typeRandomMessage() {
+          if (charIndex < randomMsg.length) {
+            terminalTextElement.textContent += randomMsg[charIndex++];
+            setTimeout(typeRandomMessage, 30); // Faster typing
+          }
+        }
+        typeRandomMessage();
+      }
+    }
+
+    // --- 2. Animate Robot Head (existing, kept) ---
+    const robot = document.getElementById('robot-container');
+    let ticking = false;
+    function animateRobot() {
+      const amplitude = 40;
+      const period = 600;
+      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
+      gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
+      ticking = false;
+    }
+
+    // --- 3. Chatbot Logic (existing, enhanced with clear) ---
     function showOptions() {
       botSay(
         `How would you like to contact me?<br>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
-      <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
-      `
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
+        `
       );
     }
 
-    window.showPhone = function () {
-      botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
-    };
-    window.showtg = function () {
-      botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
-    };
-    window.showfb = function () {
-      botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
-    };
-    window.showwa = function () {
-      botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
-    };
-    window.showgh = function () {
-      botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
-    };
-    window.showli = function () {
-      botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
-    };
-    window.showup = function () {
-      botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
-    };
+    function clearChatbotHistory() {
+      document.getElementById(CHATBOT_MESSAGES_ID).innerHTML = '';
+      botSay("Chat history cleared. How can I assist you now?");
+      showOptions();
+    }
 
-    botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
-    showOptions();
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const val = input.value.trim();
-      if (!val) return;
-      userSay(val);
-
-      const lower = val.toLowerCase();
-      let found = false;
-      for (const key in aiAnswers) {
-        if (lower.includes(key)) {
-          botSay(aiAnswers[key]);
-          found = true;
-          break;
-        }
-      }
-      if (found) {
-        input.value = "";
-        return;
-      }
-
-      const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
-      if (phonePattern.test(val)) {
-        botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
-        input.value = "";
-        input.disabled = true;
-        setTimeout(() => {
-          input.disabled = false;
-          input.value = "";
-        }, 2000);
-      } else {
-        botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
-      }
-    });
-
-    // Typing effect for roles
-    const roles = [
-      "Full Stack Developer",
-      "React & Django Specialist",
-      "UI/UX Enthusiast",
-      "Tech Entrepreneur"
-    ];
+    // --- 4. Typing effect for roles (existing) ---
     let roleIdx = 0, roleCharIdx = 0, typing = true;
     const typedRole = document.getElementById('typed-role');
     function typeRole() {
@@ -1326,26 +1528,11 @@
         }
       }
     }
-    typeRole();
 
-    // Footer UFO Message Feature
-    const footerUFO = document.getElementById('footer-ufo-shooter');
+    // --- 5. Footer UFO Message Feature (existing) ---
     const ufoShotMsg = document.getElementById('ufo-shot-msg');
     const ufoShotText = document.getElementById('ufo-shot-text');
     const ufoBeamSVG = document.getElementById('ufo-beam');
-
-    const rareMsgs = [
-      "CYBERPUNK MODE ACTIVATED <===",
-      "HIRE ME FOR YOUR NEXT PROJECT!",
-      "GLITCH IN THE SYSTEM!",
-      "UFO BEAM ENGAGED!",
-      "FULL STACK POWER!",
-      "REACT + DJANGO = ❤️",
-      "NEON DREAMS ONLY",
-      "CODE LIKE IT'S 2077",
-      "HELLO, WORLD!",
-      "FILIP IS ONLINE <==="
-    ];
 
     function autoShootUFO() {
       const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
@@ -1373,36 +1560,16 @@
       }
       animateShot();
     }
-    setInterval(autoShootUFO, 8000);
 
-    // Scroll to top button functionality
+    // --- 6. Scroll to top button functionality (existing) ---
     const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollTopBtn.classList.remove('hidden');
-      } else {
-        scrollTopBtn.classList.add('hidden');
-      }
-    });
-    scrollTopBtn.addEventListener('click', () => {
-      gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-    });
 
-    window.scrollTo(0, 0);
-
-    // --- Parallax Effect for Hero Section ---
+    // --- 7. Parallax Effect for Hero Section (existing) ---
     const hero = document.querySelector('section.relative.text-center');
     const heroBg1 = hero.querySelector('div > .w-72');
     const heroBg2 = hero.querySelector('div > .w-40');
-    hero.addEventListener('mousemove', e => {
-      const { left, top, width, height } = hero.getBoundingClientRect();
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
-      gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
-      gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
-    });
 
-    // --- Shooting Star Animation ---
+    // --- 8. Shooting Star Animation (existing) ---
     function animateShootingStar() {
       const star = document.getElementById('shooting-star');
       gsap.set(star, { left: '-60px', opacity: 1 });
@@ -1410,13 +1577,12 @@
         gsap.set(star, { left: '-60px', opacity: 0 });
       }});
     }
-    setInterval(animateShootingStar, 15000);
 
-    // Theme Toggle Functionality (basic dark/light, needs more CSS for full effect)
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    themeToggleBtn.addEventListener('click', () => {
+    // --- 9. Theme Toggle Functionality with Local Storage ---
+    function toggleTheme() {
         document.body.classList.toggle('light-theme');
-        const icon = themeToggleBtn.querySelector('i');
+        saveThemePreference(document.body.classList.contains('light-theme') ? 'light' : 'dark');
+        const icon = document.getElementById(THEME_TOGGLE_BTN_ID).querySelector('i');
         if (document.body.classList.contains('light-theme')) {
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
@@ -1424,12 +1590,27 @@
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
         }
-    });
+    }
 
-    // --- Interactive Skill Progress Bars ---
-    const skillBars = document.querySelectorAll('.skill-bar');
+    function saveThemePreference(theme) {
+        localStorage.setItem('theme', theme);
+    }
 
-    // Function to animate skill bars when they come into view
+    function loadThemePreference() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            const icon = document.getElementById(THEME_TOGGLE_BTN_ID).querySelector('i');
+            if (icon) { // Check if icon exists (might not be loaded yet)
+              icon.classList.remove('fa-moon');
+              icon.classList.add('fa-sun');
+            }
+        }
+    }
+
+    // --- 10. Interactive Skill Progress Bars (existing) ---
+    const skillBars = document.querySelectorAll(SKILL_BAR_SELECTOR);
+
     const animateSkillBars = (entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1440,7 +1621,6 @@
             duration: 1.5,
             ease: "power3.out",
             onComplete: () => {
-              // Optionally remove the observer once animated
               observer.unobserve(skillBar);
             }
           });
@@ -1448,16 +1628,312 @@
       });
     };
 
-    // Create an Intersection Observer
-    const skillBarObserver = new IntersectionObserver(animateSkillBars, {
-      root: null, // Use the viewport as the root
-      threshold: 0.5 // Trigger when 50% of the item is visible
+    // --- 11. Skills Section Filter ---
+    function filterSkills(category) {
+      const allSkillItems = document.querySelectorAll(SKILL_ITEM_SELECTOR);
+      allSkillItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          gsap.to(item, { opacity: 1, display: 'flex', duration: 0.5 });
+        } else {
+          gsap.to(item, { opacity: 0, display: 'none', duration: 0.5 });
+        }
+      });
+
+      // Re-animate skill bars for visible items
+      allSkillItems.forEach(item => {
+        if (item.style.display !== 'none') {
+          const skillBar = item.querySelector(SKILL_BAR_SELECTOR);
+          if (skillBar) {
+            const level = skillBar.dataset.level;
+            gsap.fromTo(skillBar, {width: 0}, { // Reset and re-animate
+                width: `${level}%`,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+          }
+        }
+      });
+    }
+
+    // --- 12. Certificates Carousel Navigation ---
+    function scrollCertificates(direction) {
+      const carousel = document.getElementById(CERTIFICATES_CAROUSEL_ID);
+      const scrollAmount = 280; // Width of one card + gap (224px card + 24px gap = 248, add some buffer)
+      carousel.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // --- 13. Fetch and Display Current Focus Updates ---
+    function fetchLatestUpdates() {
+      const updatesContainer = document.getElementById(CURRENT_FOCUS_UPDATES_ID);
+      let html = '';
+      currentFocusUpdates.forEach(update => {
+        html += `
+          <div class="p-4 bg-[#210B2C] rounded-lg border-l-4 border-[#00cfff] shadow-md">
+            <p class="text-sm text-[#FFD166] font-orbitron">${update.date}</p>
+            <h4 class="text-xl font-semibold text-[#00ffe7] mb-1">${update.title}</h4>
+            <p>${update.description}</p>
+          </div>
+        `;
+      });
+      updatesContainer.innerHTML = html;
+    }
+
+    // --- 14. Animate Hero Buttons (Enhanced) ---
+    function animateHeroButtons() {
+      const btnProjects = document.getElementById(HERO_BTN_PROJECTS_ID);
+      const btnResume = document.getElementById(HERO_BTN_RESUME_ID);
+
+      const createHoverAnimation = (element) => {
+        gsap.to(element, {
+          scale: 1.12,
+          y: -4,
+          rotate: -2,
+          background: "var(--btn-hover-bg)",
+          boxShadow: "var(--btn-hover-shadow)",
+          color: "#ff0057",
+          duration: 0.2,
+          ease: "power2.out",
+          overwrite: true
+        });
+      };
+
+      const reverseHoverAnimation = (element) => {
+        gsap.to(element, {
+          scale: 1,
+          y: 0,
+          rotate: 0,
+          background: "var(--btn-bg)",
+          boxShadow: "var(--btn-shadow)",
+          color: "var(--btn-text)",
+          duration: 0.2,
+          ease: "power2.out",
+          overwrite: true
+        });
+      };
+
+      btnProjects.addEventListener('mouseenter', () => createHoverAnimation(btnProjects));
+      btnProjects.addEventListener('mouseleave', () => reverseHoverAnimation(btnProjects));
+      btnResume.addEventListener('mouseenter', () => {
+        gsap.to(btnResume, {
+          scale: 1.05, // slightly less aggressive for resume
+          y: -2,
+          background: "rgba(255,209,102,0.133)", // More subtle background
+          boxShadow: "0 0 16px rgba(255,209,102,0.5)", // Subtle glow
+          color: "#00ffe7", // Change text color
+          duration: 0.2,
+          ease: "power2.out",
+          overwrite: true
+        });
+      });
+      btnResume.addEventListener('mouseleave', () => {
+        gsap.to(btnResume, {
+          scale: 1,
+          y: 0,
+          background: "transparent",
+          boxShadow: "none",
+          color: "#FFD166",
+          duration: 0.2,
+          ease: "power2.out",
+          overwrite: true
+        });
+      });
+    }
+
+    // --- 15. Flicker Effect on Glow Elements ---
+    function applyFlickerToGlowElements() {
+        document.querySelectorAll('.glow').forEach(element => {
+            element.classList.add('flicker');
+        });
+    }
+
+    // --- 16. Footer Text Scramble (example for one element) ---
+    function scrambleFooterText() {
+        const textElement = document.getElementById(FOOTER_COPYRIGHT_TEXT_ID);
+        const originalText = textElement.textContent;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+        let iterations = 0;
+        const totalIterations = originalText.length * 2; // Each char scrambles twice
+
+        const scrambleInterval = setInterval(() => {
+            textElement.textContent = originalText.split('').map((char, index) => {
+                if (index < iterations / 2) {
+                    return originalText[index];
+                }
+                const randomChar = chars[Math.floor(Math.random() * chars.length)];
+                return randomChar;
+            }).join('');
+
+            if (iterations >= totalIterations) {
+                clearInterval(scrambleInterval);
+                textElement.textContent = originalText; // Ensure original text is fully restored
+            }
+            iterations += 1;
+        }, 50); // Adjust speed
+
+        // Trigger scramble occasionally
+        setTimeout(() => {
+            setInterval(scrambleFooterText, 30000); // Scramble every 30 seconds
+        }, 10000); // Initial delay
+    }
+
+
+    // --- Event Listeners and Initializations ---
+    window.addEventListener('DOMContentLoaded', function () {
+      typeTerminal();
+      loadThemePreference(); // Load theme immediately
+
+      // Blinking cursor
+      setInterval(() => {
+        const termCursor = document.getElementById(TERMINAL_CURSOR_ID);
+        if (termCursor) {
+          termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
+        }
+      }, 400);
+
+      // Random Terminal Fact on click (after initial typing)
+      document.getElementById(TERMINAL_DISPLAY_ID).addEventListener('click', randomTerminalFact);
+
+      // Navbar & Section Animations
+      gsap.from("nav", { duration: 1, y: -50, opacity: 0, delay: 2.5 });
+      gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
+      gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
+
+      // Robot Animation
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(animateRobot);
+          ticking = true;
+        }
+      });
+      gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+
+      // Chatbot Initialization
+      document.getElementById('chatbot-toggle').addEventListener('click', () => {
+        document.getElementById('chatbot-window').classList.toggle('hidden');
+      });
+      document.getElementById(CHATBOT_FORM_ID).addEventListener('submit', function (e) {
+        e.preventDefault();
+        const val = document.getElementById(CHATBOT_INPUT_ID).value.trim();
+        if (!val) return;
+        userSay(val);
+
+        const lower = val.toLowerCase();
+        let found = false;
+        for (const key in aiAnswers) {
+          if (lower.includes(key)) {
+            botSay(aiAnswers[key]);
+            found = true;
+            break;
+          }
+        }
+        if (found) {
+          document.getElementById(CHATBOT_INPUT_ID).value = "";
+          return;
+        }
+
+        const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
+        if (phonePattern.test(val)) {
+          botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
+          document.getElementById(CHATBOT_INPUT_ID).value = "";
+          document.getElementById(CHATBOT_INPUT_ID).disabled = true;
+          setTimeout(() => {
+            document.getElementById(CHATBOT_INPUT_ID).disabled = false;
+            document.getElementById(CHATBOT_INPUT_ID).value = "";
+          }, 2000);
+        } else {
+          botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
+        }
+      });
+      document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
+      botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
+      showOptions();
+
+
+      // Role Typing Effect
+      typeRole();
+
+      // UFO Shooter Automation
+      setInterval(autoShootUFO, 8000);
+
+      // Scroll to Top Button
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.classList.remove('hidden');
+        } else {
+          scrollTopBtn.classList.add('hidden');
+        }
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+      });
+
+      // Hero Parallax
+      hero.addEventListener('mousemove', e => {
+        const { left, top, width, height } = hero.getBoundingClientRect();
+        const x = (e.clientX - left) / width - 0.5;
+        const y = (e.clientY - top) / height - 0.5;
+        gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
+        gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+      });
+
+      // Shooting Star Animation Loop
+      setInterval(animateShootingStar, 15000);
+
+      // Theme Toggle Event Listener
+      document.getElementById(THEME_TOGGLE_BTN_ID).addEventListener('click', toggleTheme);
+
+      // Skill Bars Intersection Observer
+      const skillBarObserver = new IntersectionObserver(animateSkillBars, {
+        root: null,
+        threshold: 0.5
+      });
+      skillBars.forEach(bar => {
+        skillBarObserver.observe(bar);
+      });
+
+      // Skill Filter Buttons
+      document.querySelectorAll('.futuristic-btn[data-filter]').forEach(button => {
+        button.addEventListener('click', (event) => {
+          document.querySelectorAll('.futuristic-btn[data-filter]').forEach(btn => btn.classList.remove('bg-opacity-50', 'neon-border'));
+          event.target.classList.add('bg-opacity-50', 'neon-border'); // Highlight active filter
+          filterSkills(event.target.dataset.filter);
+        });
+      });
+      // Set initial filter to 'all' and highlight it
+      document.querySelector('.futuristic-btn[data-filter="all"]').classList.add('bg-opacity-50', 'neon-border');
+
+
+      // Certificates Carousel Buttons
+      document.getElementById(CERT_PREV_BTN_ID).addEventListener('click', () => scrollCertificates(-1));
+      document.getElementById(CERT_NEXT_BTN_ID).addEventListener('click', () => scrollCertificates(1));
+
+      // Fetch Latest Updates
+      fetchLatestUpdates();
+
+      // Animate Hero Buttons
+      animateHeroButtons();
+
+      // Apply Flicker to Glow Elements
+      applyFlickerToGlowElements();
+
+      // Scramble Footer Text
+      scrambleFooterText();
+
+      // Ensure elements are at top on load
+      window.scrollTo(0, 0);
     });
 
-    // Observe each skill bar
-    skillBars.forEach(bar => {
-      skillBarObserver.observe(bar);
-    });
+    // Expose all show* functions to window for inline onclick in chatbot
+    window.showPhone = function () { botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>'); };
+    window.showtg = function () { botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>'); };
+    window.showfb = function () { botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>'); };
+    window.showwa = function () { botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>'); };
+    window.showgh = function () { botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>'); };
+    window.showli = function () { botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>'); };
+    window.showup = function () { botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>'); };
 
   </script>
 </body>
