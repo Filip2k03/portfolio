@@ -6,20 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stephan | Full Stack Developer</title>
 
-  <!-- Google Fonts for modern style -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap"
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind CSS (CDN for demo, use CLI for production!) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
 
   <style>
     :root {
@@ -215,7 +212,7 @@
     }
 
     .futuristic-btn,
-    #theme-toggle,
+    #theme-toggle-btn,
     #scrollTopBtn,
     #chatbot-toggle {
       font-family: 'Orbitron', 'Share Tech Mono', monospace, sans-serif;
@@ -230,7 +227,7 @@
     }
 
     .futuristic-btn:hover,
-    #theme-toggle:hover,
+    #theme-toggle-btn:hover,
     #scrollTopBtn:hover,
     #chatbot-toggle:hover {
       background: var(--btn-hover-bg) !important;
@@ -379,7 +376,7 @@
         width: 60px;
       }
 
-      #footer-robot-shooter {
+      #footer-ufo-shooter {
         margin-bottom: 0.5rem;
         margin-right: 0;
         display: flex;
@@ -434,9 +431,6 @@
 </head>
 
 <body>
-  <!-- Loader removed -->
-
-  <!-- Terminal Intro should be after loader -->
   <div id="terminal-intro"
     style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:#0f0617;">
     <div
@@ -445,10 +439,8 @@
     </div>
   </div>
 
-  <!-- Animated circuit background -->
   <div class="circuit-bg"></div>
 
-  <!-- Cyberpunk Robot SVG (floating, animated) -->
   <div id="robot-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none"
     style="width:120px;height:120px;">
     <svg class="cyberpunk-robot" viewBox="0 0 120 120" width="80" height="80" fill="none"
@@ -462,63 +454,49 @@
           </feMerge>
         </filter>
       </defs>
-      <!-- Head -->
       <rect x="30" y="40" width="60" height="40" rx="16" fill="#1a0933" stroke="#ffe600" stroke-width="4"
         filter="url(#cyber-glow)" />
-      <!-- Eyes -->
       <rect x="45" y="55" width="10" height="10" rx="3" fill="#00ffe7" filter="url(#cyber-glow)" />
       <rect x="65" y="55" width="10" height="10" rx="3" fill="#ff0057" filter="url(#cyber-glow)" />
-      <!-- Mouth -->
       <rect x="55" y="75" width="10" height="4" rx="2" fill="#ffe600" opacity="0.8" />
-      <!-- Antenna -->
       <rect x="58" y="28" width="4" height="18" rx="2" fill="#ffe600" />
       <circle cx="60" cy="28" r="5" fill="#00ffe7" stroke="#ffe600" stroke-width="2" />
-      <!-- Cheek lights -->
       <circle cx="38" cy="80" r="3" fill="#ff0057" />
       <circle cx="82" cy="80" r="3" fill="#00ffe7" />
-      <!-- Head shine -->
       <ellipse cx="60" cy="50" rx="18" ry="6" fill="#fff" opacity="0.08" />
-      <!-- Circuit cracks -->
       <path d="M40 60 Q35 70 50 80" stroke="#ff0057" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
       <path d="M80 60 Q85 70 70 80" stroke="#00ffe7" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
-      <!-- Destroyed effect -->
       <polygon points="60,40 62,38 64,40 62,42" fill="#ff0057" opacity="0.7" />
       <polygon points="50,60 52,58 54,60 52,62" fill="#ffe600" opacity="0.7" />
       <polygon points="70,60 72,58 74,60 72,62" fill="#00ffe7" opacity="0.7" />
     </svg>
   </div>
 
-  <!-- Navbar -->
-  <nav class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
+  <nav x-data="{ open: false }" class="p-4 glass sticky top-0 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
     <h1 class="text-3xl font-extrabold glitch tracking-widest" data-text="Stephan.dev">Stephan.dev</h1>
     <div class="space-x-8 text-lg hidden md:flex font-orbitron">
-      <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
-        <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
-      </button>
-      <button id="theme-toggle" class="fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none">
-        <i class="fa-solid fa-moon"></i>
-      </button>
       <a href="#about" class="hover:text-[#FFD166] transition">About</a>
       <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
       <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
       <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
     </div>
-    <!-- Mobile menu icon -->
-    <div x-data="{ open: false }" class="md:hidden">
+    <div class="md:hidden">
       <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
         <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
       </button>
       <div x-show="open"
         class="absolute right-4 mt-2 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron">
-        <a href="#about" class="hover:text-[#FFD166] transition">About</a>
-        <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
-        <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
-        <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
+        <a @click="open = false" href="#about" class="hover:text-[#FFD166] transition">About</a>
+        <a @click="open = false" href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
+        <a @click="open = false" href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
+        <a @click="open = false" href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
       </div>
     </div>
+    <button id="theme-toggle-btn" class="hidden md:block fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none">
+      <i class="fa-solid fa-moon"></i>
+    </button>
   </nav>
 
-  <!-- Hero Section -->
   <section class="relative text-center py-32 md:py-44">
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="w-72 h-72 bg-[#00ffe733] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2"></div>
@@ -540,7 +518,6 @@
     </div>
   </section>
 
-  <!-- About -->
   <section id="about" class="container mx-auto px-6 py-20">
     <div class="glass robotic-panel about-cyber-bg rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
       <h3 class="text-4xl font-led mb-6 glitch" data-text="About Me">About Me</h3>
@@ -548,46 +525,18 @@
         <span class="text-[#ffe600]">I love blending futuristic UI, circuit chaos, and neon tech.</span><br>
         Founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building POS
         systems and ecommerce for Myanmar and beyond.<br>
-        <!-- <span class="text-[#ff0057]">Welcome to my 2077 portfolio.</span> -->
       </p>
     </div>
   </section>
-  <!-- UFO Data Disk Project Card Example (replace a project card in your Projects section) -->
-<!-- <div
-  class="ufo-project-card glass rounded-full shadow-2xl p-8 flex flex-col items-center justify-center overflow-hidden group relative"
-  style="width:260px;height:260px;margin:auto;"> -->
-  <!-- UFO Disk SVG -->
-  <!-- <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;">
-    <ellipse cx="90" cy="110" rx="70" ry="30" fill="#1a0933" stroke="#00ffe7" stroke-width="4"/>
-    <ellipse cx="90" cy="110" rx="60" ry="20" fill="#00ffe733"/> -->
-    <!-- Pins/Contacts -->
-    <!-- <rect x="30" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
-    <rect x="142" y="140" width="8" height="18" rx="3" fill="#FFD166"/>
-    <rect x="85" y="150" width="10" height="18" rx="3" fill="#FFD166"/>
-  </svg> -->
-  <!-- Scan Line -->
-  <!-- <svg width="180" height="180" class="absolute inset-0 pointer-events-none" style="z-index:2;">
-    <rect class="scan-line" x="0" y="-180" width="180" height="16" fill="#00ffe7aa" rx="8"/>
-  </svg> -->
-  <!-- Project Content -->
-  <!-- <div class="relative z-10 text-center">
-    <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">MBLogistics Express</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
-        <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live site</a> 
-  </div>
-</div> -->
 
-  <!-- Skills -->
   <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
     <div class="container mx-auto">
       <div class="glass robotic-panel rounded-2xl p-10 shadow-2xl max-w-6xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          <!-- Tech stack item -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- HTML SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path
@@ -595,7 +544,6 @@
                   fill="#E44D26" />
                 <path d="M16 26.1l4.4-1.2.4-4.6H16v-2h5.1l-.5 6.1-4.6 1.3z" fill="#F16529" />
               </svg>
-              <!-- CSS SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path
@@ -609,17 +557,14 @@
               HTML / CSS
             </span>
           </div>
-          <!-- JavaScript / React -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- JS SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <rect width="32" height="32" rx="8" fill="#F7DF1E" />
                 <text x="8" y="24" font-size="16" font-family="monospace" fill="#222">JS</text>
               </svg>
-              <!-- React SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <circle cx="16" cy="16" r="3" fill="#61DAFB" />
@@ -635,18 +580,15 @@
               JavaScript / React
             </span>
           </div>
-          <!-- Tailwind / Bootstrap -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- Tailwind SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path
                   d="M16 10c-4 0-6 2-7 6 1-2 2.5-3 5-3 2 0 3 1 4 3 1 2 2.5 3 5 3 4 0 6-2 7-6-1 2-2.5 3-5 3-2 0-3-1-4-3-1-2-2.5-3-5-3z"
                   fill="#38BDF8" />
               </svg>
-              <!-- Bootstrap SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <rect width="32" height="32" rx="8" fill="#7952B3" />
@@ -658,17 +600,14 @@
               Tailwind / Bootstrap
             </span>
           </div>
-          <!-- PHP / Laravel -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- PHP SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <ellipse cx="16" cy="16" rx="14" ry="10" fill="#8993BE" />
                 <text x="8" y="21" font-size="14" font-family="monospace" fill="#232531">PHP</text>
               </svg>
-              <!-- Laravel SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path d="M6 22l10-14 10 14-10 6z" fill="#FF2D20" />
@@ -679,17 +618,14 @@
               PHP / Laravel
             </span>
           </div>
-          <!-- Python / Django -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- Python SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <rect width="32" height="32" rx="8" fill="#3776AB" />
                 <text x="7" y="24" font-size="16" font-family="monospace" fill="#FFD43B">Py</text>
               </svg>
-              <!-- Django SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <rect width="32" height="32" rx="8" fill="#092E20" />
@@ -701,17 +637,14 @@
               Python / Django
             </span>
           </div>
-          <!-- MySQL / MongoDB -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- MySQL SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <ellipse cx="16" cy="16" rx="14" ry="10" fill="#4479A1" />
                 <text x="8" y="21" font-size="14" font-family="monospace" fill="#fff">SQL</text>
               </svg>
-              <!-- MongoDB SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path d="M16 6l2 18-2 2-2-2 2-18z" fill="#47A248" />
@@ -722,11 +655,9 @@
               MySQL / MongoDB
             </span>
           </div>
-          <!-- REST API -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- API SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#FFD166" />
                 <text x="7" y="24" font-size="16" font-family="monospace" fill="#210B2C">API</text>
@@ -737,17 +668,14 @@
               REST API
             </span>
           </div>
-          <!-- Firebase / AWS -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- Firebase SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <path d="M8 24l8-16 8 16-8 4z" fill="#FFA000" />
                 <path d="M16 8v20" stroke="#FFD166" stroke-width="2" />
               </svg>
-              <!-- AWS SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <ellipse cx="16" cy="20" rx="10" ry="4" fill="#FF9900" />
@@ -759,11 +687,9 @@
               Firebase / AWS
             </span>
           </div>
-          <!-- C# -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- C# SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#68217A" />
                 <text x="7" y="24" font-size="16" font-family="monospace" fill="#fff">C#</text>
@@ -774,11 +700,9 @@
               C#
             </span>
           </div>
-          <!-- Expo -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- Expo SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <circle cx="16" cy="16" r="14" stroke="#000" stroke-width="2" fill="#fff" />
@@ -790,11 +714,9 @@
               Expo
             </span>
           </div>
-          <!-- Android Studio -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- Android Studio SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <circle cx="16" cy="16" r="14" fill="#3DDC84" />
@@ -807,11 +729,9 @@
               Android Studio
             </span>
           </div>
-          <!-- Kotlin -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- Kotlin SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#7F52FF" />
                 <polygon points="6,26 26,6 26,26" fill="#FFB300" />
@@ -823,11 +743,9 @@
               Kotlin
             </span>
           </div>
-          <!-- XML -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- XML SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#F36D33" />
                 <text x="7" y="24" font-size="16" font-family="monospace" fill="#fff">XML</text>
@@ -838,17 +756,14 @@
               XML
             </span>
           </div>
-          <!-- Vue / Vite -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span class="flex space-x-2 mb-3">
-              <!-- Vue SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <polygon points="16,6 26,26 6,26" fill="#42B883" />
                 <polygon points="16,10 23,24 9,24" fill="#35495E" />
               </svg>
-              <!-- Vite SVG -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <polygon points="16,6 26,26 6,26" fill="#FFD166" />
@@ -860,11 +775,9 @@
               Vue / Vite
             </span>
           </div>
-          <!-- Next.js -->
           <div
             class="glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition">
             <span>
-              <!-- Next.js SVG (simple text) -->
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect width="32" height="32" rx="8" fill="#fff" />
                 <text x="4" y="24" font-size="16" font-family="monospace" fill="#000">Next.js</text>
@@ -879,7 +792,6 @@
       </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects" class="py-20 container mx-auto px-6">
     <h3 class="text-4xl font-led mb-10 text-center">Projects</h3>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -908,10 +820,8 @@
       </div>
     </div>
 
-    <!-- GitHub Projects Section -->
     <h4 class="text-3xl font-led mt-16 mb-8 text-center">GitHub Projects</h4>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <!-- Student Management with Django -->
       <div
         class="glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron">Student Management with Django</h5>
@@ -920,7 +830,6 @@
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <!-- WhisperX Frontend -->
       <div
         class="glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron">WhisperX Frontend</h5>
@@ -929,7 +838,6 @@
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <!-- Tele AI Poster -->
       <div
         class="glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron">Tele AI Poster</h5>
@@ -941,7 +849,6 @@
     </div>
   </section>
 
-  <!-- Work Experience -->
   <section id="experience" class="py-20 px-6">
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
@@ -970,16 +877,14 @@
     </div>
   </section>
 
-  <!-- Education -->
   <section id="education" class="py-20 px-6 bg-[#2E1F3C]">
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Education</h3>
         <div class="space-y-8">
-          <!-- MST University -->
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="/assets/schools/mst.png" alt="MST University"
+              <img src="https://via.placeholder.com/80x80/311C3B/FFD166?text=MST" alt="MST University"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -988,10 +893,9 @@
               <p class="text-[#BC96E6] font-montserrat">2024/2025 – <span class="text-[#FFD166]">Present</span></p>
             </div>
           </div>
-          <!-- Cosmo Seven -->
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="/assets/schools/cosmo7.png" alt="Cosmo Seven"
+              <img src="https://via.placeholder.com/80x80/311C3B/FFD166?text=Cosmo7" alt="Cosmo Seven"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1009,69 +913,33 @@
     </div>
   </section>
 
-  <!-- Certificates -->
   <section id="certificates" class="py-20 px-6">
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Certificates</h3>
         <div class="overflow-x-auto">
           <div class="flex space-x-6 min-w-[320px]">
-            <!-- Example certificate images, update src as needed -->
             <div class="flex-shrink-0 w-56">
-              <img src="/assets/certificates/cert1.png" alt="Certificate 1"
+              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1"
                 class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
               <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
             </div>
             <div class="flex-shrink-0 w-56">
-              <img src="/assets/certificates/cert2.png" alt="Certificate 2"
+              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2"
                 class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
               <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
             </div>
             <div class="flex-shrink-0 w-56">
-              <img src="/assets/certificates/cert3.png" alt="Certificate 3"
+              <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3"
                 class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
               <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
             </div>
-            <!-- Add more certificates as needed -->
-          </div>
+            </div>
         </div>
       </div>
     </div>
   </section>
-   <!-- AI Temple Project Card -->
-  <!-- <section class="py-20 container mx-auto px-6">
-    <div class="ufo-project-card glass rounded-full shadow-2xl p-8 flex flex-col items-center justify-center overflow-hidden group relative"
-      style="width:260px;height:260px;margin:auto;"> -->
-      <!-- Temple SVG Illustration -->
-      <!-- <svg width="180" height="180" viewBox="0 0 180 180" class="absolute inset-0 pointer-events-none ufo-glow" style="z-index:0;"> -->
-        <!-- Glass dome -->
-        <!-- <ellipse cx="90" cy="90" rx="70" ry="40" fill="#fff" opacity="0.08"/>
-        <ellipse cx="90" cy="110" rx="60" ry="24" fill="#00ffe744" /> -->
-        <!-- Temple base -->
-        <!-- <rect x="50" y="120" width="80" height="18" rx="8" fill="#210B2C" stroke="#00ffe7" stroke-width="3"/> -->
-        <!-- Temple body -->
-        <!-- <rect x="70" y="90" width="40" height="40" rx="10" fill="#1a0933" stroke="#FFD166" stroke-width="3"/> -->
-        <!-- Data tree (glowing) -->
-        <!-- <ellipse cx="90" cy="80" rx="14" ry="8" fill="#00ffe7" opacity="0.5"/> -->
-        <!-- <rect x="87" y="80" width="6" height="18" rx="3" fill="#ffe600" /> -->
-        <!-- Robot monk (meditating) -->
-        <!-- <circle cx="90" cy="105" r="8" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
-        <rect x="86" y="113" width="8" height="10" rx="3" fill="#FFD166" /> -->
-        <!-- Light rays -->
-        <!-- <path d="M90 60 L90 40" stroke="#FFD166" stroke-width="2" opacity="0.7"/>
-        <path d="M90 60 L75 50" stroke="#00ffe7" stroke-width="2" opacity="0.5"/>
-        <path d="M90 60 L105 50" stroke="#00ffe7" stroke-width="2" opacity="0.5"/> -->
-      <!-- </svg> -->
-      <!-- Project Content -->
-      <!-- <div class="relative z-10 text-center">
-        <h4 class="text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron">AI Temple</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">A serene, futuristic temple where robot monks meditate under glowing data trees. The temple is built from transparent glass and shifting light.</p>
-        <span class="futuristic-link">Concept Art / Cyber World</span>
-      </div>
-    </div>
-  </section> -->
-  
-  <!-- Contact -->
+
   <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
     <div class="container mx-auto text-center">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-lg mx-auto">
@@ -1107,378 +975,347 @@
       </form>
     </div>
   </div>
-  <!-- top to scroll -->
   <button id="scrollTopBtn"
     class="hidden fixed bottom-24 right-6 z-50 bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-3 text-xl hover:scale-110 transition focus:outline-none">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- Footer -->
   <footer
     class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
-    <!-- Replace robot shooter SVG with UFO SVG in footer -->
-<div id="footer-ufo-shooter" class="mr-4">
-  <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
-    <!-- UFO body -->
-    <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="#00cfff" stroke-width="4"/>
-    <ellipse cx="45" cy="50" rx="24" ry="8" fill="#00ffe733"/>
-    <!-- Dome -->
-    <ellipse cx="45" cy="42" rx="12" ry="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2"/>
-    <!-- Beam (hidden by default) -->
-    <rect id="ufo-beam" x="35" y="62" width="20" height="30" rx="10" fill="#00ffe7" opacity="0"/>
-  </svg>
-</div>
-<!-- Add this to your footer (absolute positioned) -->
-<div id="shooting-star" style="position:absolute;top:10px;left:-60px;width:60px;height:8px;z-index:10;pointer-events:none;">
-  <svg width="60" height="8">
-    <ellipse cx="30" cy="4" rx="20" ry="3" fill="#ffe600" opacity="0.7"/>
-    <ellipse cx="50" cy="4" rx="8" ry="2" fill="#00ffe7" opacity="0.7"/>
-  </svg>
-</div>
-      <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a
-          href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
+    <div id="footer-ufo-shooter" class="mr-4">
+      <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
+        <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
+        <ellipse cx="45" cy="50" rx="24" ry="8" fill="#00ffe733" />
+        <ellipse cx="45" cy="42" rx="12" ry="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2" />
+        <rect id="ufo-beam" x="35" y="62" width="20" height="30" rx="10" fill="#00ffe7" opacity="0" />
+      </svg>
     </div>
+    <div id="shooting-star"
+      style="position:absolute;top:10px;left:-60px;width:60px;height:8px;z-index:10;pointer-events:none;">
+      <svg width="60" height="8">
+        <ellipse cx="30" cy="4" rx="20" ry="3" fill="#ffe600" opacity="0.7" />
+        <ellipse cx="50" cy="4" rx="8" ry="2" fill="#00ffe7" opacity="0.7" />
+      </svg>
+    </div>
+    <span class="block text-base md:text-lg">&copy; 2025 Stephan Filip — Full Stack Developer | <a
+        href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
   </footer>
-  <div id="robot-shot-msg"
+  <div id="ufo-shot-msg"
     style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
-    <span id="robot-shot-text"></span>
+    <span id="ufo-shot-text"></span>
   </div>
 
   <script>
-  // --- Terminal Intro ---
-  const terminalLines = [
-    "Initializing...",
-    "Loading assets...",
-    "Filip is Online",
-    "Welcome, runner."
-  ];
-  let termIdx = 0, termCharIdx = 0; // Use unique variable name for terminal typing
-  const terminal = document.getElementById('terminal-intro');
-  const termText = document.getElementById('terminal-text');
-  const termCursor = document.getElementById('terminal-cursor');
+    // --- Terminal Intro ---
+    const terminalLines = [
+      "Initializing...",
+      "Loading assets...",
+      "Filip is Online",
+      "Welcome, runner."
+    ];
+    let termIdx = 0, termCharIdx = 0;
+    const terminal = document.getElementById('terminal-intro');
+    const termText = document.getElementById('terminal-text');
+    const termCursor = document.getElementById('terminal-cursor');
 
-  function typeTerminal() {
-    if (termIdx < terminalLines.length) {
-      if (termCharIdx < terminalLines[termIdx].length) {
-        termText.textContent += terminalLines[termIdx][termCharIdx++];
-        setTimeout(typeTerminal, 38);
+    function typeTerminal() {
+      if (termIdx < terminalLines.length) {
+        if (termCharIdx < terminalLines[termIdx].length) {
+          termText.textContent += terminalLines[termIdx][termCharIdx++];
+          setTimeout(typeTerminal, 38);
+        } else {
+          termText.textContent += "\n";
+          termCharIdx = 0;
+          termIdx++;
+          setTimeout(typeTerminal, 500);
+        }
       } else {
-        termText.textContent += "\n";
-        termCharIdx = 0;
-        termIdx++;
-        setTimeout(typeTerminal, 500);
-      }
-    } else {
-      setTimeout(() => {
-        // Fade out terminal intro and remove it
-        terminal.style.transition = "opacity 0.7s";
-        terminal.style.opacity = 0;
-        setTimeout(() => terminal.remove(), 700);
-      }, 700);
-    }
-  }
-
-  // Blinking cursor
-  setInterval(() => {
-    if (termCursor) {
-      termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
-    }
-  }, 400);
-
-  // Start typing after DOM is loaded
-  window.addEventListener('DOMContentLoaded', function () {
-    typeTerminal();
-  });
-
-  // Navbar and section fade-in
-  gsap.from("nav", { duration: 1, y: 3, opacity: 1 });
-  gsap.from("section", { duration: 1.3, opacity: 1, stagger: 0.4 });
-  gsap.from(".glass", { duration: 1.2, opacity: 1, y: 40, stagger: 0.3, delay: 0.5 });
-
-  // Animate Robot Head up and down on scroll (3D style)
-  const robot = document.getElementById('robot-container');
-  let ticking = false;
-  function animateRobot() {
-    const amplitude = 40; // px
-    const period = 600; // px
-    const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
-    gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
-    ticking = false;
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(animateRobot);
-      ticking = true;
-    }
-  });
-  // Initial animation
-  gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
-
-  // Chatbot toggle
-  const toggleBtn = document.getElementById('chatbot-toggle');
-  const chatWindow = document.getElementById('chatbot-window');
-  toggleBtn.addEventListener('click', () => {
-    chatWindow.classList.toggle('hidden');
-  });
-
-  // Chatbot logic
-  const messages = document.getElementById('chatbot-messages');
-  const form = document.getElementById('chatbot-form');
-  const input = document.getElementById('chatbot-input');
-
-  // Helper functions
-  function botSay(msg) {
-    messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
-    messages.scrollTop = messages.scrollHeight;
-  }
-  function userSay(msg) {
-    messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-  // Show options (all as buttons, not hrefs, for in-chat display)
-  function showOptions() {
-    botSay(
-      `How would you like to contact me?<br>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
-    <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
-    `
-    );
-  }
-
-  // Expose all show* functions to window for inline onclick
-  window.showPhone = function () {
-    botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
-  };
-  window.showtg = function () {
-    botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
-  };
-  window.showfb = function () {
-    botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
-  };
-  window.showwa = function () {
-    botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
-  };
-  window.showgh = function () {
-    botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
-  };
-  window.showli = function () {
-    botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
-  };
-  window.showup = function () {
-    botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
-  };
-
-  // Initial greeting with options
-  botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
-  showOptions();
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const val = input.value.trim();
-    if (!val) return;
-    userSay(val);
-
-    // AI Assistant logic
-    const lower = val.toLowerCase();
-    let found = false;
-    for (const key in aiAnswers) {
-      if (lower.includes(key)) {
-        botSay(aiAnswers[key]);
-        found = true;
-        break;
+        setTimeout(() => {
+          terminal.style.transition = "opacity 0.7s";
+          terminal.style.opacity = 0;
+          setTimeout(() => terminal.remove(), 700);
+        }, 700);
       }
     }
-    if (found) return;
 
-    // Simple phone validation
-    const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
-    if (phonePattern.test(val)) {
-      botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
-      input.value = "";
-      input.disabled = true;
-      setTimeout(() => {
-        input.disabled = false;
-        input.value = "";
-      }, 2000);
-    } else {
-      botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
-    }
-  });
-
-  // Typing effect for roles
-  const roles = [
-    "Full Stack Developer",
-    "React & Django Specialist",
-    "UI/UX Enthusiast",
-    "Tech Entrepreneur"
-  ];
-  let roleIdx = 0, roleCharIdx = 0, typing = true; // Use unique variable for roles
-  const typedRole = document.getElementById('typed-role');
-  function typeRole() {
-    if (typing) {
-      if (roleCharIdx < roles[roleIdx].length) {
-        typedRole.textContent += roles[roleIdx][roleCharIdx++];
-        setTimeout(typeRole, 70);
-      } else {
-        typing = false;
-        setTimeout(typeRole, 1200);
+    setInterval(() => {
+      if (termCursor) {
+        termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
       }
-    } else {
-      if (roleCharIdx > 0) {
-        typedRole.textContent = roles[roleIdx].slice(0, --roleCharIdx);
-        setTimeout(typeRole, 30);
-      } else {
-        typing = true;
-        roleIdx = (roleIdx + 1) % roles.length;
-        setTimeout(typeRole, 400);
-      }
-    }
-  }
-  typeRole();
+    }, 400);
 
-  // Rare Footer Robot Shooter Feature - AUTO ANIMATION
-  const robotSVG = document.getElementById('footer-robot-svg');
-  const shotMsg = document.getElementById('robot-shot-msg');
-  const shotText = document.getElementById('robot-shot-text');
-  const gunArm = robotSVG.querySelector('rect[x="60"]');
-  const gunTip = robotSVG.querySelector('circle[cx="82"]');
-  const rareMsgs = [
-    "CYBERPUNK MODE ACTIVATED <===",
-    "HIRE ME FOR YOUR NEXT PROJECT!",
-    "GLITCH IN THE SYSTEM!",
-    "SKY BLUE ENERGY BLAST!",
-    "FULL STACK POWER!",
-    "REACT + DJANGO = ❤️",
-    "NEON DREAMS ONLY",
-    "CODE LIKE IT'S 2077",
-    "HELLO, WORLD!",
-    "FILIP IS ONLINE <==="
-  ];
-
-  // Animate robot arm up and down forever
-  function animateArm() {
-    gsap.to(gunArm, {
-      rotation: -18,
-      transformOrigin: "60px 104px",
-      duration: 0.7, yoyo: true,
-      repeat: -1,
-      ease: "power1.inOut"
+    window.addEventListener('DOMContentLoaded', function () {
+      typeTerminal();
     });
-  }
-  animateArm();
 
-  // Auto shoot message every 8 seconds
-  function autoShoot() {
-    const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
-    shotText.textContent = msg;
-    shotMsg.style.display = 'block';
-    shotMsg.style.left = '110px';
-    shotMsg.style.bottom = '110px';
-    shotMsg.style.opacity = '1';
-    let pos = 110, opacity = 1;
+    // Navbar and section fade-in
+    gsap.from("nav", { duration: 1, y: -50, opacity: 0, delay: 2.5 }); // Fade in after terminal intro
+    gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
+    gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
 
-    // Gun flash effect
-    gunTip.setAttribute('fill', '#fff');
-    setTimeout(() => gunTip.setAttribute('fill', '#00ffe7'), 180);
+    // Animate Robot Head up and down on scroll
+    const robot = document.getElementById('robot-container');
+    let ticking = false;
+    function animateRobot() {
+      const amplitude = 40;
+      const period = 600;
+      const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
+      gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(animateRobot);
+        ticking = true;
+      }
+    });
+    gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
 
-    function animateShot() {
-      pos += 24;
-      opacity -= 0.03;
-      shotMsg.style.left = pos + 'px';
-      shotMsg.style.opacity = opacity;
-      if (pos < window.innerWidth - 300 && opacity > 0) {
-        requestAnimationFrame(animateShot);
+    // Chatbot toggle
+    const toggleBtn = document.getElementById('chatbot-toggle');
+    const chatWindow = document.getElementById('chatbot-window');
+    toggleBtn.addEventListener('click', () => {
+      chatWindow.classList.toggle('hidden');
+    });
+
+    // Chatbot logic
+    const messages = document.getElementById('chatbot-messages');
+    const form = document.getElementById('chatbot-form');
+    const input = document.getElementById('chatbot-input');
+
+    const aiAnswers = {
+      "hello": "Hello there, human! How can I assist you in this digital realm?",
+      "hi": "Greetings, user! What brings you to this advanced interface?",
+      "how are you": "As an AI, I exist to serve. How may I be of service to you?",
+      "skills": "I possess a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services (Firebase, AWS).",
+      "projects": "You can explore my projects in the 'Projects' section, showcasing my work on web and mobile applications.",
+      "contact": "You can reach Stephan via phone (+959954480806), Telegram (@stephanfilip7), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.",
+      "bye": "Farewell, human! May your code compile and your servers run swiftly.",
+      "thank you": "You're most welcome! Is there anything else I can assist you with?",
+      "who are you": "I am ChatBot, an AI assistant integrated into Stephan's portfolio to help you navigate and find information.",
+      "what is your name": "I am ChatBot, an AI assistant.",
+      "name": "I am ChatBot, an AI assistant.",
+    };
+
+    function botSay(msg) {
+      messages.innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
+      messages.scrollTop = messages.scrollHeight;
+    }
+    function userSay(msg) {
+      messages.innerHTML += `<div class="mb-1 text-right"><b>You:</b> ${msg}</div>`;
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showOptions() {
+      botSay(
+        `How would you like to contact me?<br>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
+      <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
+      `
+      );
+    }
+
+    window.showPhone = function () {
+      botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>');
+    };
+    window.showtg = function () {
+      botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>');
+    };
+    window.showfb = function () {
+      botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>');
+    };
+    window.showwa = function () {
+      botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>');
+    };
+    window.showgh = function () {
+      botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>');
+    };
+    window.showli = function () {
+      botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>');
+    };
+    window.showup = function () {
+      botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>');
+    };
+
+    botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
+    showOptions();
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (!val) return;
+      userSay(val);
+
+      const lower = val.toLowerCase();
+      let found = false;
+      for (const key in aiAnswers) {
+        if (lower.includes(key)) {
+          botSay(aiAnswers[key]);
+          found = true;
+          break;
+        }
+      }
+      if (found) {
+        input.value = "";
+        return;
+      }
+
+      const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
+      if (phonePattern.test(val)) {
+        botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
+        input.value = "";
+        input.disabled = true;
+        setTimeout(() => {
+          input.disabled = false;
+          input.value = "";
+        }, 2000);
       } else {
-        shotMsg.style.display = 'none';
+        botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
+      }
+    });
+
+    // Typing effect for roles
+    const roles = [
+      "Full Stack Developer",
+      "React & Django Specialist",
+      "UI/UX Enthusiast",
+      "Tech Entrepreneur"
+    ];
+    let roleIdx = 0, roleCharIdx = 0, typing = true;
+    const typedRole = document.getElementById('typed-role');
+    function typeRole() {
+      if (typing) {
+        if (roleCharIdx < roles[roleIdx].length) {
+          typedRole.textContent += roles[roleIdx][roleCharIdx++];
+          setTimeout(typeRole, 70);
+        } else {
+          typing = false;
+          setTimeout(typeRole, 1200);
+        }
+      } else {
+        if (roleCharIdx > 0) {
+          typedRole.textContent = roles[roleIdx].slice(0, --roleCharIdx);
+          setTimeout(typeRole, 30);
+        } else {
+          typing = true;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(typeRole, 400);
+        }
       }
     }
-    animateShot();
-  }
-  // Start auto shooting every 8 seconds
-  setTimeout(function loop() {
-    autoShoot();
-    setTimeout(loop, 8000);
-  }, 2000);
+    typeRole();
 
-  // Scroll to top button functionality
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollTopBtn.classList.remove('hidden');
-    } else {
-      scrollTopBtn.classList.add('hidden');
+    // Footer UFO Message Feature
+    const footerUFO = document.getElementById('footer-ufo-shooter');
+    const ufoShotMsg = document.getElementById('ufo-shot-msg'); // Changed ID
+    const ufoShotText = document.getElementById('ufo-shot-text'); // Changed ID
+    const ufoBeamSVG = document.getElementById('ufo-beam'); // Reference to the beam in SVG
+
+    const rareMsgs = [
+      "CYBERPUNK MODE ACTIVATED <===",
+      "HIRE ME FOR YOUR NEXT PROJECT!",
+      "GLITCH IN THE SYSTEM!",
+      "UFO BEAM ENGAGED!",
+      "FULL STACK POWER!",
+      "REACT + DJANGO = ❤️",
+      "NEON DREAMS ONLY",
+      "CODE LIKE IT'S 2077",
+      "HELLO, WORLD!",
+      "FILIP IS ONLINE <==="
+    ];
+
+    function autoShootUFO() {
+      const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
+      ufoShotText.textContent = msg;
+      ufoShotMsg.style.display = 'block';
+      ufoShotMsg.style.left = '110px';
+      ufoShotMsg.style.bottom = '110px';
+      ufoShotMsg.style.opacity = '1';
+      let pos = 110, opacity = 1;
+
+      // Animate the beam
+      gsap.to(ufoBeamSVG, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
+        gsap.to(ufoBeamSVG, { opacity: 0, duration: 0.4 });
+      }});
+
+      function animateShot() {
+        pos += 24;
+        opacity -= 0.03;
+        ufoShotMsg.style.left = pos + 'px';
+        ufoShotMsg.style.opacity = opacity;
+        if (pos < window.innerWidth - 300 && opacity > 0) {
+          requestAnimationFrame(animateShot);
+        } else {
+          ufoShotMsg.style.display = 'none';
+        }
+      }
+      animateShot();
     }
-  });
-  scrollTopBtn.addEventListener('click', () => {
-    gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-  });
+    // Start auto shooting every 8 seconds
+    setInterval(autoShootUFO, 8000); // Changed from 2s initial delay to direct interval
 
-  window.scrollTo(0, 0); // Always start at top
+    // Scroll to top button functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.remove('hidden');
+      } else {
+        scrollTopBtn.classList.add('hidden');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+    });
 
-  // Remove loader logic (no loader anymore)
-  // --- Parallax Effect for Hero Section ---
-  const hero = document.querySelector('section.relative.text-center');
-  const heroBg1 = hero.querySelector('div > .w-72');
-  const heroBg2 = hero.querySelector('div > .w-40');
-  hero.addEventListener('mousemove', e => {
-    const { left, top, width, height } = hero.getBoundingClientRect();
-    const x = (e.clientX - left) / width - 0.5;
-    const y = (e.clientY - top) / height - 0.5;
-    gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
-    gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
-  });
-// --- UFO Beam Animation ---
-function abductFooterIcon() {
-  const beam = document.getElementById('ufo-beam');
-  gsap.to(beam, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
-    gsap.to(beam, { opacity: 0, duration: 0.4 });
-  }});
-}
-setInterval(abductFooterIcon, 7000);
-// --- Shooting Star Animation ---
-function animateShootingStar() {
-  const star = document.getElementById('shooting-star');
-  gsap.set(star, { left: '-60px', opacity: 1 });
-  gsap.to(star, { left: '100vw', duration: 2.5, ease: "power1.in", opacity: 0, onComplete: () => {
-    gsap.set(star, { left: '-60px', opacity: 0 });
-  }});
-}
-setInterval(animateShootingStar, 12000);
+    window.scrollTo(0, 0);
 
-  // --- Footer UFO Animation ---
-  const ufo = document.getElementById('footer-ufo-svg');
-  const ufoBeam = document.getElementById('ufo-beam');
-  let ufoVisible = true;
+    // --- Parallax Effect for Hero Section ---
+    const hero = document.querySelector('section.relative.text-center');
+    const heroBg1 = hero.querySelector('div > .w-72');
+    const heroBg2 = hero.querySelector('div > .w-40');
+    hero.addEventListener('mousemove', e => {
+      const { left, top, width, height } = hero.getBoundingClientRect();
+      const x = (e.clientX - left) / width - 0.5;
+      const y = (e.clientY - top) / height - 0.5;
+      gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
+      gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+    });
 
-  function toggleUFO() {
-    if (ufoVisible) {
-      gsap.to(ufo, { y: -20, duration: 0.5, ease: "power2.out" });
-      gsap.to(ufoBeam, { opacity: 0.7, duration: 0.5 });
-    } else {
-      gsap.to(ufo, { y: 0, duration: 0.5, ease: "power2.out" });
-      gsap.to(ufoBeam, { opacity: 0, duration: 0.5 });
+    // --- Shooting Star Animation ---
+    function animateShootingStar() {
+      const star = document.getElementById('shooting-star');
+      gsap.set(star, { left: '-60px', opacity: 1 });
+      gsap.to(star, { left: '100vw', duration: 3.5, ease: "power1.in", opacity: 0, onComplete: () => {
+        gsap.set(star, { left: '-60px', opacity: 0 }); // Reset for next loop
+      }});
     }
-    ufoVisible = !ufoVisible;
-  }
-  setInterval(toggleUFO, 5000);
-  // --- Footer UFO Shooter Animation --- 
-  const footerUFO = document.getElementById('footer-ufo-shooter');
-  footerUFO.addEventListener('click', () => {
-    const ufoBeam = document.getElementById('ufo-beam');
-    if (ufoBeam.style.opacity === '0') {
-      ufoBeam.style.opacity = '0.7';
-      setTimeout(() => ufoBeam.style.opacity = '0', 500);
-      abductFooterIcon();
-    }
-  });
+    setInterval(animateShootingStar, 15000); // Trigger every 15 seconds
 
-</script>
+    // Theme Toggle Functionality (basic dark/light, needs more CSS for full effect)
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme'); // Add/remove a class for theme
+        // You would define light-theme styles in your CSS to change colors
+        // For example:
+        // body.light-theme { background: #e0e0e0; color: #333; }
+        // body.light-theme .glass { background: rgba(255,255,255,0.8); }
+        // etc.
+        const icon = themeToggleBtn.querySelector('i');
+        if (document.body.classList.contains('light-theme')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
+
+  </script>
 </body>
 
 </html>
