@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: WhisperX.site - Earn-to-Learn Programming Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f0617 0%, #1a0933 100%);
+            color: #ffe600;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffe7;
+            margin-bottom: 1rem;
+        }
+        .section-header {
+            border-bottom: 2px solid #00cfff;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .glass-panel {
+            background: rgba(24, 18, 38, 0.82);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 12px 48px 0 rgba(0, 255, 231, 0.2), 0 0 0 2px rgba(255, 230, 0, 0.2) inset;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .futuristic-link {
+            color: #ff0057;
+            text-decoration: underline wavy 2px;
+            transition: color 0.2s;
+            font-weight: bold;
+        }
+        .futuristic-link:hover {
+            color: #00ffe7;
+            text-shadow: 0 0 8px #ffe600, 0 0 16px #00ffe7;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container glass-panel">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-8">WhisperX.site: Earn-to-Learn Programming Project</h1>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Project Overview</h2>
+        </div>
+        <p class="mb-4 text-lg">WhisperX.site is an innovative "earn-to-learn" study project focused on programming education. It leverages the powerful WhisperX speech-to-text and alignment tool to create interactive learning experiences, where users can learn coding concepts by transcribing and analyzing code-related audio content, potentially earning rewards for accurate contributions.</p>
+        <p class="mb-8 text-lg">My role involved developing the platform's core functionalities, integrating the WhisperX capabilities, and designing the user flow for learning and contribution.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Problem Statement</h2>
+        </div>
+        <p class="mb-4 text-lg">Traditional programming education can sometimes lack engaging, real-world application, and opportunities for immediate feedback and incentivization. There's a need for platforms that combine practical learning with tangible rewards.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Solution & My Contribution</h2>
+        </div>
+        <p class="mb-4 text-lg">I developed WhisperX.site to address these issues by:</p>
+        <ul class="list-disc list-inside mb-4 text-lg space-y-2">
+            <li>Implementing the front-end interface for users to interact with audio lessons and transcription tasks.</li>
+            <li>Integrating the WhisperX tool (likely via an API or a backend service) for accurate speech-to-text transcription and precise alignment of audio with code snippets.</li>
+            <li>Designing the "earn" mechanism, where users receive points or virtual currency for successfully completing learning modules and contributing accurate transcriptions/annotations.</li>
+            <li>Building a system for delivering programming challenges and exercises that are evaluated using the WhisperX output.</li>
+            <li>Creating a user dashboard to track progress, earnings, and learning paths.</li>
+        </ul>
+        <p class="mb-8 text-lg">This project aims to make learning programming more interactive, rewarding, and accessible, especially for auditory learners or those seeking practical application.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Technologies Used</h2>
+        </div>
+        <ul class="list-disc list-inside mb-8 text-lg space-y-2">
+            <li>**Frontend:** (Specify, e.g., React, Vue.js, HTML, CSS, JavaScript)</li>
+            <li>**Backend:** (Specify, e.g., Python/Flask/Django for WhisperX integration, Node.js)</li>
+            <li>**AI/ML:** WhisperX (Speech-to-Text and Alignment)</li>
+            <li>**Database:** (Specify, e.g., PostgreSQL, MongoDB)</li>
+            <li>**Audio Processing:** (Libraries/APIs used for audio handling)</li>
+        </ul>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Results & Impact</h2>
+        </div>
+        <p class="mb-4 text-lg">WhisperX.site provides a novel approach to programming education, offering an engaging and incentivized learning environment. The integration of advanced speech-to-text technology allows for unique interactive exercises that wouldn't be possible with traditional methods.</p>
+        <p class="mb-8 text-lg">The "earn-to-learn" model encourages sustained engagement and provides a tangible benefit to learners, potentially fostering a more active learning community.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Lessons Learned</h2>
+        </div>
+        <p class="mb-8 text-lg">Integrating a complex AI model like WhisperX into a web application presented unique challenges in terms of performance optimization and API management. Designing an effective incentivization model required careful consideration of game theory and user psychology. This project deepened my understanding of combining AI capabilities with educational platforms to create impactful learning experiences.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Future Enhancements</h2>
+        </div>
+        <p class="mb-4 text-lg">Future plans include expanding the library of audio lessons, introducing peer-review mechanisms for transcriptions, and exploring blockchain integration for reward systems to enhance transparency and decentralization.</p>
+
+        <div class="text-center mt-10">
+            <a href="https://whisperx.site" target="_blank" class="futuristic-link text-xl">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <p class="mt-4 text-lg">
+                <a href="../index.html#projects" class="futuristic-link">← Back to Projects</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

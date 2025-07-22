@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stephan | Full Stack Developer</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap"
+  <!-- Preload fonts for faster loading -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" as="style">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;600&family=Share+Tech+Mono&display=swap"
     rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +18,8 @@
   <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <!-- D3.js for the interactive skill graph (still used for data structure, but visualization changed) -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 
 
   <style>
@@ -25,20 +29,20 @@
       --accent: #00ffe7;
       --danger: #ff0057;
       --glass: rgba(24, 18, 38, 0.82);
-      --glow: 0 0 24px #00cfff, 0 0 48px #00ffe7, 0 0 8px #ff0057;
-      --btn-bg: linear-gradient(90deg, #00cfff 0%, #00ffe7 100%);
-      --btn-text: #0f0617;
-      --btn-hover-bg: linear-gradient(90deg, #ff0057 0%, #00cfff 100%);
-      --btn-shadow: 0 0 32px #00cfffcc, 0 0 64px #00ffe744;
-      --btn-hover-shadow: 0 0 64px #ff0057, 0 0 128px #00cfff;
+      --glow: 0 0 24px var(--secondary), 0 0 48px var(--accent), 0 0 8px var(--danger);
+      --btn-bg: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+      --btn-text: var(--dominant);
+      --btn-hover-bg: linear-gradient(90deg, var(--danger) 0%, var(--secondary) 100%);
+      --btn-shadow: 0 0 32px var(--secondary)cc, 0 0 64px var(--accent)44;
+      --btn-hover-shadow: 0 0 64px var(--danger), 0 0 128px var(--secondary);
       --nav-bg: rgba(15, 6, 23, 0.98);
-      --nav-border: #00cfff;
+      --nav-border: var(--secondary);
     }
 
     body {
       font-family: 'Orbitron', 'Montserrat', 'Share Tech Mono', monospace, sans-serif;
-      background: linear-gradient(135deg, #0f0617 0%, #1a0933 100%);
-      color: #ffe600;
+      background: linear-gradient(135deg, var(--dominant) 0%, #1a0933 100%);
+      color: #ffe600; /* Main text color, can be a variable */
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
@@ -50,12 +54,12 @@
       --accent: #33e7ff;
       --danger: #e73357;
       --glass: rgba(255, 255, 255, 0.9);
-      --glow: 0 0 12px #66ccff, 0 0 24px #33e7ff, 0 0 4px #e73357;
-      --btn-bg: linear-gradient(90deg, #66ccff 0%, #33e7ff 100%);
-      --btn-text: #f0f6ff;
-      --btn-hover-bg: linear-gradient(90deg, #e73357 0%, #66ccff 100%);
-      --btn-shadow: 0 0 16px #66ccffcc, 0 0 32px #33e7ff44;
-      --btn-hover-shadow: 0 0 32px #e73357, 0 0 64px #66ccff;
+      --glow: 0 0 12px var(--secondary), 0 0 24px var(--accent), 0 0 4px var(--danger);
+      --btn-bg: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+      --btn-text: var(--dominant);
+      --btn-hover-bg: linear-gradient(90deg, var(--danger) 0%, var(--secondary) 100%);
+      --btn-shadow: 0 0 16px var(--secondary)cc, 0 0 32px var(--accent)44;
+      --btn-hover-shadow: 0 0 32px var(--danger), 0 0 64px var(--secondary);
       color: #333;
       background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
     }
@@ -75,28 +79,24 @@
       background: var(--glass) !important;
       backdrop-filter: blur(16px);
       border: 2px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 12px 48px 0 #00ffe744, 0 0 0 2px #ffe60033 inset;
+      box-shadow: 0 12px 48px 0 var(--accent)44, 0 0 0 2px #ffe60033 inset; /* Using hex for specific glow */
       opacity: 1;
       transition: opacity 0.3s;
     }
 
     body.light-theme .glass {
-      box-shadow: 0 12px 48px 0 #33e7ff44, 0 0 0 2px #33333333 inset;
+      box-shadow: 0 12px 48px 0 var(--accent)44, 0 0 0 2px #33333333 inset;
       border: 2px solid rgba(0, 0, 0, 0.10);
     }
 
-
     @keyframes glass-flicker {
-
       0%,
       100% {
         opacity: 1;
       }
-
       48% {
         opacity: 0.92;
       }
-
       52% {
         opacity: 0.85;
       }
@@ -142,7 +142,6 @@
       0% {
         clip-path: inset(0 0 80% 0);
       }
-
       100% {
         clip-path: inset(80% 0 0 0);
       }
@@ -152,7 +151,6 @@
       0% {
         clip-path: inset(80% 0 0 0);
       }
-
       100% {
         clip-path: inset(0 0 80% 0);
       }
@@ -170,10 +168,10 @@
 
     .glow {
       box-shadow: var(--glow);
-      text-shadow: 0 0 12px #ffe600, 0 0 24px #00ffe7, 0 0 4px #ff0057;
+      text-shadow: 0 0 12px #ffe600, 0 0 24px var(--accent), 0 0 4px var(--danger); /* Specific hex for yellow glow */
       font-family: 'Orbitron', 'Montserrat', sans-serif;
       letter-spacing: 0.12em;
-      color: #ffe600;
+      color: #ffe600; /* Specific hex for yellow glow */
     }
 
     body.light-theme .glow {
@@ -200,8 +198,8 @@
         0 0 12px var(--accent),
         0 0 24px var(--accent),
         0 0 48px var(--accent),
-        0 0 2px #ffe600;
-      background: linear-gradient(90deg, var(--accent) 0%, #ffe600 100%);
+        0 0 2px #ffe600; /* Specific hex for yellow glow */
+      background: linear-gradient(90deg, var(--accent) 0%, #ffe600 100%); /* Specific hex for yellow glow */
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: led-flicker 2s infinite alternate;
@@ -218,39 +216,30 @@
       -webkit-text-fill-color: transparent;
     }
 
-
     @keyframes led-flicker {
-
       0%,
       100% {
         opacity: 1;
-        filter: blur(0.5px);
       }
-
       45% {
         opacity: 0.8;
-        filter: blur(1.5px);
       }
-
       50% {
         opacity: 0.6;
-        filter: blur(2px);
       }
-
       55% {
         opacity: 0.8;
-        filter: blur(1.5px);
       }
     }
 
     .robotic-panel {
       border: 3px solid var(--accent);
       border-radius: 2.5rem;
-      background: linear-gradient(135deg, #1a0933 80%, #0f0617 100%);
+      background: linear-gradient(135deg, #1a0933 80%, var(--dominant) 100%);
       box-shadow:
         0 0 48px var(--accent)cc,
-        0 0 96px #ffe60044,
-        0 0 0 6px #0f0617 inset;
+        0 0 96px #ffe60044, /* Specific hex for yellow glow */
+        0 0 0 6px var(--dominant) inset;
       position: relative;
       overflow: hidden;
     }
@@ -261,7 +250,7 @@
       box-shadow:
         0 0 24px var(--secondary)cc,
         0 0 48px var(--danger)44,
-        0 0 0 3px #f0f6ff inset;
+        0 0 0 3px var(--dominant) inset;
     }
 
     .robotic-panel::before {
@@ -270,7 +259,7 @@
       inset: 0;
       border-radius: 2.5rem;
       pointer-events: none;
-      box-shadow: 0 0 120px 20px var(--accent)44, 0 0 0 4px #ffe60022 inset;
+      box-shadow: 0 0 120px 20px var(--accent)44, 0 0 0 4px #ffe60022 inset; /* Specific hex for yellow glow */
       z-index: 1;
     }
 
@@ -278,11 +267,11 @@
       box-shadow: 0 0 60px 10px var(--secondary)44, 0 0 0 2px var(--danger)22 inset;
     }
 
-
     .futuristic-btn,
     #theme-toggle-btn,
     #scrollTopBtn,
-    #chatbot-toggle {
+    #chatbot-toggle,
+    #sound-toggle-btn {
       font-family: 'Orbitron', 'Share Tech Mono', monospace, sans-serif;
       letter-spacing: 0.12em;
       background: var(--btn-bg) !important;
@@ -297,11 +286,20 @@
     .futuristic-btn:hover,
     #theme-toggle-btn:hover,
     #scrollTopBtn:hover,
-    #chatbot-toggle:hover {
+    #chatbot-toggle:hover,
+    #sound-toggle-btn:hover {
       background: var(--btn-hover-bg) !important;
       box-shadow: var(--btn-hover-shadow) !important;
       transform: scale(1.12) translateY(-4px) rotate(-2deg);
-      color: #ff0057 !important;
+      color: var(--danger) !important;
+    }
+
+    /* Active state for skill filter buttons */
+    .futuristic-btn[data-filter].active {
+      background: linear-gradient(90deg, var(--danger) 0%, var(--accent) 100%) !important;
+      box-shadow: 0 0 24px var(--accent), 0 0 48px var(--danger) !important;
+      color: var(--btn-text) !important;
+      transform: scale(1.05);
     }
 
     .futuristic-link {
@@ -314,7 +312,7 @@
 
     .futuristic-link:hover {
       color: var(--accent);
-      text-shadow: 0 0 8px #ffe600, 0 0 16px #00ffe7;
+      text-shadow: 0 0 8px #ffe600, 0 0 16px var(--accent);
     }
 
     body.light-theme .futuristic-link {
@@ -326,22 +324,21 @@
       text-shadow: 0 0 4px var(--accent), 0 0 8px var(--secondary);
     }
 
-
     ::selection {
       background: #ffe60044;
     }
 
     .ufo-glow {
-      filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px #00ffe7) drop-shadow(0 0 8px #ff0057);
+      filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px var(--accent)) drop-shadow(0 0 8px var(--danger));
     }
 
     .neon-divider {
       height: 5px;
       width: 120px;
       margin: 2.5rem auto;
-      background: linear-gradient(90deg, #ffe600 0%, #00ffe7 50%, #ff0057 100%);
+      background: linear-gradient(90deg, #ffe600 0%, var(--accent) 50%, var(--danger) 100%);
       border-radius: 3px;
-      box-shadow: 0 0 24px #ffe600, 0 0 48px #00ffe7, 0 0 8px #ff0057;
+      box-shadow: 0 0 24px #ffe600, 0 0 48px var(--accent), 0 0 8px var(--danger);
       position: relative;
       overflow: hidden;
     }
@@ -365,7 +362,6 @@
       0% {
         left: 0;
       }
-
       100% {
         left: 90px;
       }
@@ -390,19 +386,17 @@
       mix-blend-mode: multiply;
     }
 
-
     @keyframes circuit-move {
       0% {
         background-position: 0 0;
       }
-
       100% {
         background-position: 200px 200px;
       }
     }
 
     .cyberpunk-robot {
-      filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px #00ffe7) drop-shadow(0 0 8px #ff0057);
+      filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px var(--accent)) drop-shadow(0 0 8px var(--danger));
       animation: robot-flicker 2.5s infinite alternate;
     }
 
@@ -410,37 +404,32 @@
       filter: drop-shadow(0 0 12px var(--secondary)) drop-shadow(0 0 24px var(--accent)) drop-shadow(0 0 4px var(--danger));
     }
 
-
     @keyframes robot-flicker {
-
       0%,
       100% {
         opacity: 1;
       }
-
       40% {
         opacity: 0.85;
       }
-
       50% {
         opacity: 0.7;
       }
-
       60% {
         opacity: 0.85;
       }
     }
 
     .about-cyber-bg {
-      background: linear-gradient(120deg, #0f0617 70%, #ff0057 100%);
-      border: 2px solid #ffe600;
-      box-shadow: 0 0 32px #ff005788, 0 0 64px #00ffe744;
+      background: linear-gradient(120deg, var(--dominant) 70%, var(--danger) 100%);
+      border: 2px solid #ffe600; /* Specific hex for yellow glow */
+      box-shadow: 0 0 32px var(--danger)88, 0 0 64px var(--accent)44;
       position: relative;
       overflow: hidden;
     }
 
     body.light-theme .about-cyber-bg {
-      background: linear-gradient(120deg, #f0f6ff 70%, #e73357 100%);
+      background: linear-gradient(120deg, var(--dominant) 70%, var(--danger) 100%);
       border: 2px solid var(--secondary);
       box-shadow: 0 0 16px var(--danger)88, 0 0 32px var(--secondary)44;
     }
@@ -462,7 +451,6 @@
       filter: blur(0.5px) brightness(1.1) grayscale(0.2);
     }
 
-
     .about-cyber-bg>* {
       position: relative;
       z-index: 1;
@@ -470,16 +458,13 @@
 
     /* Responsive tweaks */
     @media (max-width: 768px) {
-
       .robotic-panel,
       .glass {
         border-radius: 1.2rem !important;
       }
-
       .neon-divider {
         width: 60px;
       }
-
       #footer-ufo-shooter {
         margin-bottom: 0.5rem;
         margin-right: 0;
@@ -487,10 +472,23 @@
         justify-content: center;
         width: 100%;
       }
-
       footer.flex {
         flex-direction: column !important;
         align-items: center !important;
+      }
+
+      /* Mobile nav menu overlay */
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+        z-index: 40; /* Below the nav, above content */
+      }
+      body.light-theme .mobile-menu-overlay {
+        background: rgba(255, 255, 255, 0.7);
       }
     }
 
@@ -500,7 +498,7 @@
     }
 
     .ufo-project-card:hover {
-      box-shadow: 0 0 64px #00ffe7, 0 0 128px #ff0057;
+      box-shadow: 0 0 64px var(--accent), 0 0 128px var(--danger);
       filter: brightness(1.15) saturate(1.2);
     }
 
@@ -517,78 +515,19 @@
         y: -180;
         opacity: 0;
       }
-
       10% {
         opacity: 1;
       }
-
       80% {
         opacity: 1;
       }
-
       100% {
         y: 180;
         opacity: 0;
       }
     }
 
-
-    /* Skill Progress Bar Styles */
-    .skill-bar-container {
-      width: 100%;
-      background-color: #210B2C;
-      border-radius: 9999px;
-      height: 12px;
-      overflow: hidden;
-      box-shadow: inset 0 0 4px rgba(0, 255, 231, 0.5);
-    }
-
-    body.light-theme .skill-bar-container {
-      background-color: #d0d0d0;
-      box-shadow: inset 0 0 2px rgba(50, 180, 255, 0.5);
-    }
-
-    .skill-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #00cfff 0%, #00ffe7 100%);
-      border-radius: 9999px;
-      width: 0%;
-      transition: width 1s ease-out;
-      position: relative;
-      overflow: hidden;
-    }
-
-    body.light-theme .skill-bar {
-      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
-    }
-
-    .skill-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, rgba(0, 255, 231, 0.8) 0%, transparent 70%);
-      opacity: 0;
-      animation: neon-pulse 2s infinite alternate;
-    }
-
-    body.light-theme .skill-bar::after {
-      background: radial-gradient(circle at center, rgba(50, 180, 255, 0.8) 0%, transparent 70%);
-    }
-
-    @keyframes neon-pulse {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-
-      100% {
-        opacity: 0.4;
-        transform: scale(1.2);
-      }
-    }
+    /* Skill Progress Bar Styles (Removed for D3 Graph) */
 
     /* Flicker effect for glow elements */
     @keyframes flicker-subtle {
@@ -618,9 +557,15 @@
 
     .certificates-carousel {
         display: flex;
-        overflow-x: hidden; /* Hide scrollbar */
+        overflow-x: scroll; /* Allow horizontal scrolling */
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    }
+
+    .certificates-carousel::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome, Safari, Opera */
     }
 
     .carousel-button {
@@ -628,45 +573,416 @@
         top: 50%;
         transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.6);
-        color: #FFD166;
+        color: #FFD166; /* Specific hex for yellow glow */
         padding: 0.75rem 0.5rem;
         border-radius: 9999px; /* Full rounded */
         cursor: pointer;
         z-index: 10;
         opacity: 0.7;
-        transition: opacity 0.3s;
-        box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+        transition: opacity 0.3s, background 0.2s, color 0.2s;
+        box-shadow: 0 0 10px rgba(255, 209, 102, 0.5); /* Specific hex for yellow glow */
     }
     .carousel-button:hover {
         opacity: 1;
-        box-shadow: 0 0 15px rgba(255, 209, 102, 0.8);
+        box-shadow: 0 0 15px rgba(255, 209, 102, 0.8); /* Specific hex for yellow glow */
+        background: var(--btn-hover-bg); /* Use theme variable for hover */
+        color: var(--btn-text); /* Use theme variable for hover */
     }
     .carousel-button.left { left: 0.5rem; }
     .carousel-button.right { right: 0.5rem; }
 
     body.light-theme .carousel-button {
       background: rgba(255, 255, 255, 0.6);
-      color: #7952B3;
-      box-shadow: 0 0 10px rgba(121, 82, 179, 0.5);
+      color: #7952B3; /* Specific hex for light theme */
+      box-shadow: 0 0 10px rgba(121, 82, 179, 0.5); /* Specific hex for light theme */
     }
     body.light-theme .carousel-button:hover {
-      box-shadow: 0 0 15px rgba(121, 82, 179, 0.8);
+      box-shadow: 0 0 15px rgba(121, 82, 179, 0.8); /* Specific hex for light theme */
+    }
+
+    /* Overlay for mobile nav menu */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+      z-index: 45; /* Below nav, above content */
+      transition: opacity 0.3s ease-in-out;
+    }
+    body.light-theme .mobile-nav-overlay {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Style for chatbot input when disabled */
+    #chatbot-input:disabled {
+        background-color: #311c3b77; /* Slightly lighter when disabled */
+        cursor: not-allowed;
+        border-color: #FFD16655; /* Faded border */
+    }
+
+    /* Skill Graph Styles (DNA Visualizer) */
+    #skill-graph-container {
+      width: 100%;
+      height: 500px; /* Adjust height as needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    #skill-dna-svg {
+        width: 100%;
+        height: 100%;
+        max-width: 800px;
+        max-height: 600px;
+        overflow: visible; /* Allow glow to extend */
+    }
+
+    .dna-helix {
+        fill: none;
+        stroke: var(--secondary);
+        stroke-width: 2px;
+        stroke-dasharray: 1000; /* Long enough to be drawn */
+        stroke-dashoffset: 1000; /* Start hidden */
+        filter: drop-shadow(0 0 5px var(--secondary));
+    }
+
+    .dna-node-group {
+        opacity: 0;
+        transform: scale(0.5);
+        transition: opacity 0.3s, transform 0.3s;
+        cursor: pointer;
+    }
+
+    .dna-node-circle {
+        stroke: #fff;
+        stroke-width: 1.5px;
+        filter: drop-shadow(0 0 3px);
+        transition: r 0.2s, stroke-width 0.2s, filter 0.2s;
+    }
+
+    .dna-node-text {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 10px;
+        fill: #fff;
+        pointer-events: none;
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .dna-node-group.highlight .dna-node-circle {
+        r: 10px; /* Larger radius on highlight */
+        stroke-width: 4px;
+        stroke: var(--danger);
+        filter: drop-shadow(0 0 8px var(--danger));
+    }
+    .dna-node-group.highlight .dna-node-text {
+        font-size: 14px;
+        fill: var(--danger);
+        text-shadow: 0 0 8px var(--danger);
+    }
+
+
+    /* Project Hologram Preview Styles */
+    .project-card {
+      position: relative;
+      overflow: hidden; /* Ensure hologram is clipped */
+    }
+
+    .hologram-preview {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8) rotateX(0deg) rotateY(0deg);
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.6); /* Accent glow */
+    }
+
+    .project-card:hover .hologram-preview {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotateX(5deg) rotateY(-5deg);
+    }
+
+    .hologram-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.2) contrast(1.1) saturate(1.2);
+    }
+
+    .hologram-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 255, 231, 0.3) 0%, transparent 50%, rgba(0, 255, 231, 0.3) 100%);
+      animation: scanline-move 2s infinite linear;
+      mix-blend-mode: overlay;
+      opacity: 0.8;
+    }
+
+    @keyframes scanline-move {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    /* Audio Toggle Button Positioning */
+    #sound-toggle-btn {
+      position: fixed;
+      top: 6px; /* Adjust as needed */
+      right: 100px; /* Position next to theme toggle */
+      z-index: 50;
+      border-radius: 9999px;
+      padding: 0.75rem;
+      font-size: 1.25rem;
+    }
+    @media (max-width: 768px) {
+      #sound-toggle-btn {
+        right: 70px; /* Adjust for mobile */
+        top: 10px;
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Style for current focus updates */
+    .current-focus-item {
+        background-color: #210B2C; /* Use specific hex for dark theme */
+        border-left: 4px solid var(--secondary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .current-focus-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+    body.light-theme .current-focus-item {
+        background-color: #e0e0e0;
+        border-left-color: var(--secondary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    body.light-theme .current-focus-item:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Terminal Input for Hero Section */
+    #hero-terminal-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        color: inherit;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: inherit;
+        text-align: center;
+        caret-color: #ffe600; /* Blinking cursor color */
+    }
+    #hero-terminal-input::placeholder {
+        color: rgba(255, 230, 0, 0.5);
+    }
+
+    /* Section Scanline Effect */
+    .section-scan-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 255, 231, 0.1) 0%, rgba(0, 255, 231, 0.5) 50%, rgba(0, 255, 231, 0.1) 100%);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    /* Hologram Profile Styles */
+    .hologram-profile-container {
+        position: relative;
+        width: 200px; /* Adjust size as needed */
+        height: 200px;
+        margin: 2rem auto;
+        perspective: 1000px; /* For 3D effect */
+        pointer-events: auto; /* Allow mouse events */
+    }
+
+    .hologram-profile-cube {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transform: rotateX(15deg) rotateY(-15deg); /* Initial slight tilt */
+        transition: transform 0.1s ease-out; /* Smooth mouse movement */
+    }
+
+    .hologram-profile-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--accent);
+        background: rgba(0, 255, 231, 0.1); /* Semi-transparent accent color */
+        box-shadow: 0 0 15px var(--accent), inset 0 0 10px var(--accent);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .hologram-profile-face.front  { transform: rotateY(0deg) translateZ(50px); }
+    .hologram-profile-face.back   { transform: rotateY(180deg) translateZ(50px); }
+    .hologram-profile-face.right  { transform: rotateY(90deg) translateZ(50px); }
+    .hologram-profile-face.left   { transform: rotateY(-90deg) translateZ(50px); }
+    .hologram-profile-face.top    { transform: rotateX(90deg) translateZ(50px); }
+    .hologram-profile-face.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+    .hologram-profile-avatar {
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+        border-radius: 50%;
+        filter: brightness(1.1) contrast(1.1) saturate(1.1) drop-shadow(0 0 10px var(--secondary));
+        position: relative;
+        z-index: 2;
+    }
+
+    .hologram-indicator {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: var(--danger);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--danger);
+        animation: blink 1.5s infinite alternate;
+        z-index: 3;
+    }
+    .hologram-indicator.top-left { top: 5px; left: 5px; }
+    .hologram-indicator.top-right { top: 5px; right: 5px; }
+    .hologram-indicator.bottom-left { bottom: 5px; left: 5px; }
+    .hologram-indicator.bottom-right { bottom: 5px; right: 5px; }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+
+    .hologram-data-line {
+        position: absolute;
+        background: linear-gradient(to right, transparent, var(--secondary), transparent);
+        height: 2px;
+        animation: data-flow 3s infinite linear;
+        z-index: 1;
+    }
+    .hologram-data-line.line-1 { top: 20%; left: 0; width: 100%; animation-delay: 0s; }
+    .hologram-data-line.line-2 { top: 40%; left: 0; width: 100%; animation-delay: 1s; }
+    .hologram-data-line.line-3 { top: 60%; left: 0; width: 100%; animation-delay: 2s; }
+
+    @keyframes data-flow {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* Floating HUD Elements */
+    .hud-element {
+        position: fixed;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.8rem;
+        color: var(--accent);
+        text-shadow: 0 0 5px var(--accent);
+        z-index: 50;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 255, 231, 0.3);
+        background: rgba(15, 6, 23, 0.6);
+        box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
+        pointer-events: none;
+    }
+    .hud-top-left { top: 1rem; left: 1rem; }
+    .hud-top-right { top: 1rem; right: 1rem; text-align: right; }
+    .hud-bottom-left { bottom: 1rem; left: 1rem; }
+    .hud-bottom-right { bottom: 1rem; right: 1rem; text-align: right; }
+
+    @media (max-width: 768px) {
+        .hud-element {
+            font-size: 0.6rem;
+            padding: 0.3rem 0.6rem;
+        }
+        .hud-top-left { top: 0.5rem; left: 0.5rem; }
+        .hud-top-right { top: 0.5rem; right: 0.5rem; }
+        .hud-bottom-left { bottom: 0.5rem; left: 0.5rem; }
+        .hud-bottom-right { bottom: 0.5rem; right: 0.5rem; }
+    }
+
+    /* Satellite Scanner / Visitor Tracker */
+    #visitor-tracker {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 280px;
+        padding: 1rem;
+        background: var(--glass);
+        border: 2px solid var(--secondary);
+        border-radius: 1rem;
+        box-shadow: var(--glow);
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.9rem;
+        color: var(--accent);
+        z-index: 50;
+        text-align: center;
+    }
+    #visitor-tracker .scan-line-pulse {
+        display: block;
+        height: 2px;
+        background: linear-gradient(to right, transparent, var(--danger), transparent);
+        animation: scan-pulse 2s infinite linear;
+        margin-top: 0.5rem;
+    }
+    @keyframes scan-pulse {
+        0% { opacity: 0; transform: scaleX(0); }
+        50% { opacity: 1; transform: scaleX(1); }
+        100% { opacity: 0; transform: scaleX(0); }
     }
 
   </style>
 </head>
 
 <body>
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay hidden md:hidden" x-show="open" x-cloak></div>
+
+  <!-- Terminal Intro Screen -->
   <div id="terminal-intro"
-    style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:#0f0617;">
+    style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:var(--dominant);">
     <div id="terminal-display"
-      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:#00ffe7;box-shadow:0 0 24px #00cfff,0 0 48px #00ffe7,0 0 8px #ff0057;padding:2rem 3rem;border-radius:1.5rem;min-width:340px; cursor: pointer;">
+      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--accent);box-shadow:var(--glow);padding:2rem 3rem;border-radius:1.5rem;min-width:340px; cursor: pointer;">
       <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
     </div>
   </div>
 
+  <!-- Floating Neon HUD Elements -->
+  <div class="hud-element hud-top-left">
+      <span id="hud-time"></span><br>
+      <span id="hud-weather"></span>
+  </div>
+  <div class="hud-element hud-top-right">
+      <span id="hud-battery"></span> <i class="fa-solid fa-battery-full"></i><br>
+      <span id="hud-status"></span>
+  </div>
+  <div class="hud-element hud-bottom-left">
+      <span id="hud-user-id"></span>
+  </div>
+
+  <!-- Circuit Background Overlay -->
   <div class="circuit-bg"></div>
 
+  <!-- Robot Companion -->
   <div id="robot-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none"
     style="width:120px;height:120px;">
     <svg class="cyberpunk-robot" viewBox="0 0 120 120" width="80" height="80" fill="none"
@@ -682,23 +998,24 @@
       </defs>
       <rect x="30" y="40" width="60" height="40" rx="16" fill="#1a0933" stroke="#ffe600" stroke-width="4"
         filter="url(#cyber-glow)" />
-      <rect x="45" y="55" width="10" height="10" rx="3" fill="#00ffe7" filter="url(#cyber-glow)" />
-      <rect x="65" y="55" width="10" height="10" rx="3" fill="#ff0057" filter="url(#cyber-glow)" />
+      <rect x="45" y="55" width="10" height="10" rx="3" fill="var(--accent)" filter="url(#cyber-glow)" />
+      <rect x="65" y="55" width="10" height="10" rx="3" fill="var(--danger)" filter="url(#cyber-glow)" />
       <rect x="55" y="75" width="10" height="4" rx="2" fill="#ffe600" opacity="0.8" />
       <rect x="58" y="28" width="4" height="18" rx="2" fill="#ffe600" />
-      <circle cx="60" cy="28" r="5" fill="#00ffe7" stroke="#ffe600" stroke-width="2" />
-      <circle cx="38" cy="80" r="3" fill="#ff0057" />
-      <circle cx="82" cy="80" r="3" fill="#00ffe7" />
+      <circle cx="60" cy="28" r="5" fill="var(--accent)" stroke="#ffe600" stroke-width="2" />
+      <circle cx="38" cy="80" r="3" fill="var(--danger)" />
+      <circle cx="82" cy="80" r="3" fill="var(--accent)" />
       <ellipse cx="60" cy="50" rx="18" ry="6" fill="#fff" opacity="0.08" />
-      <path d="M40 60 Q35 70 50 80" stroke="#ff0057" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
-      <path d="M80 60 Q85 70 70 80" stroke="#00ffe7" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
-      <polygon points="60,40 62,38 64,40 62,42" fill="#ff0057" opacity="0.7" />
+      <path d="M40 60 Q35 70 50 80" stroke="var(--danger)" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
+      <path d="M80 60 Q85 70 70 80" stroke="var(--accent)" stroke-width="2" fill="none" filter="url(#cyber-glow)" />
+      <polygon points="60,40 62,38 64,40 62,42" fill="var(--danger)" opacity="0.7" />
       <polygon points="50,60 52,58 54,60 52,62" fill="#ffe600" opacity="0.7" />
-      <polygon points="70,60 72,58 74,60 72,62" fill="#00ffe7" opacity="0.7" />
+      <polygon points="70,60 72,58 74,60 72,62" fill="var(--accent)" opacity="0.7" />
     </svg>
   </div>
 
-  <nav x-data="{ open: false }" class="p-12 glass sticky top-55 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
+  <!-- Navbar -->
+  <nav x-data="{ open: false }" class="p-4 md:p-12 glass sticky top-0 md:top-55 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
     <h1 class="text-3xl font-extrabold glitch tracking-widest" data-text="Stephan.dev">Stephan.dev</h1>
     <div class="space-x-8 text-lg hidden md:flex font-orbitron">
       <a href="#about" class="hover:text-[#FFD166] transition">About</a>
@@ -708,11 +1025,14 @@
       <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
     </div>
     <div class="md:hidden">
-      <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none">
+      <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none z-50 relative" aria-label="Toggle navigation menu">
         <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
       </button>
-      <div x-show="open"
-        class="absolute right-4 mt-2 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron">
+      <div x-show="open" x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4"
+        class="absolute right-4 top-16 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron z-50">
         <a @click="open = false" href="#about" class="hover:text-[#FFD166] transition">About</a>
         <a @click="open = false" href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
         <a @click="open = false" href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
@@ -720,23 +1040,29 @@
         <a @click="open = false" href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
       </div>
     </div>
-    <button id="theme-toggle-btn" class="hidden md:block fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none">
+    <button id="theme-toggle-btn" class="hidden md:block fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle theme (light/dark)">
       <i class="fa-solid fa-moon"></i>
+    </button>
+    <button id="sound-toggle-btn" class="fixed top-6 right-24 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle sound">
+      <i class="fa-solid fa-volume-high"></i>
     </button>
   </nav>
 
-  <section class="relative text-center py-32 md:py-44">
+  <!-- Hero Section -->
+  <section class="relative text-center py-32 md:py-44" id="hero-section">
     <div class="absolute inset-0 pointer-events-none z-0">
-      <div class="w-72 h-72 bg-[#00ffe733] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2"></div>
-      <div class="w-40 h-40 bg-[#FFD16644] rounded-full blur-2xl absolute bottom-0 right-1/3"></div>
+      <div class="w-72 h-72 bg-[var(--accent)] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2 opacity-20"></div>
+      <div class="w-40 h-40 bg-[#FFD166] rounded-full blur-2xl absolute bottom-0 right-1/3 opacity-25"></div>
     </div>
     <div class="relative z-10">
       <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">
         Hi, I'm Filip<br>
-
       </h2>
       <div class="neon-divider">|</div>
-      <span id="typed-role" class="block text-3xl md:text-4xl mt-4">/</span>
+      <!-- Interactive Terminal Input -->
+      <span id="typed-role" class="block text-3xl md:text-4xl mt-4">
+        <input type="text" id="hero-terminal-input" placeholder="Type 'help'..." />
+      </span>
       <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
         <a href="#projects" class="futuristic-btn px-10 py-5 text-2xl" id="hero-btn-projects">See Projects</a>
         <a href="resume.pdf" download
@@ -746,23 +1072,47 @@
     </div>
   </section>
 
+  <!-- About Section -->
   <section id="about" class="container mx-auto px-6 py-20">
+    <div class="section-scan-overlay"></div>
     <div class="glass robotic-panel about-cyber-bg rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
       <h3 class="text-4xl font-led mb-6 glitch" data-text="About Me">About Me</h3>
+      <!-- Hologram Profile -->
+      <div class="hologram-profile-container">
+          <div class="hologram-profile-cube">
+              <div class="hologram-profile-face front">
+                  <img src="https://placehold.co/150x150/1a0933/00ffe7?text=Your+Avatar" alt="Your Avatar" class="hologram-profile-avatar">
+                  <div class="hologram-data-line line-1"></div>
+                  <div class="hologram-data-line line-2"></div>
+                  <div class="hologram-data-line line-3"></div>
+              </div>
+              <div class="hologram-profile-face back"></div>
+              <div class="hologram-profile-face right"></div>
+              <div class="hologram-profile-face left"></div>
+              <div class="hologram-profile-face top"></div>
+              <div class="hologram-profile-face bottom"></div>
+          </div>
+          <div class="hologram-indicator top-left"></div>
+          <div class="hologram-indicator top-right"></div>
+          <div class="hologram-indicator bottom-left"></div>
+          <div class="hologram-indicator bottom-right"></div>
+      </div>
       <p class="text-[#ffe600] text-xl leading-relaxed font-led">
-        <span class="text-[#ffe600]">I love blending futuristic UI, circuit chaos, and neon tech.</span><br>
-        Founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building POS
-        systems and ecommerce for Myanmar and beyond.<br>
+        <span class="text-[#ffe600]">I am a dedicated Full Stack Developer with a passion for creating immersive and visually striking web experiences. My journey in tech is driven by a love for blending futuristic UI, circuit chaos, and neon tech into functional and elegant solutions.</span><br>
+        <span class="text-[#ffe600]">I'm the founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building innovative POS systems and e-commerce platforms, extending digital solutions to businesses in Myanmar and beyond.</span><br>
+        <span class="text-[#ffe600]">My expertise spans across both front-end and back-end technologies, allowing me to craft seamless, end-to-end applications. I thrive on challenges and constantly seek to expand my knowledge, currently exploring cutting-edge technologies and refining performance optimizations.</span>
       </p>
     </div>
   </section>
 
+  <!-- Skills Section (Now with DNA-style Visualizer) -->
   <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
       <div class="glass robotic-panel rounded-2xl p-10 shadow-2xl max-w-6xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
         <div class="flex flex-wrap justify-center gap-4 mb-8">
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="all">All</button>
+          <button class="futuristic-btn px-6 py-2 text-base active" data-filter="all">All</button>
           <button class="futuristic-btn px-6 py-2 text-base" data-filter="frontend">Frontend</button>
           <button class="futuristic-btn px-6 py-2 text-base" data-filter="backend">Backend</button>
           <button class="futuristic-btn px-6 py-2 text-base" data-filter="database">Database</button>
@@ -770,314 +1120,34 @@
           <button class="futuristic-btn px-6 py-2 text-base" data-filter="cloud">Cloud/API</button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <path
-                  d="M6 4l2.2 24L16 28l7.8-2L26 4H6zm15.1 6l-.2 2H11l.2 2h9.7l-.5 6.1-4.4 1.2-4.4-1.2-.3-3.6h2.1l.2 1.7 2.4.7 2.4-.7.2-2.6H10.9l-.2-2h10.6z"
-                  fill="#E44D26" />
-                <path d="M16 26.1l4.4-1.2.4-4.6H16v-2h5.1l-.5 6.1-4.6 1.3z" fill="#F16529" />
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <path
-                  d="M6 4l2.2 24L16 28l7.8-2L26 4H6zm13.7 6l-.2 2H11l.2 2h8.7l-.5 6.1-3.4 1.2-3.4-1.2-.3-3.6h2.1l.2 1.7 1.4.7 1.4-.7.2-2.6H10.9l-.2-2h9.6z"
-                  fill="#264DE4" />
-                <path d="M16 26.1l3.4-1.2.4-4.6H16v-2h4.1l-.5 6.1-3.6 1.3z" fill="#2965F1" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="HTML/CSS" data-proficiency="90">
-              HTML / CSS
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="90"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#F7DF1E" />
-                <text x="8" y="24" font-size="16" font-family="monospace" fill="#222">JS</text>
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <circle cx="16" cy="16" r="3" fill="#61DAFB" />
-                <ellipse rx="12" ry="5" cx="16" cy="16" fill="none" stroke="#61DAFB" stroke-width="2" />
-                <ellipse rx="12" ry="5" cx="16" cy="16" fill="none" stroke="#61DAFB" stroke-width="2"
-                  transform="rotate(60 16 16)" />
-                <ellipse rx="12" ry="5" cx="16" cy="16" fill="none" stroke="#61DAFB" stroke-width="2"
-                  transform="rotate(120 16 16)" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="JavaScript/React" data-proficiency="85">
-              JavaScript / React
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="85"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <path
-                  d="M16 10c-4 0-6 2-7 6 1-2 2.5-3 5-3 2 0 3 1 4 3 1 2 2.5 3 5 3 4 0 6-2 7-6-1 2-2.5 3-5 3-2 0-3-1-4-3-1-2-2.5-3-5-3z"
-                  fill="#38BDF8" />
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#7952B3" />
-                <text x="8" y="24" font-size="16" font-family="monospace" fill="#fff">B</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Tailwind/Bootstrap" data-proficiency="95">
-              Tailwind / Bootstrap
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="95"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#8993BE" />
-                <text x="8" y="21" font-size="14" font-family="monospace" fill="#232531">PHP</text>
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#FF2D20" />
-                <path d="M6 22l10-14 10 14-10 6z" fill="#fff" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="PHP/Laravel" data-proficiency="80">
-              PHP / Laravel
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="80"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#3776AB" />
-                <text x="7" y="24" font-size="16" font-family="monospace" fill="#FFD43B">Py</text>
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#092E20" />
-                <text x="6" y="24" font-size="16" font-family="monospace" fill="#fff">Dj</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Python/Django" data-proficiency="85">
-              Python / Django
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="85"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="database">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#4479A1" />
-                <text x="8" y="21" font-size="14" font-family="monospace" fill="#fff">SQL</text>
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#47A248" />
-                <path d="M16 6l2 18-2 2-2-2 2-18z" fill="#fff" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="MySQL/MongoDB" data-proficiency="90">
-              MySQL / MongoDB
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="90"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="cloud">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#FFD166" />
-                <text x="7" y="24" font-size="16" font-family="monospace" fill="#210B2C">API</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="REST API" data-proficiency="95">
-              REST API
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="95"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="cloud">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <path d="M8 24l8-16 8 16-8 4z" fill="#FFA000" />
-                <path d="M16 8v20" stroke="#FFD166" stroke-width="2" />
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <ellipse cx="16" cy="20" rx="10" ry="4" fill="#FF9900" />
-                <text x="8" y="18" font-size="10" font-family="monospace" fill="#232F3E">AWS</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Firebase/AWS" data-proficiency="75">
-              Firebase / AWS
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="75"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="backend">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#68217A" />
-                <text x="7" y="24" font-size="16" font-family="monospace" fill="#fff">C#</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="C#" data-proficiency="60">
-              C#
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="60"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <circle cx="16" cy="16" r="14" stroke="#000" stroke-width="2" fill="#fff" />
-                <path d="M10 22l6-12 6 12" stroke="#000" stroke-width="2" fill="none" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Expo" data-proficiency="70">
-              Expo
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="70"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <circle cx="16" cy="16" r="14" fill="#3DDC84" />
-                <rect x="14" y="10" width="4" height="12" fill="#fff" />
-                <rect x="10" y="18" width="12" height="2" fill="#fff" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Android Studio" data-proficiency="65">
-              Android Studio
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="65"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#7F52FF" />
-                <polygon points="6,26 26,6 26,26" fill="#FFB300" />
-                <polygon points="6,6 16,16 6,26" fill="#fff" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Kotlin" data-proficiency="60">
-              Kotlin
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="60"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="mobile">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#F36D33" />
-                <text x="7" y="24" font-size="16" font-family="monospace" fill="#fff">XML</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="XML" data-proficiency="70">
-              XML
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="70"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
-            <span class="flex space-x-2 mb-3">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <polygon points="16,6 26,26 6,26" fill="#42B883" />
-                <polygon points="16,10 23,24 9,24" fill="#35495E" />
-              </svg>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <polygon points="16,6 26,26 6,26" fill="#FFD166" />
-                <polygon points="16,10 23,24 9,24" fill="#BC96E6" />
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Vue/Vite" data-proficiency="75">
-              Vue / Vite
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="75"></div>
-            </div>
-          </div>
-
-          <div
-            class="skill-item glass neon-border rounded-2xl p-6 flex flex-col items-center shadow-lg hover:scale-105 transition" data-category="frontend">
-            <span>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#fff" />
-                <text x="4" y="24" font-size="16" font-family="monospace" fill="#000">Next.js</text>
-              </svg>
-            </span>
-            <span class="mt-1 font-semibold text-center text-[#00ffe7] text-shadow-neon" data-skill="Next.js" data-proficiency="80">
-              Next.js
-            </span>
-            <div class="skill-bar-container mt-2">
-              <div class="skill-bar" style="width: 0%;" data-level="80"></div>
-            </div>
-          </div>
+        <!-- DNA-style Skill Visualizer Container -->
+        <div id="skill-graph-container">
+            <svg id="skill-dna-svg" viewBox="0 0 800 500"></svg>
         </div>
+
       </div>
+    </div>
   </section>
 
+  <!-- Projects Section -->
   <section id="projects" class="py-20 container mx-auto px-6">
+    <div class="section-scan-overlay"></div>
     <h3 class="text-4xl font-led mb-10 text-center">Projects</h3>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <!-- Project Card 1: DecaVerse -->
       <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse: Game Dev Platform">DecaVerse: Game Dev Platform</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations (Genkit) and a scalable architecture.</p>
         <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
         <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <!-- Hologram Preview for Project Card -->
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=DecaVerse+Preview" alt="DecaVerse Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
       </div>
+      <!-- Project Card 2: Find iPhone Myanmar -->
       <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone Myanmar">Find iPhone Myanmar</h4>
@@ -1086,7 +1156,13 @@
         <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i
             class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
         <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <!-- Hologram Preview for Project Card -->
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Find+iPhone+Preview" alt="Find iPhone Myanmar Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
       </div>
+      <!-- Project Card 3: PayVia -->
       <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="PayVia">PayVia</h4>
@@ -1095,7 +1171,13 @@
         <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i
             class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
         <a href="case-studies/payvia.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <!-- Hologram Preview for Project Card -->
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=PayVia+Preview" alt="PayVia Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
       </div>
+      <!-- Project Card 4: MBLogistics Express -->
       <div
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="MBLogistics Express">MBLogistics Express</h4>
@@ -1103,6 +1185,25 @@
         <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i
             class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
         <a href="case-studies/mblogistics-express.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <!-- Hologram Preview for Project Card -->
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=MBLogistics+Preview" alt="MBLogistics Express Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
+      </div>
+      <!-- NEW PROJECT CARD ADDED HERE: WhisperX.site -->
+      <div
+        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">WhisperX.site</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">An innovative earn-to-learn study project focused on programming, utilizing the WhisperX speech-to-text and alignment tool for interactive learning experiences.</p>
+        <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
+            class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        <a href="case-studies/whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <!-- Hologram Preview for Project Card -->
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=WhisperX.site+Preview" alt="WhisperX.site Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
       </div>
     </div>
 
@@ -1135,9 +1236,11 @@
     </div>
   </section>
 
+  <!-- Current Focus Section -->
   <section id="current-focus" class="py-20 px-6 bg-[#1a0933]">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
+      <div class="glass robotic-panel rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Current Focus</h3>
         <div id="current-focus-updates" class="space-y-6 text-[#BC96E6] font-montserrat text-lg">
           <p>Loading current projects...</p>
@@ -1146,8 +1249,9 @@
     </div>
   </section>
 
-
+  <!-- Experience Section -->
   <section id="experience" class="py-20 px-6">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Work Experience</h3>
@@ -1175,14 +1279,16 @@
     </div>
   </section>
 
+  <!-- Education Section -->
   <section id="education" class="py-20 px-6 bg-[#2E1F3C]">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Education</h3>
         <div class="space-y-8">
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/mst.png" alt="MST University"
+              <img src="assets/schools/mst.png" alt="MST University logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1193,7 +1299,7 @@
           </div>
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/cosmo.png" alt="Cosmo Seven"
+              <img src="assets/schools/cosmo.png" alt="Cosmo Seven Web Engineering School logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1211,46 +1317,50 @@
     </div>
   </section>
 
+  <!-- Certificates Section -->
   <section id="certificates" class="py-20 px-6">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Certificates</h3>
         <div class="certificates-carousel-container relative">
             <div id="certificates-carousel" class="certificates-carousel flex space-x-6 pb-4">
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1 for Web Development"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
                     <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2 for Frontend Design"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
                     <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3 for Backend Development"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
                     <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+4" alt="Certificate 4"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+4" alt="Certificate 4 for Cloud Technologies"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
                     <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 4</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://via.placeholder.com/224x160/311C3B/FFD166?text=Cert+5" alt="Certificate 5"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+5" alt="Certificate 5 for Mobile Development"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
                     <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 5</p>
                 </div>
             </div>
-            <button class="carousel-button left" id="cert-prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="carousel-button right" id="cert-next-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="carousel-button left" id="cert-prev-btn" aria-label="Previous certificate"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-button right" id="cert-next-btn" aria-label="Next certificate"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Testimonials Section -->
   <section id="testimonials" class="py-20 px-6 bg-[#2E1F3C]">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto text-center">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Client Feedback</h3>
@@ -1276,8 +1386,9 @@
     </div>
   </section>
 
-
+  <!-- Contact Section -->
   <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
+    <div class="section-scan-overlay"></div>
     <div class="container mx-auto text-center">
       <div class="glass rounded-3xl p-10 shadow-xl max-w-lg mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">Let's Connect</h3>
@@ -1295,8 +1406,9 @@
     </div>
   </section>
 
+  <!-- Chatbot Widget -->
   <div id="chatbot-widget" style="position:fixed;right:24px;bottom:24px;z-index:100;">
-    <button id="chatbot-toggle"
+    <button id="chatbot-toggle" aria-label="Toggle chatbot"
       class="bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-4 text-2xl hover:scale-110 transition focus:outline-none">
       <i class="fa-solid fa-robot"></i>
     </button>
@@ -1306,42 +1418,60 @@
       <div id="chatbot-messages"
         class="h-40 overflow-y-auto text-[#BC96E6] text-base font-montserrat mb-3 bg-[#210B2C]/60 rounded-lg p-2"></div>
       <form id="chatbot-form" autocomplete="off" class="flex flex-col gap-2">
-        <textarea id="chatbot-input" rows="1" placeholder="Type your phone number..." required
+        <textarea id="chatbot-input" rows="1" placeholder="Type your message or a question..." required
           class="rounded-lg px-3 py-2 bg-[#311C3B] border-2 border-[#FFD166] text-white focus:outline-none resize-none"></textarea>
         <button type="submit" class="futuristic-btn py-2 text-base">Send</button>
       </form>
       <button id="clear-chatbot-btn" class="futuristic-btn w-full py-2 text-base mt-2">Clear Chat</button>
     </div>
   </div>
-  <button id="scrollTopBtn"
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" aria-label="Scroll to top"
     class="hidden fixed bottom-24 right-6 z-50 bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-3 text-xl hover:scale-110 transition focus:outline-none">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
+  <!-- Satellite Scanner / Visitor Tracker -->
+  <div id="visitor-tracker" class="hidden md:block">
+      <p>🛰 SCANNING_NETWORK...</p>
+      <div class="scan-line-pulse"></div>
+      <p class="mt-2">📍 Location: <span id="tracker-location"></span></p>
+      <p>🧾 User ID: <span id="tracker-user-id"></span></p>
+      <p>📡 Signal: <span id="tracker-signal"></span>%</p>
+  </div>
+
+  <!-- Footer -->
   <footer
     class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
     <div id="footer-ufo-shooter" class="mr-4">
       <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
-        <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="#00cfff" stroke-width="4" />
-        <ellipse cx="45" cy="50" rx="24" ry="8" fill="#00ffe733" />
-        <ellipse cx="45" cy="42" rx="12" ry="6" fill="#00ffe7" stroke="#FFD166" stroke-width="2" />
-        <rect id="ufo-beam" x="35" y="62" width="20" height="30" rx="10" fill="#00ffe7" opacity="0" />
+        <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="var(--secondary)" stroke-width="4" />
+        <ellipse cx="45" cy="50" rx="24" ry="8" fill="var(--accent)33" />
+        <ellipse cx="45" cy="42" rx="12" ry="6" fill="var(--accent)" stroke="#FFD166" stroke-width="2" />
+        <rect id="ufo-beam" x="35" y="62" width="20" height="30" rx="10" fill="var(--accent)" opacity="0" />
       </svg>
     </div>
     <div id="shooting-star"
       style="position:absolute;top:10px;left:-60px;width:60px;height:8px;z-index:10;pointer-events:none;">
       <svg width="60" height="8">
         <ellipse cx="30" cy="4" rx="20" ry="3" fill="#ffe600" opacity="0.7" />
-        <ellipse cx="50" cy="4" rx="8" ry="2" fill="#00ffe7" opacity="0.7" />
+        <ellipse cx="50" cy="4" rx="8" ry="2" fill="var(--accent)" opacity="0.7" />
       </svg>
     </div>
     <span class="block text-base md:text-lg" id="footer-copyright-text">&copy; 2025 Stephan Filip — Full Stack Developer | <a
         href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
   </footer>
   <div id="ufo-shot-msg"
-    style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:#00ffe7;text-shadow:0 0 12px #00cfff,0 0 24px #00ffe7,0 0 8px #ff0057;pointer-events:none;white-space:nowrap;">
+    style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:var(--accent);text-shadow:0 0 12px var(--secondary),0 0 24px var(--accent),0 0 8px var(--danger);pointer-events:none;white-space:nowrap;">
     <span id="ufo-shot-text"></span>
   </div>
+
+  <!-- Audio Elements (Hidden) -->
+  <audio id="audio-click" src="https://www.soundjay.com/buttons/button-2.mp3" preload="auto"></audio>
+  <audio id="audio-chatbot" src="https://www.soundjay.com/communication/beep-07.mp3" preload="auto"></audio>
+  <audio id="audio-ufo" src="https://www.soundjay.com/mechanical/mechanical_keyboard_click_01.mp3" preload="auto"></audio>
+
 
   <script>
     // --- Global Variables / Initial Setup ---
@@ -1349,13 +1479,12 @@
     const TERMINAL_CURSOR_ID = 'terminal-cursor';
     const TERMINAL_DISPLAY_ID = 'terminal-display';
     const THEME_TOGGLE_BTN_ID = 'theme-toggle-btn';
+    const SOUND_TOGGLE_BTN_ID = 'sound-toggle-btn'; // New ID for sound toggle
     const CHATBOT_MESSAGES_ID = 'chatbot-messages';
     const CHATBOT_FORM_ID = 'chatbot-form';
     const CHATBOT_INPUT_ID = 'chatbot-input';
     const CLEAR_CHATBOT_BTN_ID = 'clear-chatbot-btn';
-    const SKILL_BAR_SELECTOR = '.skill-bar';
-    const SKILL_ITEM_SELECTOR = '.skill-item';
-    const SKILL_FILTER_BUTTON_SELECTOR = '.skill-filter-btn'; // Updated selector
+    const SKILL_GRAPH_CONTAINER_ID = 'skill-graph-container'; // New ID for skill graph
     const PROJECTS_SECTION_ID = 'projects';
     const HERO_BTN_PROJECTS_ID = 'hero-btn-projects';
     const HERO_BTN_RESUME_ID = 'hero-btn-resume';
@@ -1364,6 +1493,18 @@
     const CERT_NEXT_BTN_ID = 'cert-next-btn';
     const CURRENT_FOCUS_UPDATES_ID = 'current-focus-updates';
     const FOOTER_COPYRIGHT_TEXT_ID = 'footer-copyright-text';
+    const HERO_TERMINAL_INPUT_ID = 'hero-terminal-input'; // New ID for hero input
+    const HOLOGRAM_PROFILE_CUBE_ID = 'hologram-profile-cube'; // New ID for hologram cube
+    const ABOUT_SECTION_ID = 'about'; // ID for the about section to attach mousemove
+    const HUD_TIME_ID = 'hud-time';
+    const HUD_WEATHER_ID = 'hud-weather';
+    const HUD_BATTERY_ID = 'hud-battery';
+    const HUD_STATUS_ID = 'hud-status';
+    const HUD_USER_ID_ID = 'hud-user-id';
+    const TRACKER_LOCATION_ID = 'tracker-location';
+    const TRACKER_USER_ID_ID = 'tracker-user-id';
+    const TRACKER_SIGNAL_ID = 'tracker-signal';
+
 
     const terminalLines = [
       "Initializing...",
@@ -1380,19 +1521,22 @@
       "UI/UX Enthusiast",
       "Tech Entrepreneur"
     ];
+    let currentRoleIndex = 0; // To keep track of the current role for the input placeholder
 
     const aiAnswers = {
       "hello": "Hello there, human! How can I assist you in this digital realm?",
       "hi": "Greetings, user! What brings you to this advanced interface?",
       "how are you": "As an AI, I exist to serve. How may I be of service to you?",
-      "skills": "I possess a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services (Firebase, AWS).",
-      "projects": "You can explore my projects in the 'Projects' section, showcasing my work on web and mobile applications.",
+      "skills": "I possess a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services (Firebase, AWS). Explore the interactive graph below!",
+      "projects": "You can explore my projects in the 'Projects' section, showcasing my work on web and mobile applications. Hover over them for a holographic preview!",
       "contact": "You can reach Stephan via phone (+959954480806), Telegram (@stephanfilip7), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.",
       "bye": "Farewell, human! May your code compile and your servers run swiftly.",
       "thank you": "You're most welcome! Is there anything else I can assist you with?",
       "who are you": "I am ChatBot, an AI assistant integrated into Stephan's portfolio to help you navigate and find information.",
       "what is your name": "I am ChatBot, an AI assistant.",
       "name": "I am ChatBot, an AI assistant.",
+      "help": "Available commands: 'skills', 'projects', 'contact', 'about', 'clear', 'theme', 'sound', 'access log', 'download credentials'. You can also ask general questions!",
+      "about": "Stephan is a dedicated Full Stack Developer and founder of PayVia, passionate about futuristic UI and robust backend solutions."
     };
 
     const rareMsgs = [
@@ -1409,15 +1553,101 @@
     ];
 
     const currentFocusUpdates = [
-      { date: "Jul 2025", title: "Refining DecaVerse Developer Sandbox", description: "Enhancing the in-browser game editor and submission workflow." },
-      { date: "Jun 2025", title: "Exploring Web3 Integrations", description: "Researching decentralized technologies for future project ideas." },
-      { date: "May 2025", title: "Learning Rust & WebAssembly", description: "Diving into low-level performance optimization for web applications." }
+      { date: "Jul 2025", title: "Refining DecaVerse Developer Sandbox", description: "Enhancing the in-browser game editor and submission workflow, focusing on real-time collaboration features and improved asset pipelines. This will streamline the game creation process for developers." },
+      { date: "Jun 2025", title: "Exploring Web3 Integrations", description: "Deep diving into blockchain technologies, smart contracts, and decentralized applications (dApps). The goal is to identify viable integrations for future projects, focusing on enhanced security and user ownership." },
+      { date: "May 2025", title: "Learning Rust & WebAssembly", description: "Diving into low-level performance optimization for web applications. This new skill set will enable optimized solutions for computationally intensive tasks within web environments." },
+      { date: "Apr 2025", title: "Advanced AI Model Fine-tuning", description: "Working on fine-tuning large language models (LLMs) for domain-specific applications. This includes data preparation, model training, and performance evaluation to deliver highly accurate and relevant AI functionalities." }
     ];
+
+    // Data for D3.js Skill Graph (now for DNA visualizer)
+    const skillGraphData = {
+        nodes: [
+            { id: "HTML/CSS", group: "frontend", proficiency: 90 },
+            { id: "JavaScript/React", group: "frontend", proficiency: 85 },
+            { id: "Tailwind/Bootstrap", group: "frontend", proficiency: 95 },
+            { id: "PHP/Laravel", group: "backend", proficiency: 80 },
+            { id: "Python/Django", group: "backend", proficiency: 85 },
+            { id: "MySQL/MongoDB", group: "database", proficiency: 90 },
+            { id: "REST API", group: "cloud", proficiency: 95 },
+            { id: "Firebase/AWS", group: "cloud", proficiency: 75 },
+            { id: "C#", group: "backend", proficiency: 60 },
+            { id: "Expo", group: "mobile", proficiency: 70 },
+            { id: "Android Studio", group: "mobile", proficiency: 65 },
+            { id: "Kotlin", group: "mobile", proficiency: 60 },
+            { id: "XML", group: "mobile", proficiency: 70 },
+            { id: "Vue/Vite", group: "frontend", proficiency: 75 },
+            { id: "Next.js", group: "frontend", proficiency: 80 }
+        ]
+    };
+
+    // Define color scale for skill groups
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain(["frontend", "backend", "database", "cloud", "mobile"]);
+
+    // --- Sound Manager ---
+    const SoundManager = {
+        isMuted: localStorage.getItem('isMuted') === 'true',
+        hasInteracted: false, // New flag for user interaction
+        sounds: {
+            click: document.getElementById('audio-click'),
+            chatbot: document.getElementById('audio-chatbot'),
+            ufo: document.getElementById('audio-ufo'),
+            terminalType: new Audio('https://www.soundjay.com/typewriter/typewriter-1.mp3'), // New sound for terminal typing
+            terminalError: new Audio('https://www.soundjay.com/misc/fail-buzzer-02.mp3') // New sound for terminal error
+        },
+        init() {
+            this.updateToggleButton();
+            // Attach a one-time listener for the first interaction
+            document.addEventListener('click', this.firstInteractionHandler.bind(this), { once: true });
+            document.addEventListener('keydown', this.firstInteractionHandler.bind(this), { once: true });
+            // Set volumes
+            this.sounds.terminalType.volume = 0.3;
+            this.sounds.terminalError.volume = 0.5;
+        },
+        firstInteractionHandler() {
+            this.hasInteracted = true;
+            // Attempt to play a silent sound to "unlock" audio context
+            Object.values(this.sounds).forEach(audio => {
+                if (audio) {
+                    audio.volume = 0; // Set volume to 0 for silent play
+                    audio.play().catch(e => console.warn("Silent audio play failed (expected on some browsers):", e));
+                    audio.volume = 1; // Reset volume
+                }
+            });
+            console.log("First user interaction detected, audio unlocked.");
+        },
+        play(soundName) {
+            if (this.hasInteracted && !this.isMuted && this.sounds[soundName]) {
+                this.sounds[soundName].currentTime = 0; // Rewind to start
+                this.sounds[soundName].play().catch(e => console.error("Sound play failed:", e));
+            }
+        },
+        toggleMute() {
+            this.isMuted = !this.isMuted;
+            localStorage.setItem('isMuted', this.isMuted);
+            this.updateToggleButton();
+            if (!this.isMuted) {
+                this.play('click'); // Play a sound when unmuting
+            }
+        },
+        updateToggleButton() {
+            const icon = document.getElementById(SOUND_TOGGLE_BTN_ID).querySelector('i');
+            if (this.isMuted) {
+                icon.classList.remove('fa-volume-high');
+                icon.classList.add('fa-volume-xmark');
+            } else {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high');
+            }
+        }
+    };
+
 
     // --- Helper Functions ---
     function botSay(msg) {
       document.getElementById(CHATBOT_MESSAGES_ID).innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
       document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
+      SoundManager.play('chatbot'); // Play chatbot sound
     }
 
     function userSay(msg) {
@@ -1488,13 +1718,13 @@
     function showOptions() {
       botSay(
         `How would you like to contact me?<br>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone()">Phone</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg()">Telegram</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb()">Facebook</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa()">WhatsApp</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh()">GitHub</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showli()">LinkedIn</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showup()">Upwork</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone(); SoundManager.play('click');">Phone</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg(); SoundManager.play('click');">Telegram</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb(); SoundManager.play('click');">Facebook</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa(); SoundManager.play('click');">WhatsApp</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh(); SoundManager.play('click');">GitHub</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showli(); SoundManager.play('click');">LinkedIn</button>
+        <button class="futuristic-btn my-1 px-3 py-1" onclick="showup(); SoundManager.play('click');">Upwork</button>
         `
       );
     }
@@ -1503,31 +1733,151 @@
       document.getElementById(CHATBOT_MESSAGES_ID).innerHTML = '';
       botSay("Chat history cleared. How can I assist you now?");
       showOptions();
+      SoundManager.play('click'); // Play click sound
     }
 
-    // --- 4. Typing effect for roles (existing) ---
-    let roleIdx = 0, roleCharIdx = 0, typing = true;
-    const typedRole = document.getElementById('typed-role');
-    function typeRole() {
-      if (typing) {
-        if (roleCharIdx < roles[roleIdx].length) {
-          typedRole.textContent += roles[roleIdx][roleCharIdx++];
-          setTimeout(typeRole, 70);
-        } else {
-          typing = false;
-          setTimeout(typeRole, 1200);
+    // --- 4. Typing effect for roles (Modified for interactive input) ---
+    const heroTerminalInput = document.getElementById(HERO_TERMINAL_INPUT_ID);
+    let currentInputText = "";
+    let inputTypingTimeout;
+    let isTypingRole = true;
+
+    function typeRoleIntoInput() {
+        if (!isTypingRole) return; // Stop if a command is being processed
+
+        if (currentRoleIndex >= roles.length) {
+            currentRoleIndex = 0; // Loop back to the first role
         }
-      } else {
-        if (roleCharIdx > 0) {
-          typedRole.textContent = roles[roleIdx].slice(0, --roleCharIdx);
-          setTimeout(typeRole, 30);
-        } else {
-          typing = true;
-          roleIdx = (roleIdx + 1) % roles.length;
-          setTimeout(typeRole, 400);
+        const targetText = roles[currentRoleIndex];
+        let charIndex = 0;
+
+        function typeChar() {
+            if (!isTypingRole) return;
+            if (charIndex < targetText.length) {
+                currentInputText = targetText.substring(0, charIndex + 1);
+                heroTerminalInput.value = currentInputText;
+                SoundManager.sounds.terminalType.play().catch(() => {}); // Play typing sound, suppress error
+                charIndex++;
+                inputTypingTimeout = setTimeout(typeChar, 70); // Typing speed
+            } else {
+                inputTypingTimeout = setTimeout(eraseText, 1200); // Pause before erasing
+            }
         }
-      }
+
+        function eraseText() {
+            if (!isTypingRole) return;
+            if (charIndex > 0) {
+                currentInputText = targetText.substring(0, charIndex - 1);
+                heroTerminalInput.value = currentInputText;
+                SoundManager.sounds.terminalType.play().catch(() => {}); // Play typing sound, suppress error
+                charIndex--;
+                inputTypingTimeout = setTimeout(eraseText, 30); // Erasing speed
+            } else {
+                currentRoleIndex++; // Move to the next role
+                inputTypingTimeout = setTimeout(typeChar, 400); // Pause before typing next role
+            }
+        }
+
+        // Start the typing sequence
+        typeChar();
     }
+
+    // Function to simulate log access
+    function simulateLogAccess() {
+        isTypingRole = false; // Pause role typing
+        clearTimeout(inputTypingTimeout); // Clear any pending typing timeouts
+        const logLines = [
+            "ACCESSING_LOGS...",
+            "INITIATING_DECRYPTION_PROTOCOL_V2.1...",
+            "AUTHENTICATION_SUCCESSFUL.",
+            "LOG_ENTRY_001: SYSTEM_BOOT_SEQUENCE_COMPLETE",
+            "LOG_ENTRY_002: NETWORK_INTEGRITY_CHECK_OK",
+            "LOG_ENTRY_003: USER_FILIP_LOGIN_SUCCESS",
+            "LOG_ENTRY_004: PORTFOLIO_V4_ONLINE",
+            "LOG_ACCESS_COMPLETE."
+        ];
+        let currentLogLine = 0;
+        let charIndex = 0;
+        heroTerminalInput.value = "";
+        SoundManager.play('ufo'); // Use a distinct sound for log access
+
+        function typeLogLine() {
+            if (currentLogLine < logLines.length) {
+                if (charIndex < logLines[currentLogLine].length) {
+                    heroTerminalInput.value += logLines[currentLogLine][charIndex++];
+                    SoundManager.sounds.terminalType.play().catch(() => {});
+                    setTimeout(typeLogLine, 40); // Faster typing for logs
+                } else {
+                    heroTerminalInput.value += "\n";
+                    charIndex = 0;
+                    currentLogLine++;
+                    setTimeout(typeLogLine, 300); // Pause between lines
+                }
+            } else {
+                setTimeout(() => {
+                    heroTerminalInput.value = ""; // Clear after logs
+                    isTypingRole = true; // Resume role typing
+                    typeRoleIntoInput(); // Restart role typing
+                }, 1500); // Pause before clearing and resuming
+            }
+        }
+        typeLogLine();
+    }
+
+
+    // Handle hero terminal commands
+    function handleHeroCommand(command) {
+        command = command.toLowerCase().trim();
+        let response = "";
+        isTypingRole = false; // Pause role typing when a command is entered
+        clearTimeout(inputTypingTimeout); // Clear any pending typing timeouts
+
+        switch(command) {
+            case 'help':
+                response = "Available commands: 'about', 'skills', 'projects', 'contact', 'hire', 'access log', 'download credentials'.";
+                break;
+            case 'about':
+                response = "Stephan is a Full Stack Developer passionate about futuristic UI and robust backend solutions.";
+                gsap.to(window, { duration: 0.8, scrollTo: { y: `#${ABOUT_SECTION_ID}` }, ease: "power2.inOut" });
+                break;
+            case 'skills':
+                response = "Check the 'Skills' section for an interactive graph of my tech stack!";
+                gsap.to(window, { duration: 0.8, scrollTo: { y: "#skills" }, ease: "power2.inOut" });
+                break;
+            case 'projects':
+                response = "Explore my work in the 'Projects' section. Hover over them for a holographic preview!";
+                gsap.to(window, { duration: 0.8, scrollTo: { y: "#projects" }, ease: "power2.inOut" });
+                break;
+            case 'contact':
+                response = "Find my contact details in the 'Contact' section or use the chatbot!";
+                gsap.to(window, { duration: 0.8, scrollTo: { y: "#contact" }, ease: "power2.inOut" });
+                break;
+            case 'hire':
+                response = "Excellent choice! Let's connect. See the 'Contact' section.";
+                gsap.to(window, { duration: 0.8, scrollTo: { y: "#contact" }, ease: "power2.inOut" });
+                break;
+            case 'access log':
+                simulateLogAccess(); // Trigger log simulation
+                return; // Exit early as log simulation handles resuming typing
+            case 'download credentials':
+                response = "Initiating secure download of credentials...";
+                document.getElementById(HERO_BTN_RESUME_ID).click(); // Trigger resume download
+                break;
+            default:
+                response = `Command '${command}' not recognized. Type 'help' for options.`;
+                SoundManager.play('terminalError'); // Play error sound
+        }
+
+        // Display response in the input area for non-log commands
+        heroTerminalInput.value = response;
+        setTimeout(() => {
+            heroTerminalInput.value = ""; // Clear after a delay
+            isTypingRole = true; // Resume role typing
+            typeRoleIntoInput(); // Restart role typing
+        }, 3000); // Display response for 3 seconds
+        SoundManager.play('chatbot'); // Use chatbot sound for command response
+    }
+
 
     // --- 5. Footer UFO Message Feature (existing) ---
     const ufoShotMsg = document.getElementById('ufo-shot-msg');
@@ -1541,6 +1891,7 @@
       ufoShotMsg.style.left = '110px';
       ufoShotMsg.style.bottom = '110px';
       ufoShotMsg.style.opacity = '1';
+      SoundManager.play('ufo'); // Play UFO sound
       let pos = 110, opacity = 1;
 
       gsap.to(ufoBeamSVG, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
@@ -1590,6 +1941,7 @@
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
         }
+        SoundManager.play('click'); // Play click sound
     }
 
     function saveThemePreference(theme) {
@@ -1608,51 +1960,141 @@
         }
     }
 
-    // --- 10. Interactive Skill Progress Bars (existing) ---
-    const skillBars = document.querySelectorAll(SKILL_BAR_SELECTOR);
+    // --- 10. DNA-style Skill Visualizer ---
+    function createDnaSkillVisualizer(data) {
+        const container = document.getElementById(SKILL_GRAPH_CONTAINER_ID);
+        if (!container) return;
 
-    const animateSkillBars = (entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const skillBar = entry.target;
-          const level = skillBar.dataset.level;
-          gsap.to(skillBar, {
-            width: `${level}%`,
-            duration: 1.5,
-            ease: "power3.out",
-            onComplete: () => {
-              observer.unobserve(skillBar);
-            }
-          });
-        }
-      });
-    };
+        const width = 800; // Fixed width for the SVG canvas
+        const height = 500; // Fixed height for the SVG canvas
+        const svg = d3.select("#skill-dna-svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
-    // --- 11. Skills Section Filter ---
-    function filterSkills(category) {
-      const allSkillItems = document.querySelectorAll(SKILL_ITEM_SELECTOR);
-      allSkillItems.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-          gsap.to(item, { opacity: 1, display: 'flex', duration: 0.5 });
-        } else {
-          gsap.to(item, { opacity: 0, display: 'none', duration: 0.5 });
-        }
-      });
+        // Clear previous elements
+        svg.selectAll("*").remove();
 
-      // Re-animate skill bars for visible items
-      allSkillItems.forEach(item => {
-        if (item.style.display !== 'none') {
-          const skillBar = item.querySelector(SKILL_BAR_SELECTOR);
-          if (skillBar) {
-            const level = skillBar.dataset.level;
-            gsap.fromTo(skillBar, {width: 0}, { // Reset and re-animate
-                width: `${level}%`,
-                duration: 1.5,
-                ease: "power3.out"
+        // DNA helix parameters
+        const helixRadius = 100;
+        const helixPitch = 0.05; // Controls how tight the helix is
+        const helixLength = height - 100; // Length of the helix in Y-axis
+        const startY = 50;
+        const endY = height - 50;
+
+        // Create helix paths
+        const lineGenerator = d3.line()
+            .x(d => d.x)
+            .y(d => d.y)
+            .curve(d3.curveCardinal); // Smooth curve
+
+        const helixPoints1 = [];
+        const helixPoints2 = [];
+        for (let y = startY; y <= endY; y += 1) {
+            const angle = y * helixPitch;
+            helixPoints1.push({
+                x: width / 2 + helixRadius * Math.cos(angle),
+                y: y
             });
-          }
+            helixPoints2.push({
+                x: width / 2 + helixRadius * Math.cos(angle + Math.PI),
+                y: y
+            });
         }
-      });
+
+        const helix1 = svg.append("path")
+            .attr("class", "dna-helix")
+            .attr("d", lineGenerator(helixPoints1));
+
+        const helix2 = svg.append("path")
+            .attr("class", "dna-helix")
+            .attr("d", lineGenerator(helixPoints2));
+
+        // Animate helix drawing
+        const pathLength1 = helix1.node().getTotalLength();
+        const pathLength2 = helix2.node().getTotalLength();
+
+        helix1.attr("stroke-dasharray", pathLength1 + " " + pathLength1)
+              .attr("stroke-dashoffset", pathLength1);
+        helix2.attr("stroke-dasharray", pathLength2 + " " + pathLength2)
+              .attr("stroke-dashoffset", pathLength2);
+
+        gsap.to(helix1.node(), { strokeDashoffset: 0, duration: 2, ease: "power2.out" });
+        gsap.to(helix2.node(), { strokeDashoffset: 0, duration: 2, ease: "power2.out", delay: 0.5 });
+
+
+        // Position nodes along the helix
+        const nodesData = data.nodes.map((d, i) => {
+            const yPos = startY + (i / (data.nodes.length - 1)) * helixLength;
+            const angle = yPos * helixPitch;
+            return {
+                ...d,
+                x: width / 2 + helixRadius * Math.cos(angle + (i % 2 === 0 ? 0 : Math.PI)),
+                y: yPos
+            };
+        });
+
+        const nodeGroups = svg.selectAll(".dna-node-group")
+            .data(nodesData)
+            .enter().append("g")
+            .attr("class", "dna-node-group")
+            .attr("transform", d => `translate(${d.x},${d.y})`);
+
+        nodeGroups.append("circle")
+            .attr("class", "dna-node-circle")
+            .attr("r", d => 5 + d.proficiency / 15) // Size based on proficiency
+            .attr("fill", d => colorScale(d.group));
+
+        nodeGroups.append("text")
+            .attr("class", "dna-node-text")
+            .attr("dy", "0.35em")
+            .attr("x", d => d.x > width / 2 ? 10 : -10) // Offset text based on side of helix
+            .attr("text-anchor", d => d.x > width / 2 ? "start" : "end")
+            .text(d => d.id);
+
+        // Animate nodes on scroll
+        gsap.to(nodeGroups.nodes(), {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: `#${SKILL_GRAPH_CONTAINER_ID}`,
+                start: "top center",
+                toggleActions: "play reverse play reverse",
+                once: true // Only animate once
+            }
+        });
+
+        // Node hover interaction
+        nodeGroups.on("mouseover", function(event, d) {
+            d3.select(this).classed("highlight", true);
+        })
+        .on("mouseout", function(event, d) {
+            d3.select(this).classed("highlight", false);
+        });
+
+        // Filter functionality for DNA visualizer
+        window.filterDnaSkills = function(category) {
+            const allNodeGroups = svg.selectAll(".dna-node-group");
+            allNodeGroups.each(function(d) {
+                const nodeGroup = d3.select(this);
+                if (category === 'all' || d.group === category) {
+                    nodeGroup.transition().duration(300)
+                        .style("opacity", 1)
+                        .attr("display", null); // Show element
+                } else {
+                    nodeGroup.transition().duration(300)
+                        .style("opacity", 0.2)
+                        .attr("display", "none"); // Hide element
+                }
+            });
+        };
+    }
+
+    // --- 11. Skills Section Filter (Adjusted for DNA Visualizer) ---
+    function filterSkills(category) {
+        window.filterDnaSkills(category); // Call the D3.js filter function
     }
 
     // --- 12. Certificates Carousel Navigation ---
@@ -1663,22 +2105,45 @@
         left: direction * scrollAmount,
         behavior: 'smooth'
       });
+      SoundManager.play('click'); // Play click sound
     }
 
-    // --- 13. Fetch and Display Current Focus Updates ---
+    // --- 13. Fetch and Display Current Focus Updates (Dynamic News Feed) ---
     function fetchLatestUpdates() {
       const updatesContainer = document.getElementById(CURRENT_FOCUS_UPDATES_ID);
       let html = '';
       currentFocusUpdates.forEach(update => {
         html += `
-          <div class="p-4 bg-[#210B2C] rounded-lg border-l-4 border-[#00cfff] shadow-md">
+          <div class="current-focus-item p-4 rounded-lg border-l-4 border-[var(--secondary)] shadow-md">
             <p class="text-sm text-[#FFD166] font-orbitron">${update.date}</p>
-            <h4 class="text-xl font-semibold text-[#00ffe7] mb-1">${update.title}</h4>
+            <h4 class="text-xl font-semibold text-[var(--accent)] mb-1">${update.title}</h4>
             <p>${update.description}</p>
           </div>
         `;
       });
       updatesContainer.innerHTML = html;
+
+      // Implement a simple "news ticker" effect if desired
+      const newsItems = updatesContainer.querySelectorAll('.current-focus-item');
+      if (newsItems.length > 1) {
+          let currentNewsIndex = 0;
+          const rotateNews = () => {
+              gsap.to(newsItems[currentNewsIndex], {
+                  y: "-100%",
+                  opacity: 0,
+                  duration: 0.5,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+                      gsap.set(newsItems[currentNewsIndex], { y: "100%", opacity: 0 }); // Move to bottom, keep hidden
+                      currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+                      gsap.to(newsItems[currentNewsIndex], { y: "0%", opacity: 1, duration: 0.5, ease: "power2.out" });
+                  }
+              });
+          };
+          // Initialize all but first item hidden
+          gsap.set(Array.from(newsItems).slice(1), { opacity: 0, y: "100%" });
+          // setInterval(rotateNews, 5000); // Rotate every 5 seconds
+      }
     }
 
     // --- 14. Animate Hero Buttons (Enhanced) ---
@@ -1693,7 +2158,7 @@
           rotate: -2,
           background: "var(--btn-hover-bg)",
           boxShadow: "var(--btn-hover-shadow)",
-          color: "#ff0057",
+          color: "var(--danger)",
           duration: 0.2,
           ease: "power2.out",
           overwrite: true
@@ -1722,7 +2187,7 @@
           y: -2,
           background: "rgba(255,209,102,0.133)", // More subtle background
           boxShadow: "0 0 16px rgba(255,209,102,0.5)", // Subtle glow
-          color: "#00ffe7", // Change text color
+          color: "var(--accent)", // Change text color
           duration: 0.2,
           ease: "power2.out",
           overwrite: true
@@ -1779,11 +2244,97 @@
         }, 10000); // Initial delay
     }
 
+    // --- Section Scanline Effect ---
+    function setupSectionScanlines() {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            // Ensure the hero section doesn't get a scanline overlay as it's handled differently
+            if (section.id === 'hero-section') return;
+
+            const overlay = section.querySelector('.section-scan-overlay');
+            if (overlay) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            gsap.fromTo(overlay,
+                                { scaleY: 0, opacity: 0, transformOrigin: 'top' },
+                                { scaleY: 1, opacity: 1, duration: 0.5, ease: "power2.out",
+                                  onComplete: () => {
+                                      gsap.to(overlay, { scaleY: 0, opacity: 0, duration: 0.5, ease: "power2.in", delay: 0.5 });
+                                  }
+                                }
+                            );
+                        }
+                    });
+                }, { threshold: 0.3 }); // Trigger when 30% of section is visible
+                observer.observe(section);
+            }
+        });
+    }
+
+    // --- Hologram Profile Interaction ---
+    function setupHologramProfile() {
+        const aboutSection = document.getElementById(ABOUT_SECTION_ID);
+        const hologramCube = document.getElementById(HOLOGRAM_PROFILE_CUBE_ID);
+
+        if (!aboutSection || !hologramCube) return;
+
+        aboutSection.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = aboutSection.getBoundingClientRect();
+            const x = (e.clientX - left) / width; // 0 to 1
+            const y = (e.clientY - top) / height; // 0 to 1
+
+            // Calculate rotation based on mouse position relative to the center of the section
+            const rotateX = (y - 0.5) * 20; // Max 10deg up/down
+            const rotateY = (x - 0.5) * -20; // Max 10deg left/right
+
+            gsap.to(hologramCube, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                duration: 0.5,
+                ease: "power1.out"
+            });
+        });
+
+        aboutSection.addEventListener('mouseleave', () => {
+            gsap.to(hologramCube, {
+                rotationX: 15, // Return to initial tilt
+                rotationY: -15, // Return to initial tilt
+                duration: 0.8,
+                ease: "elastic.out(1, 0.5)" // Elastic snap back
+            });
+        });
+    }
+
+    // --- Floating HUD Elements Logic ---
+    function updateHudElements() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        document.getElementById(HUD_TIME_ID).textContent = `TIME: ${timeString}`;
+        document.getElementById(HUD_WEATHER_ID).textContent = `WEATHER: RAIN // 12C`; // Mock data
+        document.getElementById(HUD_BATTERY_ID).textContent = `POWER: ${Math.floor(Math.random() * 20) + 80}%`; // Mock data 80-100%
+        document.getElementById(HUD_STATUS_ID).textContent = `STATUS: ONLINE`; // Mock data
+        document.getElementById(HUD_USER_ID_ID).textContent = `USER: GUEST // ECHO-${Math.floor(Math.random() * 99) + 1}`; // Mock data
+    }
+
+    // --- Satellite Scanner / Visitor Tracker Logic ---
+    function setupVisitorTracker() {
+        document.getElementById(TRACKER_LOCATION_ID).textContent = "YANGON, MM"; // Mock location
+        document.getElementById(TRACKER_USER_ID_ID).textContent = `UNIT-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`; // Random ID
+        document.getElementById(TRACKER_SIGNAL_ID).textContent = `${Math.floor(Math.random() * 30) + 70}`; // Random signal 70-99%
+
+        // Animate signal strength
+        setInterval(() => {
+            document.getElementById(TRACKER_SIGNAL_ID).textContent = `${Math.floor(Math.random() * 30) + 70}`;
+        }, 3000); // Update every 3 seconds
+    }
+
 
     // --- Event Listeners and Initializations ---
     window.addEventListener('DOMContentLoaded', function () {
       typeTerminal();
       loadThemePreference(); // Load theme immediately
+      SoundManager.init(); // Initialize sound manager
 
       // Blinking cursor
       setInterval(() => {
@@ -1811,9 +2362,29 @@
       gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
 
       // Chatbot Initialization
-      document.getElementById('chatbot-toggle').addEventListener('click', () => {
-        document.getElementById('chatbot-window').classList.toggle('hidden');
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbotWindow = document.getElementById('chatbot-window');
+      const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+
+      chatbotToggle.addEventListener('click', () => {
+        chatbotWindow.classList.toggle('hidden');
+        // If chatbot is opened, show overlay if mobile nav is also closed
+        if (!chatbotWindow.classList.contains('hidden') && window.innerWidth <= 768) {
+            mobileNavOverlay.classList.remove('hidden');
+        } else {
+            mobileNavOverlay.classList.add('hidden');
+        }
+        SoundManager.play('click'); // Play click sound
       });
+
+      // Close chatbot when clicking overlay (only if overlay is specifically for chatbot)
+      mobileNavOverlay.addEventListener('click', () => {
+        if (!chatbotWindow.classList.contains('hidden')) { // Only if chatbot is open
+            chatbotWindow.classList.add('hidden');
+            mobileNavOverlay.classList.add('hidden');
+        }
+      });
+
       document.getElementById(CHATBOT_FORM_ID).addEventListener('submit', function (e) {
         e.preventDefault();
         const val = document.getElementById(CHATBOT_INPUT_ID).value.trim();
@@ -1835,25 +2406,33 @@
         }
 
         const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
-        if (phonePattern.test(val)) {
-          botSay("Thank you! We'll contact you soon at: <b>" + val + "</b>");
+        if (phonePattern.test(val) || (lower.includes("phone number") || lower.includes("contact number"))) {
+          botSay("Thank you! I've noted your contact request. Stephan will reach out soon.");
           document.getElementById(CHATBOT_INPUT_ID).value = "";
           document.getElementById(CHATBOT_INPUT_ID).disabled = true;
           setTimeout(() => {
             document.getElementById(CHATBOT_INPUT_ID).disabled = false;
             document.getElementById(CHATBOT_INPUT_ID).value = "";
-          }, 2000);
+          }, 3000); // Give user time to see the message
         } else {
-          botSay("Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
+          botSay("I'm sorry, I didn't understand that. Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
         }
       });
       document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
-      botSay("Hi! Please enter your phone number to chat, or choose a contact option below:");
+      botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out.");
       showOptions();
 
 
-      // Role Typing Effect
-      typeRole();
+      // Hero Terminal Input
+      typeRoleIntoInput(); // Start typing animation for the input
+      heroTerminalInput.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+              event.preventDefault(); // Prevent new line
+              handleHeroCommand(this.value);
+              this.value = ''; // Clear input after command
+          }
+      });
+
 
       // UFO Shooter Automation
       setInterval(autoShootUFO, 8000);
@@ -1868,6 +2447,7 @@
       });
       scrollTopBtn.addEventListener('click', () => {
         gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+        SoundManager.play('click'); // Play click sound
       });
 
       // Hero Parallax
@@ -1885,25 +2465,22 @@
       // Theme Toggle Event Listener
       document.getElementById(THEME_TOGGLE_BTN_ID).addEventListener('click', toggleTheme);
 
-      // Skill Bars Intersection Observer
-      const skillBarObserver = new IntersectionObserver(animateSkillBars, {
-        root: null,
-        threshold: 0.5
-      });
-      skillBars.forEach(bar => {
-        skillBarObserver.observe(bar);
-      });
+      // Sound Toggle Event Listener
+      document.getElementById(SOUND_TOGGLE_BTN_ID).addEventListener('click', () => SoundManager.toggleMute());
+
+      // Create DNA Skill Visualizer
+      createDnaSkillVisualizer(skillGraphData);
 
       // Skill Filter Buttons
       document.querySelectorAll('.futuristic-btn[data-filter]').forEach(button => {
         button.addEventListener('click', (event) => {
-          document.querySelectorAll('.futuristic-btn[data-filter]').forEach(btn => btn.classList.remove('bg-opacity-50', 'neon-border'));
-          event.target.classList.add('bg-opacity-50', 'neon-border'); // Highlight active filter
+          document.querySelectorAll('.futuristic-btn[data-filter]').forEach(btn => btn.classList.remove('active'));
+          event.target.classList.add('active'); // Highlight active filter
           filterSkills(event.target.dataset.filter);
+          SoundManager.play('click'); // Play click sound
         });
       });
-      // Set initial filter to 'all' and highlight it
-      document.querySelector('.futuristic-btn[data-filter="all"]').classList.add('bg-opacity-50', 'neon-border');
+      // Set initial filter to 'all' and highlight it (already done in HTML)
 
 
       // Certificates Carousel Buttons
@@ -1921,6 +2498,19 @@
 
       // Scramble Footer Text
       scrambleFooterText();
+
+      // Setup Section Scanlines
+      setupSectionScanlines();
+
+      // Setup Hologram Profile
+      setupHologramProfile();
+
+      // Update HUD elements every second
+      setInterval(updateHudElements, 1000);
+      updateHudElements(); // Initial update
+
+      // Setup Visitor Tracker
+      setupVisitorTracker();
 
       // Ensure elements are at top on load
       window.scrollTo(0, 0);

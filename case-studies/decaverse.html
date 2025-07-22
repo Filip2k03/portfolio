@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: DecaVerse Game Dev Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f0617 0%, #1a0933 100%);
+            color: #ffe600;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffe7;
+            margin-bottom: 1rem;
+        }
+        .section-header {
+            border-bottom: 2px solid #00cfff;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .glass-panel {
+            background: rgba(24, 18, 38, 0.82);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 12px 48px 0 rgba(0, 255, 231, 0.2), 0 0 0 2px rgba(255, 230, 0, 0.2) inset;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .futuristic-link {
+            color: #ff0057;
+            text-decoration: underline wavy 2px;
+            transition: color 0.2s;
+            font-weight: bold;
+        }
+        .futuristic-link:hover {
+            color: #00ffe7;
+            text-shadow: 0 0 8px #ffe600, 0 0 16px #00ffe7;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container glass-panel">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-8">DecaVerse: Game Dev Platform</h1>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Project Overview</h2>
+        </div>
+        <p class="mb-4 text-lg">DecaVerse is a cutting-edge platform designed for interactive web game development. It features AI-powered recommendations (using Genkit) and a scalable architecture, providing a robust environment for game creators.</p>
+        <p class="mb-8 text-lg">My role in this project primarily involved building the core Next.js platform, integrating AI services, and ensuring a seamless user experience for developers.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Problem Statement</h2>
+        </div>
+        <p class="mb-4 text-lg">Traditional game development often faces challenges with accessibility, collaboration, and discoverability. Many platforms are complex, require high-end hardware, or lack intelligent tools to assist developers.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Solution & My Contribution</h2>
+        </div>
+        <p class="mb-4 text-lg">I developed the front-end architecture using Next.js, focusing on performance, modularity, and a highly intuitive UI. Key contributions include:</p>
+        <ul class="list-disc list-inside mb-4 text-lg space-y-2">
+            <li>Designed and implemented the responsive user interface for the game editor and developer dashboard.</li>
+            <li>Integrated Genkit for AI-driven game asset recommendations and procedural content generation.</li>
+            <li>Developed the API layer for seamless communication between the front-end and back-end services.</li>
+            <li>Optimized data fetching and state management for a smooth, real-time development experience.</li>
+            <li>Ensured cross-browser compatibility and accessibility standards.</li>
+        </ul>
+        <p class="mb-8 text-lg">The platform aims to lower the barrier to entry for game development, making it accessible to a wider audience while providing powerful tools for experienced creators.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Technologies Used</h2>
+        </div>
+        <ul class="list-disc list-inside mb-8 text-lg space-y-2">
+            <li>**Frontend:** Next.js, React, Tailwind CSS</li>
+            <li>**Backend/AI:** Node.js, Genkit, REST APIs</li>
+            <li>**Database:** (Specify database if applicable, e.g., MongoDB, PostgreSQL)</li>
+            <li>**Deployment:** Vercel</li>
+        </ul>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Results & Impact</h2>
+        </div>
+        <p class="mb-4 text-lg">DecaVerse provides a streamlined workflow for game development, enabling faster prototyping and deployment. The AI recommendation system significantly reduces the time spent on asset creation and selection, allowing developers to focus more on core gameplay mechanics.</p>
+        <p class="mb-8 text-lg">The scalable architecture ensures that the platform can handle a growing number of users and complex game projects without performance degradation.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Lessons Learned</h2>
+        </div>
+        <p class="mb-8 text-lg">Working on DecaVerse reinforced the importance of a robust front-end architecture for complex applications. Integrating AI services effectively required careful planning and iterative development. Understanding the nuances of real-time data synchronization was crucial for the game editor's responsiveness.</p>
+
+        <div class="section-header">
+            <h2 class="text-3xl">Future Enhancements</h2>
+        </div>
+        <p class="mb-4 text-lg">Future plans include expanding the AI capabilities, adding multi-user real-time collaboration features within the editor, and introducing a marketplace for community-contributed assets and game templates.</p>
+
+        <div class="text-center mt-10">
+            <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link text-xl">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <p class="mt-4 text-lg">
+                <a href="../index.html#projects" class="futuristic-link">← Back to Projects</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
