@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stephan | Full Stack Developer</title>
+  <title>Filip | Full Stack Developer</title> <!-- Changed for consistency if Filip is preferred -->
 
   <!-- Preload fonts for faster loading -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" as="style">
@@ -1372,23 +1372,6 @@
         </div>
       </div>
     </div>
-     <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">WhisperX.site</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Innovation AI for hummanize,assigement,digram,code adn debug</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://ai.whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://ai.whisperx.site">Run Live</button>
-          <a href="case-studies/ai.whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
-        </div>
-        <!-- Hologram Preview for Project Card -->
-        <div class="hologram-preview">
-          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=ai.WhisperX.site+Preview" alt="ai.WhisperX.site Project Preview">
-          <div class="hologram-scanline"></div>
-        </div>
-      </div>
-    </div>
 
     <h4 class="text-3xl font-led mt-16 mb-8 text-center">GitHub Projects</h4>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -1549,7 +1532,7 @@
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Client Feedback</h3>
         <div class="grid md:grid-cols-2 gap-8">
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Stephan delivered an outstanding website. His attention to detail and ability to integrate complex features seamlessly was truly impressive. Highly recommend!"</p>
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip delivered an outstanding website. His attention to detail and ability to integrate complex features seamlessly was truly impressive. Highly recommend!"</p>
             <p class="text-[#FFD166] font-orbitron font-semibold">- Anya Petrova, CEO of FutureNet Solutions</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
@@ -1557,7 +1540,7 @@
             <p class="text-[#FFD166] font-orbitron font-semibold">- Jax Miller, Lead Developer at CyberCorp</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Working with Stephan was a blast. His dedication to clean code and his knack for futuristic UI designs really brought our vision to life. A true full-stack talent!"</p>
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Working with Filip was a blast. His dedication to clean code and his knack for futuristic UI designs really brought our vision to life. A true full-stack talent!"</p>
             <p class="text-[#FFD166] font-orbitron font-semibold">- Zai Myat, Founder of Quantum Systems</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
@@ -1728,14 +1711,14 @@
       "how are you": "As an AI, I exist to serve. How may I be of service to you?",
       "skills": "I possess a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services (Firebase, AWS). Explore the interactive graph below!",
       "projects": "You can explore my projects in the 'Projects' section, showcasing my work on web and mobile applications. Hover over them for a holographic preview!",
-      "contact": "You can reach Stephan via phone (+959954480806), Telegram (@stephanfilip7), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.",
+      "contact": "You can reach Filip via phone (+959954480806), Telegram (@stephanfilip7), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.", // Corrected name
       "bye": "Farewell, human! May your code compile and your servers run swiftly.",
       "thank you": "You're most welcome! Is there anything else I can assist you with?",
-      "who are you": "I am ChatBot, an AI assistant integrated into Stephan's portfolio to help you navigate and find information.",
+      "who are you": "I am ChatBot, an AI assistant integrated into Filip's portfolio to help you navigate and find information.", // Corrected name
       "what is your name": "I am ChatBot, an AI assistant.",
       "name": "I am ChatBot, an AI assistant.",
       "help": "Available commands: 'skills', 'projects', 'contact', 'about', 'clear', 'theme', 'sound', 'access log', 'download credentials'. You can also ask general questions!",
-      "about": "Stephan is a dedicated Full Stack Developer and founder of PayVia, passionate about futuristic UI and robust backend solutions."
+      "about": "Filip is a dedicated Full Stack Developer and founder of PayVia, passionate about futuristic UI and robust backend solutions." // Corrected name
     };
 
     const rareMsgs = [
@@ -1795,7 +1778,7 @@
             terminalError: null // Will be assigned in init
         },
         init() {
-            // Assign audio elements after DOM is fully loaded
+            // BUG FIX: Assign audio elements *before* calling functions that might use them
             this.sounds.click = document.getElementById('audio-click');
             this.sounds.chatbot = document.getElementById('audio-chatbot');
             this.sounds.ufo = document.getElementById('audio-ufo');
@@ -2057,7 +2040,7 @@
                 response = "Available commands: 'about', 'skills', 'projects', 'contact', 'hire', 'access log', 'download credentials'.";
                 break;
             case 'about':
-                response = "Stephan is a Full Stack Developer passionate about futuristic UI and robust backend solutions.";
+                response = "Filip is a Full Stack Developer passionate about futuristic UI and robust backend solutions."; // Corrected name
                 gsap.to(window, { duration: 0.8, scrollTo: { y: `#${ABOUT_SECTION_ID}` }, ease: "power2.inOut" });
                 break;
             case 'skills':
@@ -2761,9 +2744,10 @@
 
     // --- Event Listeners and Initializations ---
     window.addEventListener('DOMContentLoaded', function () {
-      typeTerminal();
+      SoundManager.init(); // Initialize sound manager FIRST
       loadThemePreference(); // Load theme immediately
-      SoundManager.init(); // Initialize sound manager
+      
+      typeTerminal();
 
       // Blinking cursor
       setInterval(() => {
@@ -2845,7 +2829,7 @@
 
           const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
           if (phonePattern.test(val) || (lower.includes("phone number") || lower.includes("contact number"))) {
-            botSay("Thank you! I've noted your contact request. Stephan will reach out soon.");
+            botSay("Thank you! I've noted your contact request. Filip will reach out soon."); // Corrected name
             document.getElementById(CHATBOT_INPUT_ID).value = "";
             document.getElementById(CHATBOT_INPUT_ID).disabled = true;
             setTimeout(() => {
@@ -2857,7 +2841,7 @@
           }
         });
         document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
-        botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out.");
+        botSay("Hi there! I'm Filip's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out."); // Corrected name
         showOptions();
       }
 
@@ -2982,6 +2966,7 @@
     });
 
     // Expose all show* functions to window for inline onclick in chatbot
+    // Adjusted name references for consistency if "Filip" is the primary name
     window.showPhone = function () { botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>'); };
     window.showtg = function () { botSay('My Telegram: <b>@stephanfilip7</b><br><a href="https://t.me/stephanfilip2k03" target="_blank" class="futuristic-link">Open Telegram</a>'); };
     window.showfb = function () { botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>'); };
