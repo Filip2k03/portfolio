@@ -46,6 +46,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      cursor: none; /* Hide default cursor */
     }
 
     body.light-theme {
@@ -478,7 +479,7 @@
       }
 
       /* Mobile nav menu overlay */
-      .mobile-menu-overlay {
+      .mobile-nav-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -487,7 +488,7 @@
         background: rgba(0, 0, 0, 0.7); /* Dark overlay */
         z-index: 40; /* Below the nav, above content */
       }
-      body.light-theme .mobile-menu-overlay {
+      body.light-theme .mobile-nav-overlay {
         background: rgba(255, 255, 255, 0.7);
       }
     }
@@ -950,6 +951,170 @@
         100% { opacity: 0; transform: scaleX(0); }
     }
 
+    /* Custom Cursor */
+    .custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 16px; /* Size of the custom cursor */
+        height: 16px;
+        background-color: var(--accent);
+        border-radius: 50%;
+        pointer-events: none; /* Allows clicks to pass through */
+        z-index: 9999; /* Ensure it's on top */
+        transform: translate(-50%, -50%); /* Center the cursor */
+        box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(0, 255, 231, 0.5);
+        transition: transform 0.05s linear; /* Smooth follow */
+    }
+
+    /* Spotlight Effect */
+    .spotlight-effect {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9998; /* Below cursor, above content */
+        background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 20%);
+        mix-blend-mode: overlay; /* Creates a light effect on dark backgrounds */
+        opacity: 0; /* Hidden by default */
+        transition: opacity 0.3s ease-in-out;
+    }
+    body:not(.light-theme) .spotlight-effect { /* Only show on dark theme */
+        opacity: 1;
+    }
+    body.light-theme .spotlight-effect { /* Hide on light theme */
+        opacity: 0;
+    }
+
+    /* Floating Section Tooltip */
+    #section-tooltip {
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--glass);
+        border: 1px solid var(--secondary);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.9rem;
+        color: var(--accent);
+        text-shadow: 0 0 5px var(--accent);
+        box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
+        z-index: 50;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none; /* Ensure it doesn't block clicks */
+    }
+
+    /* Mini-Navigation Dots */
+    #mini-nav {
+        position: fixed;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        z-index: 50;
+        padding: 1rem 0.5rem;
+        background: rgba(15, 6, 23, 0.6);
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 255, 231, 0.3);
+        box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
+    }
+    .mini-nav-dot {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(0, 207, 255, 0.4); /* Secondary color with opacity */
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .mini-nav-dot.active {
+        background-color: var(--accent);
+        box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(0, 255, 231, 0.6);
+        transform: scale(1.2);
+    }
+    .mini-nav-dot:hover:not(.active) {
+        background-color: var(--secondary);
+        box-shadow: 0 0 5px var(--secondary);
+        transform: scale(1.1);
+    }
+    @media (max-width: 768px) {
+        #mini-nav {
+            display: none; /* Hide mini-nav on small screens */
+        }
+    }
+
+    /* Modal for Live Project Demo */
+    #live-demo-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+    #live-demo-modal-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #live-demo-modal-content {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        background: var(--dominant);
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 40px var(--accent)aa, 0 0 80px var(--secondary)88;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    #live-demo-iframe {
+        flex-grow: 1;
+        width: 100%;
+        border: none;
+        background-color: #000; /* Fallback background for iframe */
+    }
+
+    #live-demo-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--danger);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1001;
+        box-shadow: 0 0 15px var(--danger);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #live-demo-close-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px var(--danger);
+    }
+
   </style>
 </head>
 
@@ -965,6 +1130,20 @@
       <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
     </div>
   </div>
+
+  <!-- Theme Toggle Button (Moved to body for early access) -->
+  <button id="theme-toggle-btn" class="fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle theme (light/dark)">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+  <!-- Sound Toggle Button (Moved to body for early access) -->
+  <button id="sound-toggle-btn" class="fixed top-6 right-24 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle sound">
+    <i class="fa-solid fa-volume-high"></i>
+  </button>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <!-- Spotlight Effect -->
+  <div class="spotlight-effect"></div>
 
   <!-- Floating Neon HUD Elements -->
   <div class="hud-element hud-top-left">
@@ -1014,39 +1193,11 @@
     </svg>
   </div>
 
-  <!-- Navbar -->
-  <nav x-data="{ open: false }" class="p-4 md:p-12 glass sticky top-0 md:top-55 z-50 flex items-center justify-between shadow-lg backdrop-blur-md">
-    <h1 class="text-3xl font-extrabold glitch tracking-widest" data-text="Stephan.dev">Stephan.dev</h1>
-    <div class="space-x-8 text-lg hidden md:flex font-orbitron">
-      <a href="#about" class="hover:text-[#FFD166] transition">About</a>
-      <a href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
-      <a href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
-      <a href="#testimonials" class="hover:text-[#FFD166] transition">Testimonials</a>
-      <a href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
-    </div>
-    <div class="md:hidden">
-      <button @click="open = !open" class="text-[#FFD166] text-2xl focus:outline-none z-50 relative" aria-label="Toggle navigation menu">
-        <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
-      </button>
-      <div x-show="open" x-transition:enter="transition ease-out duration-300"
-           x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-           x-transition:leave="transition ease-in duration-200"
-           x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4"
-        class="absolute right-4 top-16 w-40 glass rounded-lg shadow-lg py-4 flex flex-col space-y-2 text-center font-orbitron z-50">
-        <a @click="open = false" href="#about" class="hover:text-[#FFD166] transition">About</a>
-        <a @click="open = false" href="#skills" class="hover:text-[#FFD166] transition">Skills</a>
-        <a @click="open = false" href="#projects" class="hover:text-[#FFD166] transition">Projects</a>
-        <a @click="open = false" href="#testimonials" class="hover:text-[#FFD166] transition">Testimonials</a>
-        <a @click="open = false" href="#contact" class="hover:text-[#FFD166] transition">Contact</a>
-      </div>
-    </div>
-    <button id="theme-toggle-btn" class="hidden md:block fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle theme (light/dark)">
-      <i class="fa-solid fa-moon"></i>
-    </button>
-    <button id="sound-toggle-btn" class="fixed top-6 right-24 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle sound">
-      <i class="fa-solid fa-volume-high"></i>
-    </button>
-  </nav>
+  <!-- Floating Section Tooltip -->
+  <div id="section-tooltip" class="font-led"></div>
+
+  <!-- Mini-Navigation Dots -->
+  <div id="mini-nav"></div>
 
   <!-- Hero Section -->
   <section class="relative text-center py-32 md:py-44" id="hero-section">
@@ -1081,7 +1232,7 @@
       <div class="hologram-profile-container">
           <div class="hologram-profile-cube">
               <div class="hologram-profile-face front">
-                  <img src="assets/schools/pf.jpg" alt="Your Avatar" class="hologram-profile-avatar">
+                  <img src="https://placehold.co/150x150/1a0933/00ffe7?text=Your+Avatar" alt="Your Avatar" class="hologram-profile-avatar">
                   <div class="hologram-data-line line-1"></div>
                   <div class="hologram-data-line line-2"></div>
                   <div class="hologram-data-line line-3"></div>
@@ -1139,8 +1290,11 @@
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse: Game Dev Platform">DecaVerse: Game Dev Platform</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations (Genkit) and a scalable architecture.</p>
-        <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://deca-verse.vercel.app/">Run Live</button>
+          <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        </div>
         <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=DecaVerse+Preview" alt="DecaVerse Project Preview">
@@ -1153,9 +1307,12 @@
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone Myanmar">Find iPhone Myanmar</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin
           dashboard.</p>
-        <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i
-            class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i
+              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://findiphonemyanmar.com">Run Live</button>
+          <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        </div>
         <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Find+iPhone+Preview" alt="Find iPhone Myanmar Project Preview">
@@ -1168,9 +1325,12 @@
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="PayVia">PayVia</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Laravel + Vue.
         </p>
-        <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i
-            class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/payvia.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i
+              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://payvia.shop">Run Live</button>
+          <a href="case-studies/payvia.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        </div>
         <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=PayVia+Preview" alt="PayVia Project Preview">
@@ -1182,9 +1342,12 @@
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="MBLogistics Express">MBLogistics Express</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
-        <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i
-            class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/mblogistics-express.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i
+              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://mblogistics.express">Run Live</button>
+          <a href="case-studies/mblogistics-express.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        </div>
         <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=MBLogistics+Preview" alt="MBLogistics Express Project Preview">
@@ -1196,9 +1359,12 @@
         class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">WhisperX.site</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">An innovative earn-to-learn study project focused on programming, utilizing the WhisperX speech-to-text and alignment tool for interactive learning experiences.</p>
-        <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
-            class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-        <a href="case-studies/whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
+              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://whisperx.site">Run Live</button>
+          <a href="case-studies/whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+        </div>
         <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=WhisperX.site+Preview" alt="WhisperX.site Project Preview">
@@ -1288,7 +1454,7 @@
         <div class="space-y-8">
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/mst.png" alt="MST University logo"
+              <img src="https://placehold.co/80x80/311C3B/FFD166?text=MST" alt="MST University logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1299,7 +1465,7 @@
           </div>
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/cosmo.png" alt="Cosmo Seven Web Engineering School logo"
+              <img src="https://placehold.co/80x80/311C3B/FFD166?text=COSMO" alt="Cosmo Seven Web Engineering School logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1472,6 +1638,14 @@
   <audio id="audio-chatbot" src="https://www.soundjay.com/communication/beep-07.mp3" preload="auto"></audio>
   <audio id="audio-ufo" src="https://www.soundjay.com/mechanical/mechanical_keyboard_click_01.mp3" preload="auto"></audio>
 
+  <!-- Live Demo Modal Structure -->
+  <div id="live-demo-modal-overlay">
+      <button id="live-demo-close-btn" aria-label="Close live demo">X</button>
+      <div id="live-demo-modal-content">
+          <iframe id="live-demo-iframe" src="" frameborder="0"></iframe>
+      </div>
+  </div>
+
 
   <script>
     // --- Global Variables / Initial Setup ---
@@ -1504,6 +1678,14 @@
     const TRACKER_LOCATION_ID = 'tracker-location';
     const TRACKER_USER_ID_ID = 'tracker-user-id';
     const TRACKER_SIGNAL_ID = 'tracker-signal';
+    const CUSTOM_CURSOR_SELECTOR = '.custom-cursor'; // New selector for custom cursor
+    const SPOTLIGHT_EFFECT_SELECTOR = '.spotlight-effect'; // New selector for spotlight effect
+    const SECTION_TOOLTIP_ID = 'section-tooltip'; // New ID for floating section tooltip
+    const MINI_NAV_ID = 'mini-nav'; // New ID for mini-navigation dots
+    const LIVE_DEMO_BUTTON_SELECTOR = '.project-card .futuristic-btn[data-project-url]'; // Selector for live demo buttons
+    const LIVE_DEMO_MODAL_OVERLAY_ID = 'live-demo-modal-overlay';
+    const LIVE_DEMO_IFRAME_ID = 'live-demo-iframe';
+    const LIVE_DEMO_CLOSE_BTN_ID = 'live-demo-close-btn';
 
 
     const terminalLines = [
@@ -1589,20 +1771,28 @@
         isMuted: localStorage.getItem('isMuted') === 'true',
         hasInteracted: false, // New flag for user interaction
         sounds: {
-            click: document.getElementById('audio-click'),
-            chatbot: document.getElementById('audio-chatbot'),
-            ufo: document.getElementById('audio-ufo'),
-            terminalType: new Audio('https://www.soundjay.com/typewriter/typewriter-1.mp3'), // New sound for terminal typing
-            terminalError: new Audio('https://www.soundjay.com/misc/fail-buzzer-02.mp3') // New sound for terminal error
+            click: null, // Will be assigned in init
+            chatbot: null, // Will be assigned in init
+            ufo: null, // Will be assigned in init
+            terminalType: null, // Will be assigned in init
+            terminalError: null // Will be assigned in init
         },
         init() {
+            // Assign audio elements after DOM is fully loaded
+            this.sounds.click = document.getElementById('audio-click');
+            this.sounds.chatbot = document.getElementById('audio-chatbot');
+            this.sounds.ufo = document.getElementById('audio-ufo');
+            this.sounds.terminalType = new Audio('https://www.soundjay.com/typewriter/typewriter-1.mp3');
+            this.sounds.terminalError = new Audio('https://www.soundjay.com/misc/fail-buzzer-02.mp3');
+
+            // Set volumes
+            if (this.sounds.terminalType) this.sounds.terminalType.volume = 0.3;
+            if (this.sounds.terminalError) this.sounds.terminalError.volume = 0.5;
+
             this.updateToggleButton();
             // Attach a one-time listener for the first interaction
             document.addEventListener('click', this.firstInteractionHandler.bind(this), { once: true });
             document.addEventListener('keydown', this.firstInteractionHandler.bind(this), { once: true });
-            // Set volumes
-            this.sounds.terminalType.volume = 0.3;
-            this.sounds.terminalError.volume = 0.5;
         },
         firstInteractionHandler() {
             this.hasInteracted = true;
@@ -1631,7 +1821,17 @@
             }
         },
         updateToggleButton() {
-            const icon = document.getElementById(SOUND_TOGGLE_BTN_ID).querySelector('i');
+            const toggleButton = document.getElementById(SOUND_TOGGLE_BTN_ID);
+            if (!toggleButton) { // If button itself is null, exit
+                console.error(`Element with ID '${SOUND_TOGGLE_BTN_ID}' not found.`);
+                return;
+            }
+            const icon = toggleButton.querySelector('i');
+            if (!icon) { // If icon inside button is null, exit
+                console.error(`Icon element inside '${SOUND_TOGGLE_BTN_ID}' not found.`);
+                return;
+            }
+            // Rest of the logic
             if (this.isMuted) {
                 icon.classList.remove('fa-volume-high');
                 icon.classList.add('fa-volume-xmark');
@@ -1743,7 +1943,7 @@
     let isTypingRole = true;
 
     function typeRoleIntoInput() {
-        if (!isTypingRole) return; // Stop if a command is being processed
+        if (!heroTerminalInput || !isTypingRole) return; // Ensure element exists and we should be typing role
 
         if (currentRoleIndex >= roles.length) {
             currentRoleIndex = 0; // Loop back to the first role
@@ -1752,7 +1952,7 @@
         let charIndex = 0;
 
         function typeChar() {
-            if (!isTypingRole) return;
+            if (!isTypingRole || !heroTerminalInput) return; // Re-check inside loop
             if (charIndex < targetText.length) {
                 currentInputText = targetText.substring(0, charIndex + 1);
                 heroTerminalInput.value = currentInputText;
@@ -1765,7 +1965,7 @@
         }
 
         function eraseText() {
-            if (!isTypingRole) return;
+            if (!isTypingRole || !heroTerminalInput) return; // Re-check inside loop
             if (charIndex > 0) {
                 currentInputText = targetText.substring(0, charIndex - 1);
                 heroTerminalInput.value = currentInputText;
@@ -1798,10 +1998,11 @@
         ];
         let currentLogLine = 0;
         let charIndex = 0;
-        heroTerminalInput.value = "";
+        if (heroTerminalInput) heroTerminalInput.value = ""; // Clear input if it exists
         SoundManager.play('ufo'); // Use a distinct sound for log access
 
         function typeLogLine() {
+            if (!heroTerminalInput) return; // Ensure input exists
             if (currentLogLine < logLines.length) {
                 if (charIndex < logLines[currentLogLine].length) {
                     heroTerminalInput.value += logLines[currentLogLine][charIndex++];
@@ -1815,7 +2016,7 @@
                 }
             } else {
                 setTimeout(() => {
-                    heroTerminalInput.value = ""; // Clear after logs
+                    if (heroTerminalInput) heroTerminalInput.value = ""; // Clear after logs
                     isTypingRole = true; // Resume role typing
                     typeRoleIntoInput(); // Restart role typing
                 }, 1500); // Pause before clearing and resuming
@@ -1827,6 +2028,8 @@
 
     // Handle hero terminal commands
     function handleHeroCommand(command) {
+        if (!heroTerminalInput) return; // Ensure input exists
+
         command = command.toLowerCase().trim();
         let response = "";
         isTypingRole = false; // Pause role typing when a command is entered
@@ -1861,7 +2064,8 @@
                 return; // Exit early as log simulation handles resuming typing
             case 'download credentials':
                 response = "Initiating secure download of credentials...";
-                document.getElementById(HERO_BTN_RESUME_ID).click(); // Trigger resume download
+                const resumeLink = document.getElementById(HERO_BTN_RESUME_ID);
+                if (resumeLink) resumeLink.click(); // Trigger resume download
                 break;
             default:
                 response = `Command '${command}' not recognized. Type 'help' for options.`;
@@ -1871,7 +2075,7 @@
         // Display response in the input area for non-log commands
         heroTerminalInput.value = response;
         setTimeout(() => {
-            heroTerminalInput.value = ""; // Clear after a delay
+            if (heroTerminalInput) heroTerminalInput.value = ""; // Clear after a delay
             isTypingRole = true; // Resume role typing
             typeRoleIntoInput(); // Restart role typing
         }, 3000); // Display response for 3 seconds
@@ -1885,6 +2089,8 @@
     const ufoBeamSVG = document.getElementById('ufo-beam');
 
     function autoShootUFO() {
+      if (!ufoShotMsg || !ufoShotText || !ufoBeamSVG) return; // Ensure elements exist
+
       const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
       ufoShotText.textContent = msg;
       ufoShotMsg.style.display = 'block';
@@ -1923,6 +2129,8 @@
     // --- 8. Shooting Star Animation (existing) ---
     function animateShootingStar() {
       const star = document.getElementById('shooting-star');
+      if (!star) return; // Ensure element exists
+
       gsap.set(star, { left: '-60px', opacity: 1 });
       gsap.to(star, { left: '100vw', duration: 3.5, ease: "power1.in", opacity: 0, onComplete: () => {
         gsap.set(star, { left: '-60px', opacity: 0 });
@@ -1933,13 +2141,18 @@
     function toggleTheme() {
         document.body.classList.toggle('light-theme');
         saveThemePreference(document.body.classList.contains('light-theme') ? 'light' : 'dark');
-        const icon = document.getElementById(THEME_TOGGLE_BTN_ID).querySelector('i');
-        if (document.body.classList.contains('light-theme')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
+        const icon = document.getElementById(THEME_TOGGLE_BTN_ID);
+        if (icon) { // Check if icon exists
+            const iElement = icon.querySelector('i');
+            if (iElement) {
+                if (document.body.classList.contains('light-theme')) {
+                    iElement.classList.remove('fa-moon');
+                    iElement.classList.add('fa-sun');
+                } else {
+                    iElement.classList.remove('fa-sun');
+                    iElement.classList.add('fa-moon');
+                }
+            }
         }
         SoundManager.play('click'); // Play click sound
     }
@@ -1952,11 +2165,7 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.body.classList.add('light-theme');
-            const icon = document.getElementById(THEME_TOGGLE_BTN_ID).querySelector('i');
-            if (icon) { // Check if icon exists (might not be loaded yet)
-              icon.classList.remove('fa-moon');
-              icon.classList.add('fa-sun');
-            }
+            // Icon update is handled in DOMContentLoaded after element is guaranteed to exist
         }
     }
 
@@ -2100,6 +2309,8 @@
     // --- 12. Certificates Carousel Navigation ---
     function scrollCertificates(direction) {
       const carousel = document.getElementById(CERTIFICATES_CAROUSEL_ID);
+      if (!carousel) return;
+
       const scrollAmount = 280; // Width of one card + gap (224px card + 24px gap = 248, add some buffer)
       carousel.scrollBy({
         left: direction * scrollAmount,
@@ -2111,6 +2322,8 @@
     // --- 13. Fetch and Display Current Focus Updates (Dynamic News Feed) ---
     function fetchLatestUpdates() {
       const updatesContainer = document.getElementById(CURRENT_FOCUS_UPDATES_ID);
+      if (!updatesContainer) return;
+
       let html = '';
       currentFocusUpdates.forEach(update => {
         html += `
@@ -2150,6 +2363,8 @@
     function animateHeroButtons() {
       const btnProjects = document.getElementById(HERO_BTN_PROJECTS_ID);
       const btnResume = document.getElementById(HERO_BTN_RESUME_ID);
+
+      if (!btnProjects || !btnResume) return; // Ensure buttons exist
 
       const createHoverAnimation = (element) => {
         gsap.to(element, {
@@ -2217,6 +2432,8 @@
     // --- 16. Footer Text Scramble (example for one element) ---
     function scrambleFooterText() {
         const textElement = document.getElementById(FOOTER_COPYRIGHT_TEXT_ID);
+        if (!textElement) return;
+
         const originalText = textElement.textContent;
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
         let iterations = 0;
@@ -2308,25 +2525,220 @@
 
     // --- Floating HUD Elements Logic ---
     function updateHudElements() {
+        const hudTime = document.getElementById(HUD_TIME_ID);
+        const hudWeather = document.getElementById(HUD_WEATHER_ID);
+        const hudBattery = document.getElementById(HUD_BATTERY_ID);
+        const hudStatus = document.getElementById(HUD_STATUS_ID);
+        const hudUserId = document.getElementById(HUD_USER_ID_ID);
+
+        if (!hudTime || !hudWeather || !hudBattery || !hudStatus || !hudUserId) return; // Ensure all HUD elements exist
+
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-        document.getElementById(HUD_TIME_ID).textContent = `TIME: ${timeString}`;
-        document.getElementById(HUD_WEATHER_ID).textContent = `WEATHER: RAIN // 12C`; // Mock data
-        document.getElementById(HUD_BATTERY_ID).textContent = `POWER: ${Math.floor(Math.random() * 20) + 80}%`; // Mock data 80-100%
-        document.getElementById(HUD_STATUS_ID).textContent = `STATUS: ONLINE`; // Mock data
-        document.getElementById(HUD_USER_ID_ID).textContent = `USER: GUEST // ECHO-${Math.floor(Math.random() * 99) + 1}`; // Mock data
+        hudTime.textContent = `TIME: ${timeString}`;
+        hudWeather.textContent = `WEATHER: RAIN // 12C`; // Mock data
+        hudBattery.textContent = `POWER: ${Math.floor(Math.random() * 20) + 80}%`; // Mock data 80-100%
+        hudStatus.textContent = `STATUS: ONLINE`; // Mock data
+        hudUserId.textContent = `USER: GUEST // ECHO-${Math.floor(Math.random() * 99) + 1}`; // Mock data
     }
 
     // --- Satellite Scanner / Visitor Tracker Logic ---
     function setupVisitorTracker() {
-        document.getElementById(TRACKER_LOCATION_ID).textContent = "YANGON, MM"; // Mock location
-        document.getElementById(TRACKER_USER_ID_ID).textContent = `UNIT-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`; // Random ID
-        document.getElementById(TRACKER_SIGNAL_ID).textContent = `${Math.floor(Math.random() * 30) + 70}`; // Random signal 70-99%
+        const trackerLocation = document.getElementById(TRACKER_LOCATION_ID);
+        const trackerUserId = document.getElementById(TRACKER_USER_ID_ID);
+        const trackerSignal = document.getElementById(TRACKER_SIGNAL_ID);
+
+        if (!trackerLocation || !trackerUserId || !trackerSignal) return; // Ensure all tracker elements exist
+
+        trackerLocation.textContent = "YANGON, MM"; // Mock location
+        trackerUserId.textContent = `UNIT-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`; // Random ID
+        trackerSignal.textContent = `${Math.floor(Math.random() * 30) + 70}`; // Random signal 70-99%
 
         // Animate signal strength
         setInterval(() => {
-            document.getElementById(TRACKER_SIGNAL_ID).textContent = `${Math.floor(Math.random() * 30) + 70}`;
+            trackerSignal.textContent = `${Math.floor(Math.random() * 30) + 70}`;
         }, 3000); // Update every 3 seconds
+    }
+
+    // --- Custom Cursor and Spotlight Effect ---
+    function setupCustomCursorAndSpotlight() {
+        const customCursor = document.querySelector(CUSTOM_CURSOR_SELECTOR);
+        const spotlightEffect = document.querySelector(SPOTLIGHT_EFFECT_SELECTOR);
+
+        if (!customCursor || !spotlightEffect) {
+            console.warn("Custom cursor or spotlight elements not found. Skipping setup.");
+            return;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            // Update custom cursor position
+            gsap.to(customCursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.05, // Very fast to follow mouse closely
+                ease: "none"
+            });
+
+            // Update spotlight effect position
+            spotlightEffect.style.setProperty('--mouse-x', `${e.clientX}px`);
+            spotlightEffect.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+    }
+
+    // --- Auto-Navigation Based on Scroll (No Header At All) ---
+    const sections = [
+        { id: 'hero-section', name: 'HOME' },
+        { id: 'about', name: 'ABOUT' },
+        { id: 'skills', name: 'SKILLS' },
+        { id: 'projects', name: 'PROJECTS' },
+        { id: 'current-focus', name: 'FOCUS' },
+        { id: 'experience', name: 'EXPERIENCE' },
+        { id: 'education', name: 'EDUCATION' },
+        { id: 'certificates', name: 'CERTIFICATES' },
+        { id: 'testimonials', name: 'FEEDBACK' },
+        { id: 'contact', name: 'CONTACT' }
+    ];
+    let activeSectionId = 'hero-section'; // Default active section
+
+    function updateSectionTooltip(sectionName) {
+        const tooltip = document.getElementById(SECTION_TOOLTIP_ID);
+        if (tooltip) {
+            tooltip.textContent = `> You are now in: ${sectionName}`;
+            gsap.to(tooltip, { opacity: 1, duration: 0.3 });
+        }
+    }
+
+    function hideSectionTooltip() {
+        const tooltip = document.getElementById(SECTION_TOOLTIP_ID);
+        if (tooltip) {
+            gsap.to(tooltip, { opacity: 0, duration: 0.3 });
+        }
+    }
+
+    function setupScrollSpyAndMiniNav() {
+        const sectionElements = sections.map(s => document.getElementById(s.id)).filter(Boolean);
+        const sectionTooltip = document.getElementById(SECTION_TOOLTIP_ID);
+        const miniNav = document.getElementById(MINI_NAV_ID);
+
+        if (!miniNav) {
+            console.warn("Mini-navigation element not found. Skipping setup.");
+            return;
+        }
+
+        // Generate mini-nav dots
+        sections.forEach((section, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('mini-nav-dot');
+            dot.dataset.sectionId = section.id;
+            dot.title = section.name; // Add tooltip for accessibility
+            dot.addEventListener('click', () => {
+                gsap.to(window, { duration: 0.8, scrollTo: { y: `#${section.id}` }, ease: "power2.inOut" });
+                SoundManager.play('click');
+            });
+            miniNav.appendChild(dot);
+        });
+
+        const miniNavDots = document.querySelectorAll('.mini-nav-dot');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // Adjust threshold as needed
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    activeSectionId = entry.target.id;
+                    const activeSection = sections.find(s => s.id === activeSectionId);
+                    if (activeSection) {
+                        updateSectionTooltip(activeSection.name);
+                        miniNavDots.forEach(dot => {
+                            if (dot.dataset.sectionId === activeSectionId) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                            }
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sectionElements.forEach(section => observer.observe(section));
+
+        // Hide tooltip when not scrolling for a brief moment
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 1, duration: 0.1 }); // Show tooltip on scroll
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 0, duration: 0.5 }); // Hide after a delay
+            }, 1000); // 1 second after last scroll
+        });
+    }
+
+    // Keyboard Navigation (1, 2, 3...)
+    function setupKeyboardNavigation() {
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            const sectionIndex = parseInt(key) - 1; // '1' maps to index 0
+
+            if (sectionIndex >= 0 && sectionIndex < sections.length) {
+                const targetSectionId = sections[sectionIndex].id;
+                gsap.to(window, { duration: 0.8, scrollTo: { y: `#${targetSectionId}` }, ease: "power2.inOut" });
+                SoundManager.play('click');
+                event.preventDefault(); // Prevent default browser behavior (e.g., number input)
+            }
+        });
+    }
+
+    // --- Live Project Demo Modal ---
+    function setupLiveDemoModal() {
+        const modalOverlay = document.getElementById(LIVE_DEMO_MODAL_OVERLAY_ID);
+        const iframe = document.getElementById(LIVE_DEMO_IFRAME_ID);
+        const closeBtn = document.getElementById(LIVE_DEMO_CLOSE_BTN_ID);
+        const runLiveButtons = document.querySelectorAll(LIVE_DEMO_BUTTON_SELECTOR);
+
+        if (!modalOverlay || !iframe || !closeBtn || runLiveButtons.length === 0) {
+            console.warn("Live demo modal elements not fully found. Skipping setup.");
+            return;
+        }
+
+        runLiveButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const url = event.target.dataset.projectUrl;
+                if (url) {
+                    iframe.src = url;
+                    modalOverlay.classList.add('visible');
+                    SoundManager.play('click'); // Play sound on launch
+                }
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('visible');
+            iframe.src = ''; // Clear iframe content
+            SoundManager.play('click'); // Play sound on close
+        });
+
+        // Close modal if clicking outside content (on overlay)
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                modalOverlay.classList.remove('visible');
+                iframe.src = ''; // Clear iframe content
+                SoundManager.play('click');
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modalOverlay.classList.contains('visible')) {
+                modalOverlay.classList.remove('visible');
+                iframe.src = '';
+                SoundManager.play('click');
+            }
+        });
     }
 
 
@@ -2345,128 +2757,152 @@
       }, 400);
 
       // Random Terminal Fact on click (after initial typing)
-      document.getElementById(TERMINAL_DISPLAY_ID).addEventListener('click', randomTerminalFact);
+      const terminalDisplay = document.getElementById(TERMINAL_DISPLAY_ID);
+      if (terminalDisplay) {
+        terminalDisplay.addEventListener('click', randomTerminalFact);
+      }
+      
 
-      // Navbar & Section Animations
-      gsap.from("nav", { duration: 1, y: -50, opacity: 0, delay: 2.5 });
+      // Navbar & Section Animations (Adjusted for no nav element)
+      // Removed gsap.from("nav", ...) as nav is removed
       gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
       gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
 
       // Robot Animation
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(animateRobot);
-          ticking = true;
-        }
-      });
-      gsap.fromTo(robot, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+      const robotContainer = document.getElementById('robot-container');
+      if (robotContainer) {
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(animateRobot);
+            ticking = true;
+          }
+        });
+        gsap.fromTo(robotContainer, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
+      }
+
 
       // Chatbot Initialization
       const chatbotToggle = document.getElementById('chatbot-toggle');
       const chatbotWindow = document.getElementById('chatbot-window');
       const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
 
-      chatbotToggle.addEventListener('click', () => {
-        chatbotWindow.classList.toggle('hidden');
-        // If chatbot is opened, show overlay if mobile nav is also closed
-        if (!chatbotWindow.classList.contains('hidden') && window.innerWidth <= 768) {
-            mobileNavOverlay.classList.remove('hidden');
-        } else {
-            mobileNavOverlay.classList.add('hidden');
-        }
-        SoundManager.play('click'); // Play click sound
-      });
-
-      // Close chatbot when clicking overlay (only if overlay is specifically for chatbot)
-      mobileNavOverlay.addEventListener('click', () => {
-        if (!chatbotWindow.classList.contains('hidden')) { // Only if chatbot is open
-            chatbotWindow.classList.add('hidden');
-            mobileNavOverlay.classList.add('hidden');
-        }
-      });
-
-      document.getElementById(CHATBOT_FORM_ID).addEventListener('submit', function (e) {
-        e.preventDefault();
-        const val = document.getElementById(CHATBOT_INPUT_ID).value.trim();
-        if (!val) return;
-        userSay(val);
-
-        const lower = val.toLowerCase();
-        let found = false;
-        for (const key in aiAnswers) {
-          if (lower.includes(key)) {
-            botSay(aiAnswers[key]);
-            found = true;
-            break;
+      if (chatbotToggle && chatbotWindow && mobileNavOverlay) {
+        chatbotToggle.addEventListener('click', () => {
+          chatbotWindow.classList.toggle('hidden');
+          // If chatbot is opened, show overlay if mobile nav is also closed
+          if (!chatbotWindow.classList.contains('hidden') && window.innerWidth <= 768) {
+              mobileNavOverlay.classList.remove('hidden');
+          } else {
+              mobileNavOverlay.classList.add('hidden');
           }
-        }
-        if (found) {
-          document.getElementById(CHATBOT_INPUT_ID).value = "";
-          return;
-        }
+          SoundManager.play('click'); // Play click sound
+        });
 
-        const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
-        if (phonePattern.test(val) || (lower.includes("phone number") || lower.includes("contact number"))) {
-          botSay("Thank you! I've noted your contact request. Stephan will reach out soon.");
-          document.getElementById(CHATBOT_INPUT_ID).value = "";
-          document.getElementById(CHATBOT_INPUT_ID).disabled = true;
-          setTimeout(() => {
-            document.getElementById(CHATBOT_INPUT_ID).disabled = false;
+        // Close chatbot when clicking overlay (only if overlay is specifically for chatbot)
+        mobileNavOverlay.addEventListener('click', (event) => {
+          if (event.target === mobileNavOverlay && !chatbotWindow.classList.contains('hidden')) { // Only if chatbot is open
+              chatbotWindow.classList.add('hidden');
+              mobileNavOverlay.classList.add('hidden');
+          }
+        });
+
+        document.getElementById(CHATBOT_FORM_ID).addEventListener('submit', function (e) {
+          e.preventDefault();
+          const val = document.getElementById(CHATBOT_INPUT_ID).value.trim();
+          if (!val) return;
+          userSay(val);
+
+          const lower = val.toLowerCase();
+          let found = false;
+          for (const key in aiAnswers) {
+            if (lower.includes(key)) {
+              botSay(aiAnswers[key]);
+              found = true;
+              break;
+            }
+          }
+          if (found) {
             document.getElementById(CHATBOT_INPUT_ID).value = "";
-          }, 3000); // Give user time to see the message
-        } else {
-          botSay("I'm sorry, I didn't understand that. Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
-        }
-      });
-      document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
-      botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out.");
-      showOptions();
+            return;
+          }
+
+          const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
+          if (phonePattern.test(val) || (lower.includes("phone number") || lower.includes("contact number"))) {
+            botSay("Thank you! I've noted your contact request. Stephan will reach out soon.");
+            document.getElementById(CHATBOT_INPUT_ID).value = "";
+            document.getElementById(CHATBOT_INPUT_ID).disabled = true;
+            setTimeout(() => {
+              document.getElementById(CHATBOT_INPUT_ID).disabled = false;
+              document.getElementById(CHATBOT_INPUT_ID).value = "";
+            }, 3000); // Give user time to see the message
+          } else {
+            botSay("I'm sorry, I didn't understand that. Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
+          }
+        });
+        document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
+        botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out.");
+        showOptions();
+      }
 
 
       // Hero Terminal Input
-      typeRoleIntoInput(); // Start typing animation for the input
-      heroTerminalInput.addEventListener('keydown', function(event) {
-          if (event.key === 'Enter') {
-              event.preventDefault(); // Prevent new line
-              handleHeroCommand(this.value);
-              this.value = ''; // Clear input after command
-          }
-      });
+      if (heroTerminalInput) { // Check if heroTerminalInput exists
+        typeRoleIntoInput(); // Start typing animation for the input
+        heroTerminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent new line
+                handleHeroCommand(this.value);
+                this.value = ''; // Clear input after command
+            }
+        });
+      }
 
 
       // UFO Shooter Automation
       setInterval(autoShootUFO, 8000);
 
       // Scroll to Top Button
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          scrollTopBtn.classList.remove('hidden');
-        } else {
-          scrollTopBtn.classList.add('hidden');
-        }
-      });
-      scrollTopBtn.addEventListener('click', () => {
-        gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-        SoundManager.play('click'); // Play click sound
-      });
+      if (scrollTopBtn) { // Check if scrollTopBtn exists
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            scrollTopBtn.classList.remove('hidden');
+          } else {
+            scrollTopBtn.classList.add('hidden');
+          }
+        });
+        scrollTopBtn.addEventListener('click', () => {
+          gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
+          SoundManager.play('click'); // Play click sound
+        });
+      }
+
 
       // Hero Parallax
-      hero.addEventListener('mousemove', e => {
-        const { left, top, width, height } = hero.getBoundingClientRect();
-        const x = (e.clientX - left) / width - 0.5;
-        const y = (e.clientY - top) / height - 0.5;
-        gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
-        gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
-      });
+      if (hero && heroBg1 && heroBg2) { // Check if hero elements exist
+        hero.addEventListener('mousemove', e => {
+          const { left, top, width, height } = hero.getBoundingClientRect();
+          const x = (e.clientX - left) / width - 0.5;
+          const y = (e.clientY - top) / height - 0.5;
+          gsap.to(heroBg1, { x: x * 40, y: y * 40, duration: 0.5, ease: "power2.out" });
+          gsap.to(heroBg2, { x: -x * 30, y: -y * 30, duration: 0.5, ease: "power2.out" });
+        });
+      }
+
 
       // Shooting Star Animation Loop
       setInterval(animateShootingStar, 15000);
 
       // Theme Toggle Event Listener
-      document.getElementById(THEME_TOGGLE_BTN_ID).addEventListener('click', toggleTheme);
+      const themeToggleBtn = document.getElementById(THEME_TOGGLE_BTN_ID);
+      if (themeToggleBtn) { // Check if themeToggleBtn exists
+        themeToggleBtn.addEventListener('click', toggleTheme);
+      }
 
       // Sound Toggle Event Listener
-      document.getElementById(SOUND_TOGGLE_BTN_ID).addEventListener('click', () => SoundManager.toggleMute());
+      const soundToggleBtn = document.getElementById(SOUND_TOGGLE_BTN_ID);
+      if (soundToggleBtn) { // Check if soundToggleBtn exists
+        soundToggleBtn.addEventListener('click', () => SoundManager.toggleMute());
+      }
 
       // Create DNA Skill Visualizer
       createDnaSkillVisualizer(skillGraphData);
@@ -2484,8 +2920,10 @@
 
 
       // Certificates Carousel Buttons
-      document.getElementById(CERT_PREV_BTN_ID).addEventListener('click', () => scrollCertificates(-1));
-      document.getElementById(CERT_NEXT_BTN_ID).addEventListener('click', () => scrollCertificates(1));
+      const certPrevBtn = document.getElementById(CERT_PREV_BTN_ID);
+      const certNextBtn = document.getElementById(CERT_NEXT_BTN_ID);
+      if (certPrevBtn) certPrevBtn.addEventListener('click', () => scrollCertificates(-1));
+      if (certNextBtn) certNextBtn.addEventListener('click', () => scrollCertificates(1));
 
       // Fetch Latest Updates
       fetchLatestUpdates();
@@ -2511,6 +2949,16 @@
 
       // Setup Visitor Tracker
       setupVisitorTracker();
+
+      // Setup Custom Cursor and Spotlight
+      setupCustomCursorAndSpotlight();
+
+      // Setup Scroll Spy and Mini Nav
+      setupScrollSpyAndMiniNav();
+      setupKeyboardNavigation(); // Enable keyboard navigation
+
+      // Setup Live Demo Modal
+      setupLiveDemoModal();
 
       // Ensure elements are at top on load
       window.scrollTo(0, 0);
