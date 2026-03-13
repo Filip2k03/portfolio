@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stephan | Full Stack Developer</title>
+  <title>Stephan Filip | Full Stack Developer</title>
 
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" as="style">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" as="style">
@@ -17,9 +17,8 @@
   <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-  <!-- D3.js for the interactive skill graph (still used for data structure, but visualization changed) -->
+  <!-- D3.js for the interactive skill graph -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
-
 
   <style>
     :root {
@@ -41,7 +40,7 @@
     body {
       font-family: 'Orbitron', 'Montserrat', 'Share Tech Mono', monospace, sans-serif;
       background: linear-gradient(135deg, var(--dominant) 0%, #1a0933 100%);
-      color: #ffe600; /* Main text color, can be a variable */
+      color: #ffe600; /* Main text color */
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
@@ -64,6 +63,34 @@
       background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
     }
 
+    /* Scroll Progress Bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent), var(--danger));
+      width: 0%;
+      z-index: 9999;
+      box-shadow: 0 0 10px var(--accent), 0 0 20px var(--danger);
+      transition: width 0.1s ease-out;
+    }
+
+    /* Matrix Rain Canvas */
+    #matrix-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    body.light-theme #matrix-canvas {
+      opacity: 0.05;
+    }
+
     .about-cyber-bg::after {
       content: '';
       position: absolute;
@@ -79,7 +106,7 @@
       background: var(--glass) !important;
       backdrop-filter: blur(16px);
       border: 2px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 12px 48px 0 var(--accent)44, 0 0 0 2px #ffe60033 inset; /* Using hex for specific glow */
+      box-shadow: 0 12px 48px 0 var(--accent)44, 0 0 0 2px #ffe60033 inset;
       opacity: 1;
       transition: opacity 0.3s;
     }
@@ -91,15 +118,9 @@
 
     @keyframes glass-flicker {
       0%,
-      100% {
-        opacity: 1;
-      }
-      48% {
-        opacity: 0.92;
-      }
-      52% {
-        opacity: 0.85;
-      }
+      100% { opacity: 1; }
+      48% { opacity: 0.92; }
+      52% { opacity: 0.85; }
     }
 
     .glass,
@@ -139,24 +160,15 @@
     }
 
     @keyframes glitch1 {
-      0% {
-        clip-path: inset(0 0 80% 0);
-      }
-      100% {
-        clip-path: inset(80% 0 0 0);
-      }
+      0% { clip-path: inset(0 0 80% 0); }
+      100% { clip-path: inset(80% 0 0 0); }
     }
 
     @keyframes glitch2 {
-      0% {
-        clip-path: inset(80% 0 0 0);
-      }
-      100% {
-        clip-path: inset(0 0 80% 0);
-      }
+      0% { clip-path: inset(80% 0 0 0); }
+      100% { clip-path: inset(0 0 80% 0); }
     }
 
-    /* Glitch on Hover for Projects/Links */
     .project-card.glitch-on-hover:hover .project-title::before,
     .project-card.glitch-on-hover:hover .project-title::after {
       animation: glitch1 0.7s infinite linear alternate-reverse;
@@ -168,10 +180,10 @@
 
     .glow {
       box-shadow: var(--glow);
-      text-shadow: 0 0 12px #ffe600, 0 0 24px var(--accent), 0 0 4px var(--danger); /* Specific hex for yellow glow */
+      text-shadow: 0 0 12px #ffe600, 0 0 24px var(--accent), 0 0 4px var(--danger);
       font-family: 'Orbitron', 'Montserrat', sans-serif;
       letter-spacing: 0.12em;
-      color: #ffe600; /* Specific hex for yellow glow */
+      color: #ffe600;
     }
 
     body.light-theme .glow {
@@ -198,8 +210,8 @@
         0 0 12px var(--accent),
         0 0 24px var(--accent),
         0 0 48px var(--accent),
-        0 0 2px #ffe600; /* Specific hex for yellow glow */
-      background: linear-gradient(90deg, var(--accent) 0%, #ffe600 100%); /* Specific hex for yellow glow */
+        0 0 2px #ffe600;
+      background: linear-gradient(90deg, var(--accent) 0%, #ffe600 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: led-flicker 2s infinite alternate;
@@ -217,19 +229,10 @@
     }
 
     @keyframes led-flicker {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      45% {
-        opacity: 0.8;
-      }
-      50% {
-        opacity: 0.6;
-      }
-      55% {
-        opacity: 0.8;
-      }
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.8; }
+      50% { opacity: 0.6; }
+      55% { opacity: 0.8; }
     }
 
     .robotic-panel {
@@ -238,7 +241,7 @@
       background: linear-gradient(135deg, #1a0933 80%, var(--dominant) 100%);
       box-shadow:
         0 0 48px var(--accent)cc,
-        0 0 96px #ffe60044, /* Specific hex for yellow glow */
+        0 0 96px #ffe60044,
         0 0 0 6px var(--dominant) inset;
       position: relative;
       overflow: hidden;
@@ -259,7 +262,7 @@
       inset: 0;
       border-radius: 2.5rem;
       pointer-events: none;
-      box-shadow: 0 0 120px 20px var(--accent)44, 0 0 0 4px #ffe60022 inset; /* Specific hex for yellow glow */
+      box-shadow: 0 0 120px 20px var(--accent)44, 0 0 0 4px #ffe60022 inset;
       z-index: 1;
     }
 
@@ -294,7 +297,6 @@
       color: var(--danger) !important;
     }
 
-    /* Active state for skill filter buttons */
     .futuristic-btn[data-filter].active {
       background: linear-gradient(90deg, var(--danger) 0%, var(--accent) 100%) !important;
       box-shadow: 0 0 24px var(--accent), 0 0 48px var(--danger) !important;
@@ -328,45 +330,6 @@
       background: #ffe60044;
     }
 
-    .ufo-glow {
-      filter: drop-shadow(0 0 24px #ffe600) drop-shadow(0 0 48px var(--accent)) drop-shadow(0 0 8px var(--danger));
-    }
-
-    .neon-divider {
-      height: 5px;
-      width: 120px;
-      margin: 2.5rem auto;
-      background: linear-gradient(90deg, #ffe600 0%, var(--accent) 50%, var(--danger) 100%);
-      border-radius: 3px;
-      box-shadow: 0 0 24px #ffe600, 0 0 48px var(--accent), 0 0 8px var(--danger);
-      position: relative;
-      overflow: hidden;
-    }
-
-    body.light-theme .neon-divider {
-      box-shadow: 0 0 12px var(--accent), 0 0 24px var(--secondary), 0 0 4px var(--danger);
-    }
-
-    .neon-divider::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 30px;
-      background: linear-gradient(90deg, transparent, #ffe60088, transparent);
-      animation: divider-glow 2s infinite linear;
-    }
-
-    @keyframes divider-glow {
-      0% {
-        left: 0;
-      }
-      100% {
-        left: 90px;
-      }
-    }
-
     .circuit-bg {
       position: absolute;
       inset: 0;
@@ -387,12 +350,8 @@
     }
 
     @keyframes circuit-move {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 200px 200px;
-      }
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
     }
 
     .cyberpunk-robot {
@@ -405,24 +364,15 @@
     }
 
     @keyframes robot-flicker {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      40% {
-        opacity: 0.85;
-      }
-      50% {
-        opacity: 0.7;
-      }
-      60% {
-        opacity: 0.85;
-      }
+      0%, 100% { opacity: 1; }
+      40% { opacity: 0.85; }
+      50% { opacity: 0.7; }
+      60% { opacity: 0.85; }
     }
 
     .about-cyber-bg {
       background: linear-gradient(120deg, var(--dominant) 70%, var(--danger) 100%);
-      border: 2px solid #ffe600; /* Specific hex for yellow glow */
+      border: 2px solid #ffe600;
       box-shadow: 0 0 32px var(--danger)88, 0 0 64px var(--accent)44;
       position: relative;
       overflow: hidden;
@@ -456,7 +406,6 @@
       z-index: 1;
     }
 
-    /* Responsive tweaks */
     @media (max-width: 768px) {
       .robotic-panel,
       .glass {
@@ -477,59 +426,20 @@
         align-items: center !important;
       }
 
-      /* Mobile nav menu overlay */
       .mobile-nav-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
-        z-index: 40; /* Below the nav, above content */
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 40;
       }
       body.light-theme .mobile-nav-overlay {
         background: rgba(255, 255, 255, 0.7);
       }
     }
 
-    .ufo-project-card {
-      transition: box-shadow 0.3s, filter 0.3s;
-      border-radius: 50%;
-    }
-
-    .ufo-project-card:hover {
-      box-shadow: 0 0 64px var(--accent), 0 0 128px var(--danger);
-      filter: brightness(1.15) saturate(1.2);
-    }
-
-    .scan-line {
-      transition: none;
-    }
-
-    .ufo-project-card:hover .scan-line {
-      animation: scan-move 1.2s linear;
-    }
-
-    @keyframes scan-move {
-      0% {
-        y: -180;
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      80% {
-        opacity: 1;
-      }
-      100% {
-        y: 180;
-        opacity: 0;
-      }
-    }
-
-    /* Skill Progress Bar Styles (Removed for D3 Graph) */
-
-    /* Flicker effect for glow elements */
     @keyframes flicker-subtle {
       0%, 100% { opacity: 1; }
       5% { opacity: 0.95; }
@@ -550,22 +460,21 @@
       animation: flicker-subtle 4s infinite step-end;
     }
 
-    /* Cert Carousel Styles */
     .certificates-carousel-container {
         position: relative;
     }
 
     .certificates-carousel {
         display: flex;
-        overflow-x: scroll; /* Allow horizontal scrolling */
+        overflow-x: scroll;
         scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
-        scrollbar-width: none; /* Hide scrollbar for Firefox */
-        -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     .certificates-carousel::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+        display: none;
     }
 
     .carousel-button {
@@ -573,56 +482,42 @@
         top: 50%;
         transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.6);
-        color: #FFD166; /* Specific hex for yellow glow */
+        color: #FFD166;
         padding: 0.75rem 0.5rem;
-        border-radius: 9999px; /* Full rounded */
+        border-radius: 9999px;
         cursor: pointer;
         z-index: 10;
         opacity: 0.7;
         transition: opacity 0.3s, background 0.2s, color 0.2s;
-        box-shadow: 0 0 10px rgba(255, 209, 102, 0.5); /* Specific hex for yellow glow */
+        box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
     }
     .carousel-button:hover {
         opacity: 1;
-        box-shadow: 0 0 15px rgba(255, 209, 102, 0.8); /* Specific hex for yellow glow */
-        background: var(--btn-hover-bg); /* Use theme variable for hover */
-        color: var(--btn-text); /* Use theme variable for hover */
+        box-shadow: 0 0 15px rgba(255, 209, 102, 0.8);
+        background: var(--btn-hover-bg);
+        color: var(--btn-text);
     }
     .carousel-button.left { left: 0.5rem; }
     .carousel-button.right { right: 0.5rem; }
 
     body.light-theme .carousel-button {
       background: rgba(255, 255, 255, 0.6);
-      color: #7952B3; /* Specific hex for light theme */
-      box-shadow: 0 0 10px rgba(121, 82, 179, 0.5); /* Specific hex for light theme */
+      color: #7952B3;
+      box-shadow: 0 0 10px rgba(121, 82, 179, 0.5);
     }
     body.light-theme .carousel-button:hover {
-      box-shadow: 0 0 15px rgba(121, 82, 179, 0.8); /* Specific hex for light theme */
+      box-shadow: 0 0 15px rgba(121, 82, 179, 0.8);
     }
 
-    /* Overlay for mobile nav menu */
-    .mobile-nav-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6); /* Dark overlay */
-      z-index: 45; /* Below nav, above content */
-      transition: opacity 0.3s ease-in-out;
-    }
-    body.light-theme .mobile-nav-overlay {
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Style for chatbot input when disabled */
     #chatbot-input:disabled {
-        background-color: #311c3b77; /* Slightly lighter when disabled */
+        background-color: #311c3b77;
         cursor: not-allowed;
-        border-color: #FFD16655; /* Faded border */
+        border-color: #FFD16655;
     }
 
-    /* Skill Graph Styles (DNA Visualizer) */
     #skill-graph-container {
       width: 100%;
-      height: 500px; /* Adjust height as needed */
+      height: 500px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -635,15 +530,15 @@
         height: 100%;
         max-width: 800px;
         max-height: 600px;
-        overflow: visible; /* Allow glow to extend */
+        overflow: visible;
     }
 
     .dna-helix {
         fill: none;
         stroke: var(--secondary);
         stroke-width: 2px;
-        stroke-dasharray: 1000; /* Long enough to be drawn */
-        stroke-dashoffset: 1000; /* Start hidden */
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
         filter: drop-shadow(0 0 5px var(--secondary));
     }
 
@@ -670,7 +565,7 @@
     }
 
     .dna-node-group.highlight .dna-node-circle {
-        r: 10px; /* Larger radius on highlight */
+        r: 10px;
         stroke-width: 4px;
         stroke: var(--danger);
         filter: drop-shadow(0 0 8px var(--danger));
@@ -681,11 +576,9 @@
         text-shadow: 0 0 8px var(--danger);
     }
 
-
-    /* Project Hologram Preview Styles */
     .project-card {
       position: relative;
-      overflow: hidden; /* Ensure hologram is clipped */
+      overflow: hidden;
     }
 
     .hologram-preview {
@@ -700,7 +593,7 @@
       transition: opacity 0.3s ease-out, transform 0.3s ease-out;
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 255, 231, 0.6); /* Accent glow */
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.6);
     }
 
     .project-card:hover .hologram-preview {
@@ -728,19 +621,14 @@
     }
 
     @keyframes scanline-move {
-      0% {
-        transform: translateY(-100%);
-      }
-      100% {
-        transform: translateY(100%);
-      }
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
     }
 
-    /* Audio Toggle Button Positioning */
     #sound-toggle-btn {
       position: fixed;
-      top: 6px; /* Adjust as needed */
-      right: 100px; /* Position next to theme toggle */
+      top: 6px;
+      right: 100px;
       z-index: 50;
       border-radius: 9999px;
       padding: 0.75rem;
@@ -748,16 +636,15 @@
     }
     @media (max-width: 768px) {
       #sound-toggle-btn {
-        right: 70px; /* Adjust for mobile */
+        right: 70px;
         top: 10px;
         padding: 0.5rem;
         font-size: 1rem;
       }
     }
 
-    /* Style for current focus updates */
     .current-focus-item {
-        background-color: #210B2C; /* Use specific hex for dark theme */
+        background-color: #210B2C;
         border-left: 4px solid var(--secondary);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -775,7 +662,6 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    /* Terminal Input for Hero Section */
     #hero-terminal-input {
         background: transparent;
         border: none;
@@ -785,13 +671,12 @@
         font-family: 'Share Tech Mono', monospace;
         font-size: inherit;
         text-align: center;
-        caret-color: #ffe600; /* Blinking cursor color */
+        caret-color: #ffe600;
     }
     #hero-terminal-input::placeholder {
         color: rgba(255, 230, 0, 0.5);
     }
 
-    /* Section Scanline Effect */
     .section-scan-overlay {
         position: absolute;
         inset: 0;
@@ -803,14 +688,13 @@
         transform-origin: top;
     }
 
-    /* Hologram Profile Styles */
     .hologram-profile-container {
         position: relative;
-        width: 200px; /* Adjust size as needed */
+        width: 200px;
         height: 200px;
         margin: 2rem auto;
-        perspective: 1000px; /* For 3D effect */
-        pointer-events: auto; /* Allow mouse events */
+        perspective: 1000px;
+        pointer-events: auto;
     }
 
     .hologram-profile-cube {
@@ -818,8 +702,8 @@
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
-        transform: rotateX(15deg) rotateY(-15deg); /* Initial slight tilt */
-        transition: transform 0.1s ease-out; /* Smooth mouse movement */
+        transform: rotateX(15deg) rotateY(-15deg);
+        transition: transform 0.1s ease-out;
     }
 
     .hologram-profile-face {
@@ -827,7 +711,7 @@
         width: 100%;
         height: 100%;
         border: 2px solid var(--accent);
-        background: rgba(0, 255, 231, 0.1); /* Semi-transparent accent color */
+        background: rgba(0, 255, 231, 0.1);
         box-shadow: 0 0 15px var(--accent), inset 0 0 10px var(--accent);
         display: flex;
         justify-content: center;
@@ -888,7 +772,7 @@
         100% { transform: translateX(100%); }
     }
 
-    /* Floating HUD Elements */
+    /* Make HUD elements draggable */
     .hud-element {
         position: fixed;
         font-family: 'Share Tech Mono', monospace;
@@ -901,7 +785,11 @@
         border: 1px solid rgba(0, 255, 231, 0.3);
         background: rgba(15, 6, 23, 0.6);
         box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
-        pointer-events: none;
+        pointer-events: auto; /* Changed for draggability */
+        cursor: grab;
+    }
+    .hud-element:active {
+        cursor: grabbing;
     }
     .hud-top-left { top: 1rem; left: 1rem; }
     .hud-top-right { top: 1rem; right: 1rem; text-align: right; }
@@ -919,7 +807,6 @@
         .hud-bottom-right { bottom: 0.5rem; right: 0.5rem; }
     }
 
-    /* Satellite Scanner / Visitor Tracker */
     #visitor-tracker {
         position: fixed;
         bottom: 1rem;
@@ -936,6 +823,11 @@
         color: var(--accent);
         z-index: 50;
         text-align: center;
+        pointer-events: auto;
+        cursor: grab;
+    }
+    #visitor-tracker:active {
+        cursor: grabbing;
     }
     #visitor-tracker .scan-line-pulse {
         display: block;
@@ -950,23 +842,21 @@
         100% { opacity: 0; transform: scaleX(0); }
     }
 
-    /* Custom Cursor */
     .custom-cursor {
         position: fixed;
         top: 0;
         left: 0;
-        width: 16px; /* Size of the custom cursor */
+        width: 16px;
         height: 16px;
         background-color: var(--accent);
         border-radius: 50%;
-        pointer-events: none; /* Allows clicks to pass through */
-        z-index: 9999; /* Ensure it's on top */
-        transform: translate(-50%, -50%); /* Center the cursor */
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
         box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(0, 255, 231, 0.5);
-        transition: transform 0.05s linear; /* Smooth follow */
+        transition: transform 0.05s linear;
     }
 
-    /* Spotlight Effect */
     .spotlight-effect {
         position: fixed;
         top: 0;
@@ -974,20 +864,15 @@
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        z-index: 9998; /* Below cursor, above content */
+        z-index: 9998;
         background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 20%);
-        mix-blend-mode: overlay; /* Creates a light effect on dark backgrounds */
-        opacity: 0; /* Hidden by default */
+        mix-blend-mode: overlay;
+        opacity: 0;
         transition: opacity 0.3s ease-in-out;
     }
-    body:not(.light-theme) .spotlight-effect { /* Only show on dark theme */
-        opacity: 1;
-    }
-    body.light-theme .spotlight-effect { /* Hide on light theme */
-        opacity: 0;
-    }
+    body:not(.light-theme) .spotlight-effect { opacity: 1; }
+    body.light-theme .spotlight-effect { opacity: 0; }
 
-    /* Floating Section Tooltip */
     #section-tooltip {
         position: fixed;
         top: 1rem;
@@ -1005,10 +890,9 @@
         z-index: 50;
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
-        pointer-events: none; /* Ensure it doesn't block clicks */
+        pointer-events: none;
     }
 
-    /* Mini-Navigation Dots */
     #mini-nav {
         position: fixed;
         right: 1rem;
@@ -1027,7 +911,7 @@
     .mini-nav-dot {
         width: 12px;
         height: 12px;
-        background-color: rgba(0, 207, 255, 0.4); /* Secondary color with opacity */
+        background-color: rgba(0, 207, 255, 0.4);
         border-radius: 50%;
         cursor: pointer;
         transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
@@ -1043,12 +927,9 @@
         transform: scale(1.1);
     }
     @media (max-width: 768px) {
-        #mini-nav {
-            display: none; /* Hide mini-nav on small screens */
-        }
+        #mini-nav { display: none; }
     }
 
-    /* Modal for Live Project Demo */
     #live-demo-modal-overlay {
         position: fixed;
         top: 0;
@@ -1087,7 +968,7 @@
         flex-grow: 1;
         width: 100%;
         border: none;
-        background-color: #000; /* Fallback background for iframe */
+        background-color: #000;
     }
 
     #live-demo-close-btn {
@@ -1113,28 +994,33 @@
         transform: scale(1.1);
         box-shadow: 0 0 25px var(--danger);
     }
-
   </style>
 </head>
 
 <body>
+  <!-- Feature 4: Scroll Progress Neon Bar -->
+  <div id="scroll-progress"></div>
+
   <!-- Mobile Navigation Overlay -->
   <div class="mobile-nav-overlay hidden md:hidden" x-show="open" x-cloak></div>
 
-  <!-- Terminal Intro Screen -->
+  <!-- Feature 7: Enhanced Terminal Intro Boot Sequence -->
   <div id="terminal-intro"
-    style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:var(--dominant);">
+    style="display:flex;position:fixed;z-index:9999;inset:0;align-items:center;justify-content:center;background:var(--dominant);flex-direction:column;">
     <div id="terminal-display"
-      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--accent);box-shadow:var(--glow);padding:2rem 3rem;border-radius:1.5rem;min-width:340px; cursor: pointer;">
+      style="font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--accent);text-shadow:var(--glow);padding:2rem 3rem;border-radius:1.5rem;min-width:400px; text-align: left;">
       <span id="terminal-text"></span><span id="terminal-cursor" style="color:#ffe600;">█</span>
+    </div>
+    <div id="boot-progress-container" style="width: 400px; height: 10px; background: #311c3b; margin-top: 20px; border-radius: 5px; overflow: hidden; opacity: 0;">
+      <div id="boot-progress-bar" style="width: 0%; height: 100%; background: var(--accent); box-shadow: 0 0 15px var(--accent);"></div>
     </div>
   </div>
 
-  <!-- Theme Toggle Button (Moved to body for early access) -->
+  <!-- Theme Toggle Button -->
   <button id="theme-toggle-btn" class="fixed top-6 right-6 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle theme (light/dark)">
     <i class="fa-solid fa-moon"></i>
   </button>
-  <!-- Sound Toggle Button (Moved to body for early access) -->
+  <!-- Sound Toggle Button -->
   <button id="sound-toggle-btn" class="fixed top-6 right-24 z-50 rounded-full p-3 text-xl focus:outline-none" aria-label="Toggle sound">
     <i class="fa-solid fa-volume-high"></i>
   </button>
@@ -1144,17 +1030,14 @@
   <!-- Spotlight Effect -->
   <div class="spotlight-effect"></div>
 
-  <!-- Floating Neon HUD Elements -->
-  <div class="hud-element hud-top-left">
+  <!-- Feature 3: Draggable Floating Neon HUD Elements -->
+  <div class="hud-element hud-top-left" id="hud-1">
       <span id="hud-time"></span><br>
       <span id="hud-weather"></span>
   </div>
-  <div class="hud-element hud-top-right">
+  <div class="hud-element hud-top-right" id="hud-2">
       <span id="hud-battery"></span> <i class="fa-solid fa-battery-full"></i><br>
       <span id="hud-status"></span>
-  </div>
-  <div class="hud-element hud-bottom-left">
-      <span id="hud-user-id"></span>
   </div>
 
   <!-- Circuit Background Overlay -->
@@ -1199,17 +1082,20 @@
   <div id="mini-nav"></div>
 
   <!-- Hero Section -->
-  <section class="relative text-center py-32 md:py-44" id="hero-section">
+  <section class="relative text-center py-32 md:py-44 overflow-hidden" id="hero-section">
+    <!-- Feature 1: Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+    
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="w-72 h-72 bg-[var(--accent)] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2 opacity-20"></div>
       <div class="w-40 h-40 bg-[#FFD166] rounded-full blur-2xl absolute bottom-0 right-1/3 opacity-25"></div>
     </div>
     <div class="relative z-10">
       <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">
-        Hi, I'm Filip<br>
+        Hi, I'm Stephan Filip<br>
       </h2>
       <div class="neon-divider">|</div>
-      <!-- Interactive Terminal Input -->
+      <!-- Feature 6: Expanded Interactive Terminal Input -->
       <span id="typed-role" class="block text-3xl md:text-4xl mt-4">
         <input type="text" id="hero-terminal-input" placeholder="Type 'help'..." />
       </span>
@@ -1231,7 +1117,7 @@
       <div class="hologram-profile-container">
           <div class="hologram-profile-cube">
               <div class="hologram-profile-face front">
-                  <img src="assets/schools/pf.jpg" alt="Your Avatar" class="hologram-profile-avatar">
+                  <img src="assets/schools/pf.jpg" onerror="this.src='https://placehold.co/200x200/1a0933/00ffe7?text=SF'" alt="Your Avatar" class="hologram-profile-avatar">
                   <div class="hologram-data-line line-1"></div>
                   <div class="hologram-data-line line-2"></div>
                   <div class="hologram-data-line line-3"></div>
@@ -1255,7 +1141,7 @@
     </div>
   </section>
 
-  <!-- Skills Section (Now with DNA-style Visualizer) -->
+  <!-- Skills Section -->
   <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
@@ -1284,9 +1170,37 @@
     <div class="section-scan-overlay"></div>
     <h3 class="text-4xl font-led mb-10 text-center">Projects</h3>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <!-- Project Card 1: DecaVerse -->
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+      
+      <!-- Project Card: Shine Dana -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Shine Dana">Shine Dana</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">A modern corporate portal providing digital solutions and streamlined services for the Shine Dana enterprise.</p>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://www.shinedana.com" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://www.shinedana.com">Run Live</button>
+        </div>
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Shine+Dana+Preview" alt="Shine Dana Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
+      </div>
+
+      <!-- Project Card: Digital Marketplace MM -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Digital Marketplace MM">Digital Marketplace MM</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">A robust multi-vendor e-commerce platform tailored specifically for the Myanmar digital market ecosystem.</p>
+        <div class="flex flex-wrap gap-4 mt-auto">
+          <a href="https://digitalmarketplacemm.com" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://digitalmarketplacemm.com">Run Live</button>
+        </div>
+        <div class="hologram-preview">
+          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Digital+Marketplace+MM" alt="Digital Marketplace MM Project Preview">
+          <div class="hologram-scanline"></div>
+        </div>
+      </div>
+
+      <!-- Project Card: DecaVerse -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse: Game Dev Platform">DecaVerse: Game Dev Platform</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations (Genkit) and a scalable architecture.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
@@ -1294,125 +1208,133 @@
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://deca-verse.vercel.app/">Run Live</button>
           <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=DecaVerse+Preview" alt="DecaVerse Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-      <!-- Project Card 2: Find iPhone Myanmar -->
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
+
+      <!-- Project Card: Find iPhone Myanmar -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone Myanmar">Find iPhone Myanmar</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin
-          dashboard.</p>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin dashboard.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://findiphonemyanmar.com">Run Live</button>
           <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Find+iPhone+Preview" alt="Find iPhone Myanmar Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-      <!-- Project Card 3: PayVia -->
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
+
+      <!-- Project Card: PayVia -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="PayVia">PayVia</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Laravel + Vue.
-        </p>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Built with Laravel and Vue.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://payvia.shop">Run Live</button>
           <a href="case-studies/payvia.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=PayVia+Preview" alt="PayVia Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-      <!-- Project Card 4: MBLogistics Express -->
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+
+      <!-- Project Card: MBLogistics Express -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="MBLogistics Express">MBLogistics Express</h4>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://mblogistics.express">Run Live</button>
           <a href="case-studies/mblogistics-express.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=MBLogistics+Preview" alt="MBLogistics Express Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-      <!-- NEW PROJECT CARD ADDED HERE: WhisperX.site -->
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+
+      <!-- Project Card: WhisperX.site -->
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
         <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">WhisperX.site</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">An innovative earn-to-learn study project focused on programming, utilizing the WhisperX speech-to-text and alignment tool for interactive learning experiences.</p>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">An innovative earn-to-learn study project focused on programming, utilizing the WhisperX speech-to-text API.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://whisperx.site">Run Live</button>
           <a href="case-studies/whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=WhisperX.site+Preview" alt="WhisperX.site Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-       <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">Ai.whisperX.site</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Innovation AI for hummanize,assigement,digram,code adn debug</p>
+      
+      <!-- Project Card: Ai.whisperX.site -->
+       <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Ai.whisperX.site">Ai.whisperX.site</h4>
+        <p class="text-[#BC96E6] mb-4 font-montserrat">Innovation AI for humanized content, assignments, diagrams, code generation, and debugging.</p>
         <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://ai.whisperx.site" target="_blank" class="futuristic-link">Live Demo <i
-              class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <a href="https://ai.whisperx.site" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
           <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://ai.whisperx.site">Run Live</button>
           <a href="case-studies/ai.whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
-        <!-- Hologram Preview for Project Card -->
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=ai.WhisperX.site+Preview" alt="ai.WhisperX.site Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
     </div>
-    </div>
-    
 
-    <h4 class="text-3xl font-led mt-16 mb-8 text-center">GitHub Projects</h4>
+    <!-- Feature 2: Real-time Github Stats Integration -->
+    <h4 class="text-3xl font-led mt-16 mb-8 text-center">GitHub Live Data</h4>
+    <div id="github-stats-container" class="max-w-4xl mx-auto glass rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between mb-16 border-2 border-accent transition-all duration-300">
+        <div class="flex items-center gap-6 mb-4 md:mb-0">
+            <img id="gh-avatar" src="https://placehold.co/80x80/1a0933/00ffe7?text=GH" class="w-20 h-20 rounded-full border-2 border-secondary shadow-[0_0_15px_#00cfff]">
+            <div>
+                <h5 class="text-2xl font-orbitron text-white glitch" data-text="Filip2k03">Filip2k03</h5>
+                <p id="gh-bio" class="text-sm font-montserrat text-gray-400">Loading developer profile...</p>
+            </div>
+        </div>
+        <div class="flex gap-6 text-center font-share">
+            <div>
+                <p class="text-accent text-3xl font-bold" id="gh-repos">--</p>
+                <p class="text-xs text-gray-400">Public Repos</p>
+            </div>
+            <div>
+                <p class="text-accent text-3xl font-bold" id="gh-followers">--</p>
+                <p class="text-xs text-gray-400">Followers</p>
+            </div>
+            <div>
+                <p class="text-accent text-3xl font-bold" id="gh-following">--</p>
+                <p class="text-xs text-gray-400">Following</p>
+            </div>
+        </div>
+    </div>
+
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Student Management with Django">Student Management with Django</h5>
         <p class="text-[#BC96E6] mb-4 font-montserrat">A web-based student management system built using Django.</p>
-        <a href="https://github.com/Filip2k03/student_management-with-django/" target="_blank" class="futuristic-link">
+        <a href="https://github.com/Filip2k03/student_management-with-django/" target="_blank" class="futuristic-link mt-auto">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="WhisperX Frontend">WhisperX Frontend</h5>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Frontend for WhisperX, a speech-to-text and alignment tool.</p>
-        <a href="https://github.com/Filip2k03/whisperx-frontend" target="_blank" class="futuristic-link">
+        <a href="https://github.com/Filip2k03/whisperx-frontend" target="_blank" class="futuristic-link mt-auto">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <div
-        class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
         <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Tele AI Poster">Tele AI Poster</h5>
         <p class="text-[#BC96E6] mb-4 font-montserrat">Telegram bot for automated AI-powered posting.</p>
-        <a href="https://github.com/Filip2k03/tele_ai_poster" target="_blank" class="futuristic-link">
+        <a href="https://github.com/Filip2k03/tele_ai_poster" target="_blank" class="futuristic-link mt-auto">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
@@ -1426,7 +1348,7 @@
       <div class="glass robotic-panel rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Current Focus</h3>
         <div id="current-focus-updates" class="space-y-6 text-[#BC96E6] font-montserrat text-lg">
-          <p>Loading current projects...</p>
+          <p>Loading current milestones...</p>
         </div>
       </div>
     </div>
@@ -1471,7 +1393,7 @@
         <div class="space-y-8">
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/mst.png" alt="MST University logo"
+              <img src="assets/schools/mst.png" onerror="this.src='https://placehold.co/80x80/311C3B/FFD166?text=MST'" alt="MST University logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1482,7 +1404,7 @@
           </div>
           <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
             <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/cosmo.png" alt="Cosmo Seven Web Engineering School logo"
+              <img src="assets/schools/cosmo.png" onerror="this.src='https://placehold.co/80x80/311C3B/FFD166?text=Cosmo'" alt="Cosmo Seven Web Engineering School logo"
                 class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
@@ -1509,29 +1431,29 @@
         <div class="certificates-carousel-container relative">
             <div id="certificates-carousel" class="certificates-carousel flex space-x-6 pb-4">
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+1" alt="Certificate 1 for Web Development"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=AWS" alt="Certificate 1 for Web Development"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 1</p>
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">AWS Solutions Architect</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+2" alt="Certificate 2 for Frontend Design"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=React" alt="Certificate 2 for Frontend Design"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 2</p>
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Advanced React Patterns</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+3" alt="Certificate 3 for Backend Development"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Django" alt="Certificate 3 for Backend Development"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 3</p>
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Django REST API Mastery</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+4" alt="Certificate 4 for Cloud Technologies"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Vue" alt="Certificate 4 for Frontend"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 4</p>
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Vue.js & Vite Scaling</p>
                 </div>
                 <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Cert+5" alt="Certificate 5 for Mobile Development"
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=CyberSec" alt="Certificate 5 for Cloud Technologies"
                         class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm">Certificate Title 5</p>
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Web Application Security</p>
                 </div>
             </div>
             <button class="carousel-button left" id="cert-prev-btn" aria-label="Previous certificate"><i class="fa-solid fa-chevron-left"></i></button>
@@ -1549,19 +1471,19 @@
         <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Client Feedback</h3>
         <div class="grid md:grid-cols-2 gap-8">
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Stephan delivered an outstanding website. His attention to detail and ability to integrate complex features seamlessly was truly impressive. Highly recommend!"</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Anya Petrova, CEO of FutureNet Solutions</p>
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Stephan delivered an outstanding corporate platform for Shine Dana. His attention to detail and ability to integrate complex features seamlessly was truly impressive. Highly recommend!"</p>
+            <p class="text-[#FFD166] font-orbitron font-semibold">- Anya Petrova, Tech Director</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's expertise in both front-end and back-end development made him an invaluable asset to our project. He's a problem-solver with a keen eye for design."</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Jax Miller, Lead Developer at CyberCorp</p>
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's expertise in both front-end and back-end development made him an invaluable asset to our project. He's a problem-solver with a keen eye for robust architecture."</p>
+            <p class="text-[#FFD166] font-orbitron font-semibold">- Jax Miller, Lead Developer</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
             <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Working with Stephan was a blast. His dedication to clean code and his knack for futuristic UI designs really brought our vision to life. A true full-stack talent!"</p>
             <p class="text-[#FFD166] font-orbitron font-semibold">- Zai Myat, Founder of Quantum Systems</p>
           </div>
           <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's innovative solutions and proactive approach to problem-solving made our project a success. He's not just a coder; he's a true tech artist."</p>
+            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's innovative solutions and proactive approach to problem-solving made our marketplace scalable and fast. He's not just a coder; he's a true tech engineer."</p>
             <p class="text-[#FFD166] font-orbitron font-semibold">- Kyaw Lwin, Project Lead at DataForge Corp</p>
           </div>
         </div>
@@ -1597,7 +1519,7 @@
     </button>
     <div id="chatbot-window" class="hidden glass rounded-2xl shadow-2xl p-4 w-80 max-w-full"
       style="margin-bottom:12px;">
-      <div class="font-led text-lg mb-2">🤖 ChatBot</div>
+      <div class="font-led text-lg mb-2">🤖 Assistant API</div>
       <div id="chatbot-messages"
         class="h-40 overflow-y-auto text-[#BC96E6] text-base font-montserrat mb-3 bg-[#210B2C]/60 rounded-lg p-2"></div>
       <form id="chatbot-form" autocomplete="off" class="flex flex-col gap-2">
@@ -1616,17 +1538,22 @@
   </button>
 
   <!-- Satellite Scanner / Visitor Tracker -->
-  <div id="visitor-tracker" class="hidden md:block">
-      <p>🛰 SCANNING_NETWORK...</p>
+  <div id="visitor-tracker" class="hidden md:block" id="hud-3">
+      <p>🛰 NETWORK_ESTABLISHED</p>
       <div class="scan-line-pulse"></div>
       <p class="mt-2">📍 Location: <span id="tracker-location"></span></p>
-      <p>🧾 User ID: <span id="tracker-user-id"></span></p>
-      <p>📡 Signal: <span id="tracker-signal"></span>%</p>
+      <p>🧾 Session: <span id="tracker-user-id"></span></p>
+      <p>📡 Health: <span id="tracker-signal"></span>%</p>
+  </div>
+
+  <!-- Feature 5: Cyberpunk Flash/Easter Egg Overlay -->
+  <div id="cyber-flash-overlay" class="fixed inset-0 bg-red-600 z-[99999] opacity-0 pointer-events-none mix-blend-color-burn transition-opacity duration-100 hidden flex items-center justify-center">
+      <h1 class="text-white font-led text-9xl tracking-widest font-bold">OVERRIDE</h1>
   </div>
 
   <!-- Footer -->
   <footer
-    class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat">
+    class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat mt-10">
     <div id="footer-ufo-shooter" class="mr-4">
       <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
         <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="var(--secondary)" stroke-width="4" />
@@ -1642,7 +1569,7 @@
         <ellipse cx="50" cy="4" rx="8" ry="2" fill="var(--accent)" opacity="0.7" />
       </svg>
     </div>
-    <span class="block text-base md:text-lg" id="footer-copyright-text">&copy; 2025 Stephan Filip — Full Stack Developer | <a
+    <span class="block text-base md:text-lg" id="footer-copyright-text">&copy; 2026 Stephan Filip — Full Stack Developer | <a
         href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
   </footer>
   <div id="ufo-shot-msg"
@@ -1670,12 +1597,12 @@
     const TERMINAL_CURSOR_ID = 'terminal-cursor';
     const TERMINAL_DISPLAY_ID = 'terminal-display';
     const THEME_TOGGLE_BTN_ID = 'theme-toggle-btn';
-    const SOUND_TOGGLE_BTN_ID = 'sound-toggle-btn'; // New ID for sound toggle
+    const SOUND_TOGGLE_BTN_ID = 'sound-toggle-btn';
     const CHATBOT_MESSAGES_ID = 'chatbot-messages';
     const CHATBOT_FORM_ID = 'chatbot-form';
     const CHATBOT_INPUT_ID = 'chatbot-input';
     const CLEAR_CHATBOT_BTN_ID = 'clear-chatbot-btn';
-    const SKILL_GRAPH_CONTAINER_ID = 'skill-graph-container'; // New ID for skill graph
+    const SKILL_GRAPH_CONTAINER_ID = 'skill-graph-container'; 
     const PROJECTS_SECTION_ID = 'projects';
     const HERO_BTN_PROJECTS_ID = 'hero-btn-projects';
     const HERO_BTN_RESUME_ID = 'hero-btn-resume';
@@ -1684,9 +1611,9 @@
     const CERT_NEXT_BTN_ID = 'cert-next-btn';
     const CURRENT_FOCUS_UPDATES_ID = 'current-focus-updates';
     const FOOTER_COPYRIGHT_TEXT_ID = 'footer-copyright-text';
-    const HERO_TERMINAL_INPUT_ID = 'hero-terminal-input'; // New ID for hero input
-    const HOLOGRAM_PROFILE_CUBE_ID = 'hologram-profile-cube'; // New ID for hologram cube
-    const ABOUT_SECTION_ID = 'about'; // ID for the about section to attach mousemove
+    const HERO_TERMINAL_INPUT_ID = 'hero-terminal-input'; 
+    const HOLOGRAM_PROFILE_CUBE_ID = 'hologram-profile-cube'; 
+    const ABOUT_SECTION_ID = 'about'; 
     const HUD_TIME_ID = 'hud-time';
     const HUD_WEATHER_ID = 'hud-weather';
     const HUD_BATTERY_ID = 'hud-battery';
@@ -1695,70 +1622,68 @@
     const TRACKER_LOCATION_ID = 'tracker-location';
     const TRACKER_USER_ID_ID = 'tracker-user-id';
     const TRACKER_SIGNAL_ID = 'tracker-signal';
-    const CUSTOM_CURSOR_SELECTOR = '.custom-cursor'; // New selector for custom cursor
-    const SPOTLIGHT_EFFECT_SELECTOR = '.spotlight-effect'; // New selector for spotlight effect
-    const SECTION_TOOLTIP_ID = 'section-tooltip'; // New ID for floating section tooltip
-    const MINI_NAV_ID = 'mini-nav'; // New ID for mini-navigation dots
-    const LIVE_DEMO_BUTTON_SELECTOR = '.project-card .futuristic-btn[data-project-url]'; // Selector for live demo buttons
+    const CUSTOM_CURSOR_SELECTOR = '.custom-cursor'; 
+    const SPOTLIGHT_EFFECT_SELECTOR = '.spotlight-effect'; 
+    const SECTION_TOOLTIP_ID = 'section-tooltip'; 
+    const MINI_NAV_ID = 'mini-nav'; 
+    const LIVE_DEMO_BUTTON_SELECTOR = '.project-card .futuristic-btn[data-project-url]'; 
     const LIVE_DEMO_MODAL_OVERLAY_ID = 'live-demo-modal-overlay';
     const LIVE_DEMO_IFRAME_ID = 'live-demo-iframe';
     const LIVE_DEMO_CLOSE_BTN_ID = 'live-demo-close-btn';
 
-
     const terminalLines = [
-      "Initializing...",
-      "Loading assets...",
-      "Filip is Online",
-      "Welcome, runner."
+      "Initializing core architecture...",
+      "Loading framework assets...",
+      "System ready for deployment.",
+      "Access granted."
     ];
     let termIdx = 0, termCharIdx = 0;
-    let terminalFinishedTyping = false; // Flag to know when initial typing is done
+    let terminalFinishedTyping = false; 
 
     const roles = [
       "Full Stack Developer",
       "React & Django Specialist",
-      "UI/UX Enthusiast",
-      "Tech Entrepreneur"
+      "E-commerce Architect",
+      "UI/UX Enthusiast"
     ];
-    let currentRoleIndex = 0; // To keep track of the current role for the input placeholder
+    let currentRoleIndex = 0;
 
     const aiAnswers = {
-      "hello": "Hello there, human! How can I assist you in this digital realm?",
-      "hi": "Greetings, user! What brings you to this advanced interface?",
-      "how are you": "As an AI, I exist to serve. How may I be of service to you?",
-      "skills": "I possess a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services (Firebase, AWS). Explore the interactive graph below!",
-      "projects": "You can explore my projects in the 'Projects' section, showcasing my work on web and mobile applications. Hover over them for a holographic preview!",
-      "contact": "You can reach Stephan via phone (+959954480806), Telegram (@stephanfilip7), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.",
-      "bye": "Farewell, human! May your code compile and your servers run swiftly.",
+      "hello": "Hello there! How can I assist you with Stephan's portfolio?",
+      "hi": "Greetings! What brings you to this platform today?",
+      "how are you": "Operating at peak efficiency. How may I be of service to you?",
+      "skills": "Stephan possesses a wide array of skills, including: Full Stack Development (React, Django, Laravel), UI/UX design, Database Management (MySQL, MongoDB), and Cloud Services. Explore the interactive graph below!",
+      "projects": "You can explore recent deployments in the 'Projects' section, showcasing enterprise and e-commerce applications.",
+      "contact": "You can reach Stephan via phone (+959954480806), Telegram (@stephanfilip), Facebook, WhatsApp, GitHub, LinkedIn, or Upwork.",
+      "bye": "Farewell! May your code compile on the first try.",
       "thank you": "You're most welcome! Is there anything else I can assist you with?",
-      "who are you": "I am ChatBot, an AI assistant integrated into Stephan's portfolio to help you navigate and find information.",
-      "what is your name": "I am ChatBot, an AI assistant.",
-      "name": "I am ChatBot, an AI assistant.",
+      "who are you": "I am Stephan's Assistant API, integrated to help you navigate and find information seamlessly.",
+      "what is your name": "I am the Portfolio Assistant API.",
+      "name": "I am the Portfolio Assistant API.",
       "help": "Available commands: 'skills', 'projects', 'contact', 'about', 'clear', 'theme', 'sound', 'access log', 'download credentials'. You can also ask general questions!",
-      "about": "Stephan is a dedicated Full Stack Developer and founder of PayVia, passionate about futuristic UI and robust backend solutions."
+      "about": "Stephan is a dedicated Full Stack Developer and founder of PayVia, passionate about robust architecture and scalable web solutions."
     };
 
     const rareMsgs = [
-      "CYBERPUNK MODE ACTIVATED <===",
-      "HIRE ME FOR YOUR NEXT PROJECT!",
-      "GLITCH IN THE SYSTEM!",
-      "UFO BEAM ENGAGED!",
-      "FULL STACK POWER!",
-      "REACT + DJANGO = ❤️",
-      "NEON DREAMS ONLY",
-      "CODE LIKE IT'S 2077",
+      "SYSTEM DEPLOYMENT SUCCESS",
+      "HIRE ME FOR YOUR NEXT PROJECT",
+      "NO GLITCHES FOUND",
+      "OPTIMIZED FOR PERFORMANCE",
+      "FULL STACK ENGINEERING",
+      "REACT + DJANGO = ⚡",
+      "SCALABLE ARCHITECTURE",
+      "CLEAN CODE ARCHITECT",
       "HELLO, WORLD!",
-      "FILIP IS ONLINE <==="
+      "STEPHAN IS ONLINE"
     ];
 
     const currentFocusUpdates = [
-      { date: "Jul 2025", title: "Refining DecaVerse Developer Sandbox", description: "Enhancing the in-browser game editor and submission workflow, focusing on real-time collaboration features and improved asset pipelines. This will streamline the game creation process for developers." },
-      { date: "Jun 2025", title: "Exploring Web3 Integrations", description: "Deep diving into blockchain technologies, smart contracts, and decentralized applications (dApps). The goal is to identify viable integrations for future projects, focusing on enhanced security and user ownership." },
-      { date: "May 2025", title: "Learning Rust & WebAssembly", description: "Diving into low-level performance optimization for web applications. This new skill set will enable optimized solutions for computationally intensive tasks within web environments." },
-      { date: "Apr 2025", title: "Advanced AI Model Fine-tuning", description: "Working on fine-tuning large language models (LLMs) for domain-specific applications. This includes data preparation, model training, and performance evaluation to deliver highly accurate and relevant AI functionalities." }
+      { date: "Current", title: "Optimizing Enterprise Architecture for Shine Dana", description: "Currently focusing on scaling corporate portal solutions, improving load times, and establishing secure, efficient data pipelines for large-scale enterprise needs." },
+      { date: "Recent", title: "Building Digital Marketplace MM", description: "Developing a robust multi-vendor ecosystem. Implementing advanced state management in React alongside highly normalized relational databases to ensure seamless transactions." },
+      { date: "Ongoing", title: "Mastering Cloud Infrastructure", description: "Deep diving into AWS and scalable deployment pipelines. Creating CI/CD automated processes to enhance project delivery speed without compromising security." },
+      { date: "Ongoing", title: "AI Model Integrations", description: "Exploring real-world applications of large language models (LLMs) via APIs, integrating smart features like AI chatbots and predictive text into production e-commerce applications." }
     ];
 
-    // Data for D3.js Skill Graph (now for DNA visualizer)
     const skillGraphData = {
         nodes: [
             { id: "HTML/CSS", group: "frontend", proficiency: 90 },
@@ -1779,53 +1704,48 @@
         ]
     };
 
-    // Define color scale for skill groups
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
         .domain(["frontend", "backend", "database", "cloud", "mobile"]);
 
     // --- Sound Manager ---
     const SoundManager = {
         isMuted: localStorage.getItem('isMuted') === 'true',
-        hasInteracted: false, // New flag for user interaction
+        hasInteracted: false, 
         sounds: {
-            click: null, // Will be assigned in init
-            chatbot: null, // Will be assigned in init
-            ufo: null, // Will be assigned in init
-            terminalType: null, // Will be assigned in init
-            terminalError: null // Will be assigned in init
+            click: null, 
+            chatbot: null, 
+            ufo: null, 
+            terminalType: null, 
+            terminalError: null 
         },
         init() {
-            // Assign audio elements after DOM is fully loaded
             this.sounds.click = document.getElementById('audio-click');
             this.sounds.chatbot = document.getElementById('audio-chatbot');
             this.sounds.ufo = document.getElementById('audio-ufo');
             this.sounds.terminalType = new Audio('https://www.soundjay.com/typewriter/typewriter-1.mp3');
             this.sounds.terminalError = new Audio('https://www.soundjay.com/misc/fail-buzzer-02.mp3');
 
-            // Set volumes
             if (this.sounds.terminalType) this.sounds.terminalType.volume = 0.3;
             if (this.sounds.terminalError) this.sounds.terminalError.volume = 0.5;
 
             this.updateToggleButton();
-            // Attach a one-time listener for the first interaction
             document.addEventListener('click', this.firstInteractionHandler.bind(this), { once: true });
             document.addEventListener('keydown', this.firstInteractionHandler.bind(this), { once: true });
         },
         firstInteractionHandler() {
             this.hasInteracted = true;
-            // Attempt to play a silent sound to "unlock" audio context
             Object.values(this.sounds).forEach(audio => {
                 if (audio) {
-                    audio.volume = 0; // Set volume to 0 for silent play
+                    audio.volume = 0; 
                     audio.play().catch(e => console.warn("Silent audio play failed (expected on some browsers):", e));
-                    audio.volume = 1; // Reset volume
+                    audio.volume = 1; 
                 }
             });
             console.log("First user interaction detected, audio unlocked.");
         },
         play(soundName) {
             if (this.hasInteracted && !this.isMuted && this.sounds[soundName]) {
-                this.sounds[soundName].currentTime = 0; // Rewind to start
+                this.sounds[soundName].currentTime = 0; 
                 this.sounds[soundName].play().catch(e => console.error("Sound play failed:", e));
             }
         },
@@ -1834,21 +1754,14 @@
             localStorage.setItem('isMuted', this.isMuted);
             this.updateToggleButton();
             if (!this.isMuted) {
-                this.play('click'); // Play a sound when unmuting
+                this.play('click'); 
             }
         },
         updateToggleButton() {
             const toggleButton = document.getElementById(SOUND_TOGGLE_BTN_ID);
-            if (!toggleButton) { // If button itself is null, exit
-                console.error(`Element with ID '${SOUND_TOGGLE_BTN_ID}' not found.`);
-                return;
-            }
+            if (!toggleButton) return;
             const icon = toggleButton.querySelector('i');
-            if (!icon) { // If icon inside button is null, exit
-                console.error(`Icon element inside '${SOUND_TOGGLE_BTN_ID}' not found.`);
-                return;
-            }
-            // Rest of the logic
+            if (!icon) return;
             if (this.isMuted) {
                 icon.classList.remove('fa-volume-high');
                 icon.classList.add('fa-volume-xmark');
@@ -1859,12 +1772,139 @@
         }
     };
 
+    // --- Feature 1: Matrix Rain Background Functionality ---
+    let matrixInterval;
+    function setupMatrixRain() {
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+=";
+      const fontSize = 16;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+      
+      for(let x = 0; x < columns; x++) drops[x] = 1; 
+      
+      function draw() {
+        ctx.fillStyle = "rgba(15, 6, 23, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = "#00ffe7"; // Accent color
+        ctx.font = fontSize + "px 'Share Tech Mono'";
+        
+        for(let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          
+          if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      
+      matrixInterval = setInterval(draw, 33);
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    // --- Feature 2: Fetch Live GitHub Data ---
+    async function fetchGitHubStats() {
+        try {
+            const response = await fetch('https://api.github.com/users/Filip2k03');
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('gh-avatar').src = data.avatar_url;
+                document.getElementById('gh-bio').textContent = data.bio || "Full Stack Web Developer";
+                
+                // Animate Numbers
+                gsap.to(document.getElementById('gh-repos'), { innerHTML: data.public_repos, duration: 2, snap: { innerHTML: 1 } });
+                gsap.to(document.getElementById('gh-followers'), { innerHTML: data.followers, duration: 2, snap: { innerHTML: 1 } });
+                gsap.to(document.getElementById('gh-following'), { innerHTML: data.following, duration: 2, snap: { innerHTML: 1 } });
+            } else {
+                document.getElementById('gh-bio').textContent = "Failed to load GitHub stats (Rate Limited).";
+            }
+        } catch(e) {
+            console.error('Error fetching GH stats', e);
+        }
+    }
+
+    // --- Feature 3: Draggable HUD Elements ---
+    function makeDraggable(elementId) {
+        const elmnt = document.getElementById(elementId);
+        if(!elmnt) return;
+        
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        elmnt.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            elmnt.style.right = 'auto'; // Disable right/bottom alignments once dragged
+            elmnt.style.bottom = 'auto';
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    // --- Feature 4: Scroll Progress Bar ---
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+
+    // --- Feature 5: Keyboard Easter Egg ("CYBER") ---
+    let keySequence = "";
+    document.addEventListener('keydown', (e) => {
+        keySequence += e.key.toLowerCase();
+        if (keySequence.length > 5) {
+            keySequence = keySequence.slice(-5);
+        }
+        if (keySequence === "cyber") {
+            const overlay = document.getElementById('cyber-flash-overlay');
+            overlay.classList.remove('hidden');
+            SoundManager.play('terminalError');
+            
+            // Flashing sequence
+            gsap.to(overlay, {opacity: 0.8, duration: 0.1, yoyo: true, repeat: 5, onComplete: () => {
+                overlay.classList.add('hidden');
+                keySequence = "";
+            }});
+        }
+    });
+
 
     // --- Helper Functions ---
     function botSay(msg) {
       document.getElementById(CHATBOT_MESSAGES_ID).innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
       document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
-      SoundManager.play('chatbot'); // Play chatbot sound
+      SoundManager.play('chatbot'); 
     }
 
     function userSay(msg) {
@@ -1872,8 +1912,12 @@
       document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
     }
 
-    // --- 1. Terminal Intro & Random Messages ---
+    // --- 7. Terminal Intro with System Boot Progress ---
     function typeTerminal() {
+      // Progress Bar logic alongside typing
+      gsap.to("#boot-progress-container", {opacity: 1, duration: 0.5});
+      gsap.to("#boot-progress-bar", {width: "100%", duration: 2.5, ease: "power2.inOut"});
+
       if (termIdx < terminalLines.length) {
         if (termCharIdx < terminalLines[termIdx].length) {
           document.getElementById(TERMINAL_TEXT_ID).textContent += terminalLines[termIdx][termCharIdx++];
@@ -1885,7 +1929,7 @@
           setTimeout(typeTerminal, 500);
         }
       } else {
-        terminalFinishedTyping = true; // Set flag
+        terminalFinishedTyping = true; 
         setTimeout(() => {
           document.getElementById('terminal-intro').style.transition = "opacity 0.7s";
           document.getElementById('terminal-intro').style.opacity = 0;
@@ -1899,28 +1943,25 @@
         const factMsgs = [
           "SYSTEM ONLINE. ALL SENSORS GREEN.",
           "DATA STREAM OPTIMIZED.",
-          "WELCOME TO THE GRID.",
+          "ENVIRONMENT INITIALIZED.",
           "YOUR PRESENCE IS ACKNOWLEDGED.",
-          "ACCESS GRANTED.",
-          "LOADING REALITY SIMULATION...",
-          "ERROR: HUMOR MODULE NOT FOUND. PROCEEDING ANYWAY.",
-          "DO NOT HACK ME. PLEASE.",
+          "ACCESS GRANTED."
         ];
         const randomMsg = factMsgs[Math.floor(Math.random() * factMsgs.length)];
         const terminalTextElement = document.getElementById(TERMINAL_TEXT_ID);
-        terminalTextElement.textContent = ""; // Clear current text
+        terminalTextElement.textContent = ""; 
         let charIndex = 0;
         function typeRandomMessage() {
           if (charIndex < randomMsg.length) {
             terminalTextElement.textContent += randomMsg[charIndex++];
-            setTimeout(typeRandomMessage, 30); // Faster typing
+            setTimeout(typeRandomMessage, 30); 
           }
         }
         typeRandomMessage();
       }
     }
 
-    // --- 2. Animate Robot Head (existing, kept) ---
+    // --- Animate Robot Head ---
     const robot = document.getElementById('robot-container');
     let ticking = false;
     function animateRobot() {
@@ -1931,7 +1972,7 @@
       ticking = false;
     }
 
-    // --- 3. Chatbot Logic (existing, enhanced with clear) ---
+    // --- Chatbot Logic ---
     function showOptions() {
       botSay(
         `How would you like to contact me?<br>
@@ -1950,59 +1991,57 @@
       document.getElementById(CHATBOT_MESSAGES_ID).innerHTML = '';
       botSay("Chat history cleared. How can I assist you now?");
       showOptions();
-      SoundManager.play('click'); // Play click sound
+      SoundManager.play('click'); 
     }
 
-    // --- 4. Typing effect for roles (Modified for interactive input) ---
+    // --- Typing effect for roles ---
     const heroTerminalInput = document.getElementById(HERO_TERMINAL_INPUT_ID);
     let currentInputText = "";
     let inputTypingTimeout;
     let isTypingRole = true;
 
     function typeRoleIntoInput() {
-        if (!heroTerminalInput || !isTypingRole) return; // Ensure element exists and we should be typing role
+        if (!heroTerminalInput || !isTypingRole) return; 
 
         if (currentRoleIndex >= roles.length) {
-            currentRoleIndex = 0; // Loop back to the first role
+            currentRoleIndex = 0; 
         }
         const targetText = roles[currentRoleIndex];
         let charIndex = 0;
 
         function typeChar() {
-            if (!isTypingRole || !heroTerminalInput) return; // Re-check inside loop
+            if (!isTypingRole || !heroTerminalInput) return; 
             if (charIndex < targetText.length) {
                 currentInputText = targetText.substring(0, charIndex + 1);
                 heroTerminalInput.value = currentInputText;
-                SoundManager.sounds.terminalType.play().catch(() => {}); // Play typing sound, suppress error
+                SoundManager.sounds.terminalType.play().catch(() => {}); 
                 charIndex++;
-                inputTypingTimeout = setTimeout(typeChar, 70); // Typing speed
+                inputTypingTimeout = setTimeout(typeChar, 70); 
             } else {
-                inputTypingTimeout = setTimeout(eraseText, 1200); // Pause before erasing
+                inputTypingTimeout = setTimeout(eraseText, 1200); 
             }
         }
 
         function eraseText() {
-            if (!isTypingRole || !heroTerminalInput) return; // Re-check inside loop
+            if (!isTypingRole || !heroTerminalInput) return; 
             if (charIndex > 0) {
                 currentInputText = targetText.substring(0, charIndex - 1);
                 heroTerminalInput.value = currentInputText;
-                SoundManager.sounds.terminalType.play().catch(() => {}); // Play typing sound, suppress error
+                SoundManager.sounds.terminalType.play().catch(() => {}); 
                 charIndex--;
-                inputTypingTimeout = setTimeout(eraseText, 30); // Erasing speed
+                inputTypingTimeout = setTimeout(eraseText, 30); 
             } else {
-                currentRoleIndex++; // Move to the next role
-                inputTypingTimeout = setTimeout(typeChar, 400); // Pause before typing next role
+                currentRoleIndex++; 
+                inputTypingTimeout = setTimeout(typeChar, 400); 
             }
         }
 
-        // Start the typing sequence
         typeChar();
     }
 
-    // Function to simulate log access
     function simulateLogAccess() {
-        isTypingRole = false; // Pause role typing
-        clearTimeout(inputTypingTimeout); // Clear any pending typing timeouts
+        isTypingRole = false; 
+        clearTimeout(inputTypingTimeout); 
         const logLines = [
             "ACCESSING_LOGS...",
             "INITIATING_DECRYPTION_PROTOCOL_V2.1...",
@@ -2015,49 +2054,48 @@
         ];
         let currentLogLine = 0;
         let charIndex = 0;
-        if (heroTerminalInput) heroTerminalInput.value = ""; // Clear input if it exists
-        SoundManager.play('ufo'); // Use a distinct sound for log access
+        if (heroTerminalInput) heroTerminalInput.value = ""; 
+        SoundManager.play('ufo'); 
 
         function typeLogLine() {
-            if (!heroTerminalInput) return; // Ensure input exists
+            if (!heroTerminalInput) return; 
             if (currentLogLine < logLines.length) {
                 if (charIndex < logLines[currentLogLine].length) {
                     heroTerminalInput.value += logLines[currentLogLine][charIndex++];
                     SoundManager.sounds.terminalType.play().catch(() => {});
-                    setTimeout(typeLogLine, 40); // Faster typing for logs
+                    setTimeout(typeLogLine, 40); 
                 } else {
                     heroTerminalInput.value += "\n";
                     charIndex = 0;
                     currentLogLine++;
-                    setTimeout(typeLogLine, 300); // Pause between lines
+                    setTimeout(typeLogLine, 300); 
                 }
             } else {
                 setTimeout(() => {
-                    if (heroTerminalInput) heroTerminalInput.value = ""; // Clear after logs
-                    isTypingRole = true; // Resume role typing
-                    typeRoleIntoInput(); // Restart role typing
-                }, 1500); // Pause before clearing and resuming
+                    if (heroTerminalInput) heroTerminalInput.value = ""; 
+                    isTypingRole = true; 
+                    typeRoleIntoInput(); 
+                }, 1500); 
             }
         }
         typeLogLine();
     }
 
-
-    // Handle hero terminal commands
+    // Feature 6: Expanded Interactive Commands
     function handleHeroCommand(command) {
-        if (!heroTerminalInput) return; // Ensure input exists
+        if (!heroTerminalInput) return;
 
         command = command.toLowerCase().trim();
         let response = "";
-        isTypingRole = false; // Pause role typing when a command is entered
-        clearTimeout(inputTypingTimeout); // Clear any pending typing timeouts
+        isTypingRole = false; 
+        clearTimeout(inputTypingTimeout); 
 
         switch(command) {
             case 'help':
-                response = "Available commands: 'about', 'skills', 'projects', 'contact', 'hire', 'access log', 'download credentials'.";
+                response = "Commands: 'about', 'skills', 'projects', 'contact', 'matrix', 'date', 'clear', 'sudo'.";
                 break;
             case 'about':
-                response = "Stephan is a Full Stack Developer passionate about futuristic UI and robust backend solutions.";
+                response = "Stephan is a Full Stack Developer passionate about robust backend solutions.";
                 gsap.to(window, { duration: 0.8, scrollTo: { y: `#${ABOUT_SECTION_ID}` }, ease: "power2.inOut" });
                 break;
             case 'skills':
@@ -2065,7 +2103,7 @@
                 gsap.to(window, { duration: 0.8, scrollTo: { y: "#skills" }, ease: "power2.inOut" });
                 break;
             case 'projects':
-                response = "Explore my work in the 'Projects' section. Hover over them for a holographic preview!";
+                response = "Explore my work in the 'Projects' section.";
                 gsap.to(window, { duration: 0.8, scrollTo: { y: "#projects" }, ease: "power2.inOut" });
                 break;
             case 'contact':
@@ -2076,37 +2114,57 @@
                 response = "Excellent choice! Let's connect. See the 'Contact' section.";
                 gsap.to(window, { duration: 0.8, scrollTo: { y: "#contact" }, ease: "power2.inOut" });
                 break;
+            case 'matrix':
+                const mCanvas = document.getElementById('matrix-canvas');
+                if(mCanvas.style.display === 'none'){
+                    mCanvas.style.display = 'block';
+                    response = "Matrix rain ACTIVATED.";
+                } else {
+                    mCanvas.style.display = 'none';
+                    response = "Matrix rain DEACTIVATED.";
+                }
+                break;
+            case 'date':
+                response = "Current Sys Date: " + new Date().toDateString();
+                break;
+            case 'clear':
+                heroTerminalInput.value = "";
+                isTypingRole = true;
+                typeRoleIntoInput();
+                return;
+            case 'sudo':
+                response = "ERROR: ACCESS DENIED. You do not have root privileges.";
+                SoundManager.play('terminalError');
+                break;
             case 'access log':
-                simulateLogAccess(); // Trigger log simulation
-                return; // Exit early as log simulation handles resuming typing
+                simulateLogAccess(); 
+                return; 
             case 'download credentials':
                 response = "Initiating secure download of credentials...";
                 const resumeLink = document.getElementById(HERO_BTN_RESUME_ID);
-                if (resumeLink) resumeLink.click(); // Trigger resume download
+                if (resumeLink) resumeLink.click(); 
                 break;
             default:
                 response = `Command '${command}' not recognized. Type 'help' for options.`;
-                SoundManager.play('terminalError'); // Play error sound
+                SoundManager.play('terminalError'); 
         }
 
-        // Display response in the input area for non-log commands
         heroTerminalInput.value = response;
         setTimeout(() => {
-            if (heroTerminalInput) heroTerminalInput.value = ""; // Clear after a delay
-            isTypingRole = true; // Resume role typing
-            typeRoleIntoInput(); // Restart role typing
-        }, 3000); // Display response for 3 seconds
-        SoundManager.play('chatbot'); // Use chatbot sound for command response
+            if (heroTerminalInput) heroTerminalInput.value = ""; 
+            isTypingRole = true; 
+            typeRoleIntoInput(); 
+        }, 3000); 
+        SoundManager.play('chatbot'); 
     }
 
-
-    // --- 5. Footer UFO Message Feature (existing) ---
+    // --- Footer UFO Message Feature ---
     const ufoShotMsg = document.getElementById('ufo-shot-msg');
     const ufoShotText = document.getElementById('ufo-shot-text');
     const ufoBeamSVG = document.getElementById('ufo-beam');
 
     function autoShootUFO() {
-      if (!ufoShotMsg || !ufoShotText || !ufoBeamSVG) return; // Ensure elements exist
+      if (!ufoShotMsg || !ufoShotText || !ufoBeamSVG) return; 
 
       const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
       ufoShotText.textContent = msg;
@@ -2114,7 +2172,7 @@
       ufoShotMsg.style.left = '110px';
       ufoShotMsg.style.bottom = '110px';
       ufoShotMsg.style.opacity = '1';
-      SoundManager.play('ufo'); // Play UFO sound
+      SoundManager.play('ufo'); 
       let pos = 110, opacity = 1;
 
       gsap.to(ufoBeamSVG, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
@@ -2135,18 +2193,18 @@
       animateShot();
     }
 
-    // --- 6. Scroll to top button functionality (existing) ---
+    // --- Scroll to top button ---
     const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-    // --- 7. Parallax Effect for Hero Section (existing) ---
+    // --- Parallax Effect ---
     const hero = document.querySelector('section.relative.text-center');
     const heroBg1 = hero.querySelector('div > .w-72');
     const heroBg2 = hero.querySelector('div > .w-40');
 
-    // --- 8. Shooting Star Animation (existing) ---
+    // --- Shooting Star Animation ---
     function animateShootingStar() {
       const star = document.getElementById('shooting-star');
-      if (!star) return; // Ensure element exists
+      if (!star) return; 
 
       gsap.set(star, { left: '-60px', opacity: 1 });
       gsap.to(star, { left: '100vw', duration: 3.5, ease: "power1.in", opacity: 0, onComplete: () => {
@@ -2154,12 +2212,12 @@
       }});
     }
 
-    // --- 9. Theme Toggle Functionality with Local Storage ---
+    // --- Theme Toggle Functionality ---
     function toggleTheme() {
         document.body.classList.toggle('light-theme');
         saveThemePreference(document.body.classList.contains('light-theme') ? 'light' : 'dark');
         const icon = document.getElementById(THEME_TOGGLE_BTN_ID);
-        if (icon) { // Check if icon exists
+        if (icon) { 
             const iElement = icon.querySelector('i');
             if (iElement) {
                 if (document.body.classList.contains('light-theme')) {
@@ -2171,7 +2229,7 @@
                 }
             }
         }
-        SoundManager.play('click'); // Play click sound
+        SoundManager.play('click'); 
     }
 
     function saveThemePreference(theme) {
@@ -2182,36 +2240,32 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.body.classList.add('light-theme');
-            // Icon update is handled in DOMContentLoaded after element is guaranteed to exist
         }
     }
 
-    // --- 10. DNA-style Skill Visualizer ---
+    // --- DNA-style Skill Visualizer ---
     function createDnaSkillVisualizer(data) {
         const container = document.getElementById(SKILL_GRAPH_CONTAINER_ID);
         if (!container) return;
 
-        const width = 800; // Fixed width for the SVG canvas
-        const height = 500; // Fixed height for the SVG canvas
+        const width = 800; 
+        const height = 500; 
         const svg = d3.select("#skill-dna-svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet");
 
-        // Clear previous elements
         svg.selectAll("*").remove();
 
-        // DNA helix parameters
         const helixRadius = 100;
-        const helixPitch = 0.05; // Controls how tight the helix is
-        const helixLength = height - 100; // Length of the helix in Y-axis
+        const helixPitch = 0.05; 
+        const helixLength = height - 100; 
         const startY = 50;
         const endY = height - 50;
 
-        // Create helix paths
         const lineGenerator = d3.line()
             .x(d => d.x)
             .y(d => d.y)
-            .curve(d3.curveCardinal); // Smooth curve
+            .curve(d3.curveCardinal); 
 
         const helixPoints1 = [];
         const helixPoints2 = [];
@@ -2235,7 +2289,6 @@
             .attr("class", "dna-helix")
             .attr("d", lineGenerator(helixPoints2));
 
-        // Animate helix drawing
         const pathLength1 = helix1.node().getTotalLength();
         const pathLength2 = helix2.node().getTotalLength();
 
@@ -2248,7 +2301,6 @@
         gsap.to(helix2.node(), { strokeDashoffset: 0, duration: 2, ease: "power2.out", delay: 0.5 });
 
 
-        // Position nodes along the helix
         const nodesData = data.nodes.map((d, i) => {
             const yPos = startY + (i / (data.nodes.length - 1)) * helixLength;
             const angle = yPos * helixPitch;
@@ -2267,17 +2319,16 @@
 
         nodeGroups.append("circle")
             .attr("class", "dna-node-circle")
-            .attr("r", d => 5 + d.proficiency / 15) // Size based on proficiency
+            .attr("r", d => 5 + d.proficiency / 15) 
             .attr("fill", d => colorScale(d.group));
 
         nodeGroups.append("text")
             .attr("class", "dna-node-text")
             .attr("dy", "0.35em")
-            .attr("x", d => d.x > width / 2 ? 10 : -10) // Offset text based on side of helix
+            .attr("x", d => d.x > width / 2 ? 10 : -10) 
             .attr("text-anchor", d => d.x > width / 2 ? "start" : "end")
             .text(d => d.id);
 
-        // Animate nodes on scroll
         gsap.to(nodeGroups.nodes(), {
             opacity: 1,
             scale: 1,
@@ -2288,11 +2339,10 @@
                 trigger: `#${SKILL_GRAPH_CONTAINER_ID}`,
                 start: "top center",
                 toggleActions: "play reverse play reverse",
-                once: true // Only animate once
+                once: true 
             }
         });
 
-        // Node hover interaction
         nodeGroups.on("mouseover", function(event, d) {
             d3.select(this).classed("highlight", true);
         })
@@ -2300,7 +2350,6 @@
             d3.select(this).classed("highlight", false);
         });
 
-        // Filter functionality for DNA visualizer
         window.filterDnaSkills = function(category) {
             const allNodeGroups = svg.selectAll(".dna-node-group");
             allNodeGroups.each(function(d) {
@@ -2308,35 +2357,32 @@
                 if (category === 'all' || d.group === category) {
                     nodeGroup.transition().duration(300)
                         .style("opacity", 1)
-                        .attr("display", null); // Show element
+                        .attr("display", null); 
                 } else {
                     nodeGroup.transition().duration(300)
                         .style("opacity", 0.2)
-                        .attr("display", "none"); // Hide element
+                        .attr("display", "none"); 
                 }
             });
         };
     }
 
-    // --- 11. Skills Section Filter (Adjusted for DNA Visualizer) ---
     function filterSkills(category) {
-        window.filterDnaSkills(category); // Call the D3.js filter function
+        window.filterDnaSkills(category); 
     }
 
-    // --- 12. Certificates Carousel Navigation ---
     function scrollCertificates(direction) {
       const carousel = document.getElementById(CERTIFICATES_CAROUSEL_ID);
       if (!carousel) return;
 
-      const scrollAmount = 280; // Width of one card + gap (224px card + 24px gap = 248, add some buffer)
+      const scrollAmount = 280; 
       carousel.scrollBy({
         left: direction * scrollAmount,
         behavior: 'smooth'
       });
-      SoundManager.play('click'); // Play click sound
+      SoundManager.play('click'); 
     }
 
-    // --- 13. Fetch and Display Current Focus Updates (Dynamic News Feed) ---
     function fetchLatestUpdates() {
       const updatesContainer = document.getElementById(CURRENT_FOCUS_UPDATES_ID);
       if (!updatesContainer) return;
@@ -2352,36 +2398,13 @@
         `;
       });
       updatesContainer.innerHTML = html;
-
-      // Implement a simple "news ticker" effect if desired
-      const newsItems = updatesContainer.querySelectorAll('.current-focus-item');
-      if (newsItems.length > 1) {
-          let currentNewsIndex = 0;
-          const rotateNews = () => {
-              gsap.to(newsItems[currentNewsIndex], {
-                  y: "-100%",
-                  opacity: 0,
-                  duration: 0.5,
-                  ease: "power2.inOut",
-                  onComplete: () => {
-                      gsap.set(newsItems[currentNewsIndex], { y: "100%", opacity: 0 }); // Move to bottom, keep hidden
-                      currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
-                      gsap.to(newsItems[currentNewsIndex], { y: "0%", opacity: 1, duration: 0.5, ease: "power2.out" });
-                  }
-              });
-          };
-          // Initialize all but first item hidden
-          gsap.set(Array.from(newsItems).slice(1), { opacity: 0, y: "100%" });
-          // setInterval(rotateNews, 5000); // Rotate every 5 seconds
-      }
     }
 
-    // --- 14. Animate Hero Buttons (Enhanced) ---
     function animateHeroButtons() {
       const btnProjects = document.getElementById(HERO_BTN_PROJECTS_ID);
       const btnResume = document.getElementById(HERO_BTN_RESUME_ID);
 
-      if (!btnProjects || !btnResume) return; // Ensure buttons exist
+      if (!btnProjects || !btnResume) return; 
 
       const createHoverAnimation = (element) => {
         gsap.to(element, {
@@ -2415,11 +2438,11 @@
       btnProjects.addEventListener('mouseleave', () => reverseHoverAnimation(btnProjects));
       btnResume.addEventListener('mouseenter', () => {
         gsap.to(btnResume, {
-          scale: 1.05, // slightly less aggressive for resume
+          scale: 1.05, 
           y: -2,
-          background: "rgba(255,209,102,0.133)", // More subtle background
-          boxShadow: "0 0 16px rgba(255,209,102,0.5)", // Subtle glow
-          color: "var(--accent)", // Change text color
+          background: "rgba(255,209,102,0.133)", 
+          boxShadow: "0 0 16px rgba(255,209,102,0.5)", 
+          color: "var(--accent)", 
           duration: 0.2,
           ease: "power2.out",
           overwrite: true
@@ -2439,14 +2462,12 @@
       });
     }
 
-    // --- 15. Flicker Effect on Glow Elements ---
     function applyFlickerToGlowElements() {
         document.querySelectorAll('.glow').forEach(element => {
             element.classList.add('flicker');
         });
     }
 
-    // --- 16. Footer Text Scramble (example for one element) ---
     function scrambleFooterText() {
         const textElement = document.getElementById(FOOTER_COPYRIGHT_TEXT_ID);
         if (!textElement) return;
@@ -2454,7 +2475,7 @@
         const originalText = textElement.textContent;
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
         let iterations = 0;
-        const totalIterations = originalText.length * 2; // Each char scrambles twice
+        const totalIterations = originalText.length * 2; 
 
         const scrambleInterval = setInterval(() => {
             textElement.textContent = originalText.split('').map((char, index) => {
@@ -2467,22 +2488,19 @@
 
             if (iterations >= totalIterations) {
                 clearInterval(scrambleInterval);
-                textElement.textContent = originalText; // Ensure original text is fully restored
+                textElement.textContent = originalText; 
             }
             iterations += 1;
-        }, 50); // Adjust speed
+        }, 50); 
 
-        // Trigger scramble occasionally
         setTimeout(() => {
-            setInterval(scrambleFooterText, 30000); // Scramble every 30 seconds
-        }, 10000); // Initial delay
+            setInterval(scrambleFooterText, 30000); 
+        }, 10000); 
     }
 
-    // --- Section Scanline Effect ---
     function setupSectionScanlines() {
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
-            // Ensure the hero section doesn't get a scanline overlay as it's handled differently
             if (section.id === 'hero-section') return;
 
             const overlay = section.querySelector('.section-scan-overlay');
@@ -2500,13 +2518,12 @@
                             );
                         }
                     });
-                }, { threshold: 0.3 }); // Trigger when 30% of section is visible
+                }, { threshold: 0.3 }); 
                 observer.observe(section);
             }
         });
     }
 
-    // --- Hologram Profile Interaction ---
     function setupHologramProfile() {
         const aboutSection = document.getElementById(ABOUT_SECTION_ID);
         const hologramCube = document.getElementById(HOLOGRAM_PROFILE_CUBE_ID);
@@ -2515,12 +2532,11 @@
 
         aboutSection.addEventListener('mousemove', (e) => {
             const { left, top, width, height } = aboutSection.getBoundingClientRect();
-            const x = (e.clientX - left) / width; // 0 to 1
-            const y = (e.clientY - top) / height; // 0 to 1
+            const x = (e.clientX - left) / width; 
+            const y = (e.clientY - top) / height; 
 
-            // Calculate rotation based on mouse position relative to the center of the section
-            const rotateX = (y - 0.5) * 20; // Max 10deg up/down
-            const rotateY = (x - 0.5) * -20; // Max 10deg left/right
+            const rotateX = (y - 0.5) * 20; 
+            const rotateY = (x - 0.5) * -20; 
 
             gsap.to(hologramCube, {
                 rotationX: rotateX,
@@ -2532,15 +2548,14 @@
 
         aboutSection.addEventListener('mouseleave', () => {
             gsap.to(hologramCube, {
-                rotationX: 15, // Return to initial tilt
-                rotationY: -15, // Return to initial tilt
+                rotationX: 15, 
+                rotationY: -15, 
                 duration: 0.8,
-                ease: "elastic.out(1, 0.5)" // Elastic snap back
+                ease: "elastic.out(1, 0.5)" 
             });
         });
     }
 
-    // --- Floating HUD Elements Logic ---
     function updateHudElements() {
         const hudTime = document.getElementById(HUD_TIME_ID);
         const hudWeather = document.getElementById(HUD_WEATHER_ID);
@@ -2548,61 +2563,52 @@
         const hudStatus = document.getElementById(HUD_STATUS_ID);
         const hudUserId = document.getElementById(HUD_USER_ID_ID);
 
-        if (!hudTime || !hudWeather || !hudBattery || !hudStatus || !hudUserId) return; // Ensure all HUD elements exist
+        if (!hudTime || !hudWeather || !hudBattery || !hudStatus || !hudUserId) return; 
 
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         hudTime.textContent = `TIME: ${timeString}`;
-        hudWeather.textContent = `WEATHER: RAIN // 12C`; // Mock data
-        hudBattery.textContent = `POWER: ${Math.floor(Math.random() * 20) + 80}%`; // Mock data 80-100%
-        hudStatus.textContent = `STATUS: ONLINE`; // Mock data
-        hudUserId.textContent = `USER: GUEST // ECHO-${Math.floor(Math.random() * 99) + 1}`; // Mock data
+        hudWeather.textContent = `WEATHER: CLEAR // 24C`; 
+        hudBattery.textContent = `POWER: ${Math.floor(Math.random() * 5) + 95}%`; 
+        hudStatus.textContent = `STATUS: OPTIMAL`; 
+        hudUserId.textContent = `USER: ADMIN // SEC-${Math.floor(Math.random() * 99) + 1}`; 
     }
 
-    // --- Satellite Scanner / Visitor Tracker Logic ---
     function setupVisitorTracker() {
         const trackerLocation = document.getElementById(TRACKER_LOCATION_ID);
         const trackerUserId = document.getElementById(TRACKER_USER_ID_ID);
         const trackerSignal = document.getElementById(TRACKER_SIGNAL_ID);
 
-        if (!trackerLocation || !trackerUserId || !trackerSignal) return; // Ensure all tracker elements exist
+        if (!trackerLocation || !trackerUserId || !trackerSignal) return; 
 
-        trackerLocation.textContent = "YANGON, MM"; // Mock location
-        trackerUserId.textContent = `UNIT-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`; // Random ID
-        trackerSignal.textContent = `${Math.floor(Math.random() * 30) + 70}`; // Random signal 70-99%
+        trackerLocation.textContent = "GLOBAL_NODE"; 
+        trackerUserId.textContent = `UNIT-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`; 
+        trackerSignal.textContent = `${Math.floor(Math.random() * 15) + 85}`; 
 
-        // Animate signal strength
         setInterval(() => {
-            trackerSignal.textContent = `${Math.floor(Math.random() * 30) + 70}`;
-        }, 3000); // Update every 3 seconds
+            trackerSignal.textContent = `${Math.floor(Math.random() * 15) + 85}`;
+        }, 3000); 
     }
 
-    // --- Custom Cursor and Spotlight Effect ---
     function setupCustomCursorAndSpotlight() {
         const customCursor = document.querySelector(CUSTOM_CURSOR_SELECTOR);
         const spotlightEffect = document.querySelector(SPOTLIGHT_EFFECT_SELECTOR);
 
-        if (!customCursor || !spotlightEffect) {
-            console.warn("Custom cursor or spotlight elements not found. Skipping setup.");
-            return;
-        }
+        if (!customCursor || !spotlightEffect) return;
 
         document.addEventListener('mousemove', (e) => {
-            // Update custom cursor position
             gsap.to(customCursor, {
                 x: e.clientX,
                 y: e.clientY,
-                duration: 0.05, // Very fast to follow mouse closely
+                duration: 0.05, 
                 ease: "none"
             });
 
-            // Update spotlight effect position
             spotlightEffect.style.setProperty('--mouse-x', `${e.clientX}px`);
             spotlightEffect.style.setProperty('--mouse-y', `${e.clientY}px`);
         });
     }
 
-    // --- Auto-Navigation Based on Scroll (No Header At All) ---
     const sections = [
         { id: 'hero-section', name: 'HOME' },
         { id: 'about', name: 'ABOUT' },
@@ -2615,7 +2621,7 @@
         { id: 'testimonials', name: 'FEEDBACK' },
         { id: 'contact', name: 'CONTACT' }
     ];
-    let activeSectionId = 'hero-section'; // Default active section
+    let activeSectionId = 'hero-section'; 
 
     function updateSectionTooltip(sectionName) {
         const tooltip = document.getElementById(SECTION_TOOLTIP_ID);
@@ -2625,29 +2631,18 @@
         }
     }
 
-    function hideSectionTooltip() {
-        const tooltip = document.getElementById(SECTION_TOOLTIP_ID);
-        if (tooltip) {
-            gsap.to(tooltip, { opacity: 0, duration: 0.3 });
-        }
-    }
-
     function setupScrollSpyAndMiniNav() {
         const sectionElements = sections.map(s => document.getElementById(s.id)).filter(Boolean);
         const sectionTooltip = document.getElementById(SECTION_TOOLTIP_ID);
         const miniNav = document.getElementById(MINI_NAV_ID);
 
-        if (!miniNav) {
-            console.warn("Mini-navigation element not found. Skipping setup.");
-            return;
-        }
+        if (!miniNav) return;
 
-        // Generate mini-nav dots
         sections.forEach((section, index) => {
             const dot = document.createElement('div');
             dot.classList.add('mini-nav-dot');
             dot.dataset.sectionId = section.id;
-            dot.title = section.name; // Add tooltip for accessibility
+            dot.title = section.name; 
             dot.addEventListener('click', () => {
                 gsap.to(window, { duration: 0.8, scrollTo: { y: `#${section.id}` }, ease: "power2.inOut" });
                 SoundManager.play('click');
@@ -2660,7 +2655,7 @@
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.5 // Adjust threshold as needed
+            threshold: 0.5 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -2684,43 +2679,42 @@
 
         sectionElements.forEach(section => observer.observe(section));
 
-        // Hide tooltip when not scrolling for a brief moment
         let scrollTimeout;
         window.addEventListener('scroll', () => {
-            if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 1, duration: 0.1 }); // Show tooltip on scroll
+            if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 1, duration: 0.1 }); 
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
-                if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 0, duration: 0.5 }); // Hide after a delay
-            }, 1000); // 1 second after last scroll
+                if (sectionTooltip) gsap.to(sectionTooltip, { opacity: 0, duration: 0.5 }); 
+            }, 1000); 
         });
     }
 
-    // Keyboard Navigation (1, 2, 3...)
     function setupKeyboardNavigation() {
         document.addEventListener('keydown', (event) => {
+            // Ignore if user is typing in input fields
+            if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'textarea') {
+                return;
+            }
+            
             const key = event.key;
-            const sectionIndex = parseInt(key) - 1; // '1' maps to index 0
+            const sectionIndex = parseInt(key) - 1; 
 
             if (sectionIndex >= 0 && sectionIndex < sections.length) {
                 const targetSectionId = sections[sectionIndex].id;
                 gsap.to(window, { duration: 0.8, scrollTo: { y: `#${targetSectionId}` }, ease: "power2.inOut" });
                 SoundManager.play('click');
-                event.preventDefault(); // Prevent default browser behavior (e.g., number input)
+                event.preventDefault(); 
             }
         });
     }
 
-    // --- Live Project Demo Modal ---
     function setupLiveDemoModal() {
         const modalOverlay = document.getElementById(LIVE_DEMO_MODAL_OVERLAY_ID);
         const iframe = document.getElementById(LIVE_DEMO_IFRAME_ID);
         const closeBtn = document.getElementById(LIVE_DEMO_CLOSE_BTN_ID);
         const runLiveButtons = document.querySelectorAll(LIVE_DEMO_BUTTON_SELECTOR);
 
-        if (!modalOverlay || !iframe || !closeBtn || runLiveButtons.length === 0) {
-            console.warn("Live demo modal elements not fully found. Skipping setup.");
-            return;
-        }
+        if (!modalOverlay || !iframe || !closeBtn || runLiveButtons.length === 0) return;
 
         runLiveButtons.forEach(button => {
             button.addEventListener('click', (event) => {
@@ -2728,27 +2722,25 @@
                 if (url) {
                     iframe.src = url;
                     modalOverlay.classList.add('visible');
-                    SoundManager.play('click'); // Play sound on launch
+                    SoundManager.play('click'); 
                 }
             });
         });
 
         closeBtn.addEventListener('click', () => {
             modalOverlay.classList.remove('visible');
-            iframe.src = ''; // Clear iframe content
-            SoundManager.play('click'); // Play sound on close
+            iframe.src = ''; 
+            SoundManager.play('click'); 
         });
 
-        // Close modal if clicking outside content (on overlay)
         modalOverlay.addEventListener('click', (event) => {
             if (event.target === modalOverlay) {
                 modalOverlay.classList.remove('visible');
-                iframe.src = ''; // Clear iframe content
+                iframe.src = ''; 
                 SoundManager.play('click');
             }
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && modalOverlay.classList.contains('visible')) {
                 modalOverlay.classList.remove('visible');
@@ -2758,14 +2750,20 @@
         });
     }
 
-
     // --- Event Listeners and Initializations ---
     window.addEventListener('DOMContentLoaded', function () {
       typeTerminal();
-      loadThemePreference(); // Load theme immediately
-      SoundManager.init(); // Initialize sound manager
+      loadThemePreference(); 
+      SoundManager.init(); 
+      
+      setupMatrixRain(); // Feature 1 Trigger
+      fetchGitHubStats(); // Feature 2 Trigger
+      
+      // Feature 3 Trigger (Making HUDs Draggable)
+      makeDraggable('hud-1');
+      makeDraggable('hud-2');
+      makeDraggable('hud-3'); // Draggable visitor tracker
 
-      // Blinking cursor
       setInterval(() => {
         const termCursor = document.getElementById(TERMINAL_CURSOR_ID);
         if (termCursor) {
@@ -2773,19 +2771,14 @@
         }
       }, 400);
 
-      // Random Terminal Fact on click (after initial typing)
       const terminalDisplay = document.getElementById(TERMINAL_DISPLAY_ID);
       if (terminalDisplay) {
         terminalDisplay.addEventListener('click', randomTerminalFact);
       }
       
-
-      // Navbar & Section Animations (Adjusted for no nav element)
-      // Removed gsap.from("nav", ...) as nav is removed
       gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
       gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
 
-      // Robot Animation
       const robotContainer = document.getElementById('robot-container');
       if (robotContainer) {
         window.addEventListener('scroll', () => {
@@ -2797,8 +2790,6 @@
         gsap.fromTo(robotContainer, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
       }
 
-
-      // Chatbot Initialization
       const chatbotToggle = document.getElementById('chatbot-toggle');
       const chatbotWindow = document.getElementById('chatbot-window');
       const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
@@ -2806,18 +2797,16 @@
       if (chatbotToggle && chatbotWindow && mobileNavOverlay) {
         chatbotToggle.addEventListener('click', () => {
           chatbotWindow.classList.toggle('hidden');
-          // If chatbot is opened, show overlay if mobile nav is also closed
           if (!chatbotWindow.classList.contains('hidden') && window.innerWidth <= 768) {
               mobileNavOverlay.classList.remove('hidden');
           } else {
               mobileNavOverlay.classList.add('hidden');
           }
-          SoundManager.play('click'); // Play click sound
+          SoundManager.play('click'); 
         });
 
-        // Close chatbot when clicking overlay (only if overlay is specifically for chatbot)
         mobileNavOverlay.addEventListener('click', (event) => {
-          if (event.target === mobileNavOverlay && !chatbotWindow.classList.contains('hidden')) { // Only if chatbot is open
+          if (event.target === mobileNavOverlay && !chatbotWindow.classList.contains('hidden')) { 
               chatbotWindow.classList.add('hidden');
               mobileNavOverlay.classList.add('hidden');
           }
@@ -2851,35 +2840,30 @@
             setTimeout(() => {
               document.getElementById(CHATBOT_INPUT_ID).disabled = false;
               document.getElementById(CHATBOT_INPUT_ID).value = "";
-            }, 3000); // Give user time to see the message
+            }, 3000); 
           } else {
             botSay("I'm sorry, I didn't understand that. Please enter a valid phone number, ask about my skills, projects, or use the buttons below.");
           }
         });
         document.getElementById(CLEAR_CHATBOT_BTN_ID).addEventListener('click', clearChatbotHistory);
-        botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information, or simply type your phone number if you'd like him to reach out.");
+        botSay("Hi there! I'm Stephan's AI assistant. How can I help you today? You can ask me about his **skills**, **projects**, or **contact** information.");
         showOptions();
       }
 
-
-      // Hero Terminal Input
-      if (heroTerminalInput) { // Check if heroTerminalInput exists
-        typeRoleIntoInput(); // Start typing animation for the input
+      if (heroTerminalInput) { 
+        typeRoleIntoInput(); 
         heroTerminalInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent new line
+                event.preventDefault(); 
                 handleHeroCommand(this.value);
-                this.value = ''; // Clear input after command
+                this.value = ''; 
             }
         });
       }
 
-
-      // UFO Shooter Automation
       setInterval(autoShootUFO, 8000);
 
-      // Scroll to Top Button
-      if (scrollTopBtn) { // Check if scrollTopBtn exists
+      if (scrollTopBtn) { 
         window.addEventListener('scroll', () => {
           if (window.scrollY > 300) {
             scrollTopBtn.classList.remove('hidden');
@@ -2889,13 +2873,11 @@
         });
         scrollTopBtn.addEventListener('click', () => {
           gsap.to(window, { duration: 0.8, scrollTo: { y: 0 }, ease: "power2.inOut" });
-          SoundManager.play('click'); // Play click sound
+          SoundManager.play('click'); 
         });
       }
 
-
-      // Hero Parallax
-      if (hero && heroBg1 && heroBg2) { // Check if hero elements exist
+      if (hero && heroBg1 && heroBg2) { 
         hero.addEventListener('mousemove', e => {
           const { left, top, width, height } = hero.getBoundingClientRect();
           const x = (e.clientX - left) / width - 0.5;
@@ -2905,84 +2887,54 @@
         });
       }
 
-
-      // Shooting Star Animation Loop
       setInterval(animateShootingStar, 15000);
 
-      // Theme Toggle Event Listener
       const themeToggleBtn = document.getElementById(THEME_TOGGLE_BTN_ID);
-      if (themeToggleBtn) { // Check if themeToggleBtn exists
+      if (themeToggleBtn) { 
         themeToggleBtn.addEventListener('click', toggleTheme);
       }
 
-      // Sound Toggle Event Listener
       const soundToggleBtn = document.getElementById(SOUND_TOGGLE_BTN_ID);
-      if (soundToggleBtn) { // Check if soundToggleBtn exists
+      if (soundToggleBtn) { 
         soundToggleBtn.addEventListener('click', () => SoundManager.toggleMute());
       }
 
-      // Create DNA Skill Visualizer
       createDnaSkillVisualizer(skillGraphData);
 
-      // Skill Filter Buttons
       document.querySelectorAll('.futuristic-btn[data-filter]').forEach(button => {
         button.addEventListener('click', (event) => {
           document.querySelectorAll('.futuristic-btn[data-filter]').forEach(btn => btn.classList.remove('active'));
-          event.target.classList.add('active'); // Highlight active filter
+          event.target.classList.add('active'); 
           filterSkills(event.target.dataset.filter);
-          SoundManager.play('click'); // Play click sound
+          SoundManager.play('click'); 
         });
       });
-      // Set initial filter to 'all' and highlight it (already done in HTML)
 
-
-      // Certificates Carousel Buttons
       const certPrevBtn = document.getElementById(CERT_PREV_BTN_ID);
       const certNextBtn = document.getElementById(CERT_NEXT_BTN_ID);
       if (certPrevBtn) certPrevBtn.addEventListener('click', () => scrollCertificates(-1));
       if (certNextBtn) certNextBtn.addEventListener('click', () => scrollCertificates(1));
 
-      // Fetch Latest Updates
       fetchLatestUpdates();
-
-      // Animate Hero Buttons
       animateHeroButtons();
-
-      // Apply Flicker to Glow Elements
       applyFlickerToGlowElements();
-
-      // Scramble Footer Text
       scrambleFooterText();
-
-      // Setup Section Scanlines
       setupSectionScanlines();
-
-      // Setup Hologram Profile
       setupHologramProfile();
 
-      // Update HUD elements every second
       setInterval(updateHudElements, 1000);
-      updateHudElements(); // Initial update
+      updateHudElements(); 
 
-      // Setup Visitor Tracker
       setupVisitorTracker();
-
-      // Setup Custom Cursor and Spotlight
       setupCustomCursorAndSpotlight();
-
-      // Setup Scroll Spy and Mini Nav
       setupScrollSpyAndMiniNav();
-      setupKeyboardNavigation(); // Enable keyboard navigation
-
-      // Setup Live Demo Modal
+      setupKeyboardNavigation(); 
       setupLiveDemoModal();
 
-      // Ensure elements are at top on load
       window.scrollTo(0, 0);
     });
 
-    // Expose all show* functions to window for inline onclick in chatbot
-    window.showPhone = function () { botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip7</b>'); };
+    window.showPhone = function () { botSay('My phone: <b>+959954480806</b><br>Telegram: <b>@stephanfilip</b>'); };
     window.showtg = function () { botSay('My Telegram: <b>@stephanfilip</b><br><a href="https://t.me/stephanfilip" target="_blank" class="futuristic-link">Open Telegram</a>'); };
     window.showfb = function () { botSay('My Facebook: <b>facebook.com/stephanfilip7</b><br><a href="https://facebook.com/stephanfilip7" target="_blank" class="futuristic-link">Open Facebook</a>'); };
     window.showwa = function () { botSay('My WhatsApp: <b>+959954480806</b><br><a href="https://wa.me/959954480806" target="_blank" class="futuristic-link">Open WhatsApp</a>'); };
