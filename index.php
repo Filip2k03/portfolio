@@ -40,11 +40,11 @@
     body {
       font-family: 'Orbitron', 'Montserrat', 'Share Tech Mono', monospace, sans-serif;
       background: linear-gradient(135deg, var(--dominant) 0%, #1a0933 100%);
-      color: #ffe600; /* Main text color */
+      color: #ffe600; 
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
-      cursor: none; /* Hide default cursor */
+      cursor: none; 
     }
 
     body.light-theme {
@@ -117,8 +117,7 @@
     }
 
     @keyframes glass-flicker {
-      0%,
-      100% { opacity: 1; }
+      0%, 100% { opacity: 1; }
       48% { opacity: 0.92; }
       52% { opacity: 0.85; }
     }
@@ -406,40 +405,6 @@
       z-index: 1;
     }
 
-    @media (max-width: 768px) {
-      .robotic-panel,
-      .glass {
-        border-radius: 1.2rem !important;
-      }
-      .neon-divider {
-        width: 60px;
-      }
-      #footer-ufo-shooter {
-        margin-bottom: 0.5rem;
-        margin-right: 0;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-      footer.flex {
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .mobile-nav-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 40;
-      }
-      body.light-theme .mobile-nav-overlay {
-        background: rgba(255, 255, 255, 0.7);
-      }
-    }
-
     @keyframes flicker-subtle {
       0%, 100% { opacity: 1; }
       5% { opacity: 0.95; }
@@ -460,10 +425,7 @@
       animation: flicker-subtle 4s infinite step-end;
     }
 
-    .certificates-carousel-container {
-        position: relative;
-    }
-
+    .certificates-carousel-container { position: relative; }
     .certificates-carousel {
         display: flex;
         overflow-x: scroll;
@@ -472,11 +434,8 @@
         scrollbar-width: none;
         -ms-overflow-style: none;
     }
-
-    .certificates-carousel::-webkit-scrollbar {
-        display: none;
-    }
-
+    .certificates-carousel::-webkit-scrollbar { display: none; }
+    
     .carousel-button {
         position: absolute;
         top: 50%;
@@ -627,20 +586,12 @@
 
     #sound-toggle-btn {
       position: fixed;
-      top: 6px;
-      right: 100px;
+      top: 1.5rem;
+      right: 6rem;
       z-index: 50;
       border-radius: 9999px;
       padding: 0.75rem;
       font-size: 1.25rem;
-    }
-    @media (max-width: 768px) {
-      #sound-toggle-btn {
-        right: 70px;
-        top: 10px;
-        padding: 0.5rem;
-        font-size: 1rem;
-      }
     }
 
     .current-focus-item {
@@ -751,11 +702,6 @@
     .hologram-indicator.bottom-left { bottom: 5px; left: 5px; }
     .hologram-indicator.bottom-right { bottom: 5px; right: 5px; }
 
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.2; }
-    }
-
     .hologram-data-line {
         position: absolute;
         background: linear-gradient(to right, transparent, var(--secondary), transparent);
@@ -767,11 +713,6 @@
     .hologram-data-line.line-2 { top: 40%; left: 0; width: 100%; animation-delay: 1s; }
     .hologram-data-line.line-3 { top: 60%; left: 0; width: 100%; animation-delay: 2s; }
 
-    @keyframes data-flow {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-    }
-
     /* Make HUD elements draggable */
     .hud-element {
         position: fixed;
@@ -779,33 +720,18 @@
         font-size: 0.8rem;
         color: var(--accent);
         text-shadow: 0 0 5px var(--accent);
-        z-index: 50;
+        z-index: 40;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
         border: 1px solid rgba(0, 255, 231, 0.3);
         background: rgba(15, 6, 23, 0.6);
         box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
-        pointer-events: auto; /* Changed for draggability */
+        pointer-events: auto; 
         cursor: grab;
     }
-    .hud-element:active {
-        cursor: grabbing;
-    }
+    .hud-element:active { cursor: grabbing; }
     .hud-top-left { top: 1rem; left: 1rem; }
     .hud-top-right { top: 1rem; right: 1rem; text-align: right; }
-    .hud-bottom-left { bottom: 1rem; left: 1rem; }
-    .hud-bottom-right { bottom: 1rem; right: 1rem; text-align: right; }
-
-    @media (max-width: 768px) {
-        .hud-element {
-            font-size: 0.6rem;
-            padding: 0.3rem 0.6rem;
-        }
-        .hud-top-left { top: 0.5rem; left: 0.5rem; }
-        .hud-top-right { top: 0.5rem; right: 0.5rem; }
-        .hud-bottom-left { bottom: 0.5rem; left: 0.5rem; }
-        .hud-bottom-right { bottom: 0.5rem; right: 0.5rem; }
-    }
 
     #visitor-tracker {
         position: fixed;
@@ -821,25 +747,18 @@
         font-family: 'Share Tech Mono', monospace;
         font-size: 0.9rem;
         color: var(--accent);
-        z-index: 50;
+        z-index: 40;
         text-align: center;
         pointer-events: auto;
         cursor: grab;
     }
-    #visitor-tracker:active {
-        cursor: grabbing;
-    }
+    #visitor-tracker:active { cursor: grabbing; }
     #visitor-tracker .scan-line-pulse {
         display: block;
         height: 2px;
         background: linear-gradient(to right, transparent, var(--danger), transparent);
         animation: scan-pulse 2s infinite linear;
         margin-top: 0.5rem;
-    }
-    @keyframes scan-pulse {
-        0% { opacity: 0; transform: scaleX(0); }
-        50% { opacity: 1; transform: scaleX(1); }
-        100% { opacity: 0; transform: scaleX(0); }
     }
 
     .custom-cursor {
@@ -926,9 +845,6 @@
         box-shadow: 0 0 5px var(--secondary);
         transform: scale(1.1);
     }
-    @media (max-width: 768px) {
-        #mini-nav { display: none; }
-    }
 
     #live-demo-modal-overlay {
         position: fixed;
@@ -954,7 +870,7 @@
     #live-demo-modal-content {
         position: relative;
         width: 90%;
-        height: 90%;
+        height: 85%;
         background: var(--dominant);
         border: 2px solid var(--accent);
         box-shadow: 0 0 40px var(--accent)aa, 0 0 80px var(--secondary)88;
@@ -990,9 +906,63 @@
         box-shadow: 0 0 15px var(--danger);
         transition: transform 0.2s, box-shadow 0.2s;
     }
-    #live-demo-close-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 25px var(--danger);
+
+    /* 📱 STRICT MOBILE RESPONSIVE TWEAKS FOR < 480px */
+    @media (max-width: 480px) {
+        .glass, .robotic-panel {
+            padding: 1.5rem !important; 
+            border-radius: 1rem !important;
+        }
+        
+        h2 { font-size: 2.75rem !important; line-height: 1.1 !important; }
+        h3 { font-size: 1.75rem !important; }
+        h4 { font-size: 1.3rem !important; }
+        
+        #hero-terminal-input { font-size: 1.2rem !important; }
+        .futuristic-btn { padding: 0.6rem 1rem !important; font-size: 0.85rem !important; }
+        
+        /* DNA Graph sizing for mobile */
+        #skill-graph-container { height: 350px !important; }
+        
+        /* Clean up HUDs & Controls so screen isn't cluttered */
+        .hud-element { font-size: 0.55rem; padding: 0.25rem 0.5rem; }
+        #hud-1 { top: 0.5rem; left: 0.5rem; }
+        #hud-2 { top: 0.5rem; right: 0.5rem; }
+        
+        /* Shrink toggles and move down slightly to avoid notch/time area */
+        #theme-toggle-btn { top: 3.5rem !important; right: 0.5rem !important; padding: 0.5rem !important; font-size: 1rem !important; }
+        #sound-toggle-btn { top: 3.5rem !important; right: 3.5rem !important; padding: 0.5rem !important; font-size: 1rem !important; }
+        
+        #visitor-tracker { 
+            bottom: 5.5rem !important; /* Stack above the chatbot widget */
+            width: calc(100% - 2rem) !important; 
+            max-width: 320px;
+            font-size: 0.75rem; 
+            padding: 0.75rem !important; 
+        }
+        
+        #chatbot-widget { right: 16px !important; bottom: 16px !important; }
+        #chatbot-window { width: calc(100vw - 32px); max-width: 320px; right: 0; }
+        
+        /* Terminal Boot Screen */
+        #terminal-display { font-size: 1.2rem !important; padding: 1.5rem !important; width: 90% !important; min-width: auto !important; }
+        #boot-progress-container { width: 90% !important; }
+
+        /* Shrink the Hologram on mobile */
+        .hologram-profile-container { transform: scale(0.7); margin: 0 auto; }
+
+        #mini-nav { display: none; }
+        .neon-divider { width: 80px; }
+
+        /* Clean Github Stats Stacking */
+        #github-stats-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        #github-stats-container > div:first-child { flex-direction: column; gap: 1rem; }
+        
+        /* Section padding */
+        section { padding-top: 3rem !important; padding-bottom: 3rem !important; }
     }
   </style>
 </head>
@@ -1043,8 +1013,8 @@
   <!-- Circuit Background Overlay -->
   <div class="circuit-bg"></div>
 
-  <!-- Robot Companion -->
-  <div id="robot-container" class="fixed left-4 bottom-10 z-40 pointer-events-none select-none"
+  <!-- Robot Companion (Hidden on mobile) -->
+  <div id="robot-container" class="hidden sm:block fixed left-4 bottom-10 z-40 pointer-events-none select-none"
     style="width:120px;height:120px;">
     <svg class="cyberpunk-robot" viewBox="0 0 120 120" width="80" height="80" fill="none"
       xmlns="http://www.w3.org/2000/svg">
@@ -1082,37 +1052,36 @@
   <div id="mini-nav"></div>
 
   <!-- Hero Section -->
-  <section class="relative text-center py-32 md:py-44 overflow-hidden" id="hero-section">
+  <section class="relative text-center py-20 px-4 md:py-44 overflow-hidden min-h-screen flex flex-col justify-center items-center" id="hero-section">
     <!-- Feature 1: Matrix Rain Canvas -->
     <canvas id="matrix-canvas"></canvas>
     
     <div class="absolute inset-0 pointer-events-none z-0">
-      <div class="w-72 h-72 bg-[var(--accent)] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2 opacity-20"></div>
-      <div class="w-40 h-40 bg-[#FFD166] rounded-full blur-2xl absolute bottom-0 right-1/3 opacity-25"></div>
+      <div class="w-48 h-48 md:w-72 md:h-72 bg-[var(--accent)] rounded-full blur-3xl absolute top-0 left-1/2 -translate-x-1/2 opacity-20"></div>
+      <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFD166] rounded-full blur-2xl absolute bottom-0 right-1/4 opacity-25"></div>
     </div>
-    <div class="relative z-10">
-      <h2 class="text-7xl md:text-8xl font-led mb-6 tracking-widest">
+    <div class="relative z-10 w-full">
+      <h2 class="text-5xl sm:text-7xl md:text-8xl font-led mb-4 md:mb-6 tracking-widest">
         Hi, I'm Stephan Filip<br>
       </h2>
       <div class="neon-divider">|</div>
       <!-- Feature 6: Expanded Interactive Terminal Input -->
-      <span id="typed-role" class="block text-3xl md:text-4xl mt-4">
+      <span id="typed-role" class="block text-xl sm:text-3xl md:text-4xl mt-4 max-w-[90%] mx-auto">
         <input type="text" id="hero-terminal-input" placeholder="Type 'help'..." />
       </span>
-      <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
-        <a href="#projects" class="futuristic-btn px-10 py-5 text-2xl" id="hero-btn-projects">See Projects</a>
+      <div class="mt-8 md:mt-12 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6">
+        <a href="#projects" class="futuristic-btn px-8 py-4 md:px-10 md:py-5 text-lg md:text-2xl" id="hero-btn-projects">See Projects</a>
         <a href="resume.pdf" download
-          class="px-10 py-5 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-led hover:bg-[#FFD16622] transition text-2xl" id="hero-btn-resume">Download
-          Resume</a>
+          class="px-8 py-4 md:px-10 md:py-5 border-2 border-[#FFD166] text-[#FFD166] rounded-full font-led hover:bg-[#FFD16622] transition text-lg md:text-2xl" id="hero-btn-resume">Download Resume</a>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="container mx-auto px-6 py-20">
+  <section id="about" class="container mx-auto px-4 py-16 md:py-20">
     <div class="section-scan-overlay"></div>
-    <div class="glass robotic-panel about-cyber-bg rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
-      <h3 class="text-4xl font-led mb-6 glitch" data-text="About Me">About Me</h3>
+    <div class="glass robotic-panel about-cyber-bg rounded-3xl p-6 md:p-10 shadow-xl max-w-3xl mx-auto text-center md:text-left">
+      <h3 class="text-3xl md:text-4xl font-led mb-6 glitch" data-text="About Me">About Me</h3>
       <!-- Hologram Profile -->
       <div class="hologram-profile-container">
           <div class="hologram-profile-cube">
@@ -1133,32 +1102,32 @@
           <div class="hologram-indicator bottom-left"></div>
           <div class="hologram-indicator bottom-right"></div>
       </div>
-      <p class="text-[#ffe600] text-xl leading-relaxed font-led">
-        <span class="text-[#ffe600]">I am a dedicated Full Stack Developer with a passion for creating immersive and visually striking web experiences. My journey in tech is driven by a love for blending futuristic UI, circuit chaos, and neon tech into functional and elegant solutions.</span><br>
-        <span class="text-[#ffe600]">I'm the founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building innovative POS systems and e-commerce platforms, extending digital solutions to businesses in Myanmar and beyond.</span><br>
+      <p class="text-[#ffe600] text-lg md:text-xl leading-relaxed font-led mt-6 md:mt-0">
+        <span class="text-[#ffe600]">I am a dedicated Full Stack Developer with a passion for creating immersive and visually striking web experiences. My journey in tech is driven by a love for blending futuristic UI, circuit chaos, and neon tech into functional and elegant solutions.</span><br><br>
+        <span class="text-[#ffe600]">I'm the founder of <a href="https://payvia.shop" class="futuristic-link">PayVia</a> — a tech company building innovative POS systems and e-commerce platforms, extending digital solutions to businesses in Myanmar and beyond.</span><br><br>
         <span class="text-[#ffe600]">My expertise spans across both front-end and back-end technologies, allowing me to craft seamless, end-to-end applications. I thrive on challenges and constantly seek to expand my knowledge, currently exploring cutting-edge technologies and refining performance optimizations.</span>
       </p>
     </div>
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="py-20 bg-[#2E1F3C] px-6">
+  <section id="skills" class="py-16 md:py-20 bg-[#2E1F3C] px-4">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass robotic-panel rounded-2xl p-10 shadow-2xl max-w-6xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Tech Stack</h3>
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-          <button class="futuristic-btn px-6 py-2 text-base active" data-filter="all">All</button>
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="frontend">Frontend</button>
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="backend">Backend</button>
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="database">Database</button>
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="mobile">Mobile</button>
-          <button class="futuristic-btn px-6 py-2 text-base" data-filter="cloud">Cloud/API</button>
+      <div class="glass robotic-panel rounded-2xl p-6 md:p-10 shadow-2xl max-w-6xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron text-center">Tech Stack</h3>
+        <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs active" data-filter="all">All</button>
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs" data-filter="frontend">Frontend</button>
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs" data-filter="backend">Backend</button>
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs" data-filter="database">Database</button>
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs" data-filter="mobile">Mobile</button>
+          <button class="futuristic-btn px-4 py-2 md:px-6 md:text-base text-xs" data-filter="cloud">Cloud/API</button>
         </div>
 
         <!-- DNA-style Skill Visualizer Container -->
-        <div id="skill-graph-container">
-            <svg id="skill-dna-svg" viewBox="0 0 800 500"></svg>
+        <div id="skill-graph-container" class="w-full overflow-hidden">
+            <svg id="skill-dna-svg" viewBox="0 0 800 500" class="w-full h-full"></svg>
         </div>
 
       </div>
@@ -1166,18 +1135,18 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="py-20 container mx-auto px-6">
+  <section id="projects" class="py-16 md:py-20 container mx-auto px-4">
     <div class="section-scan-overlay"></div>
-    <h3 class="text-4xl font-led mb-10 text-center">Projects</h3>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <h3 class="text-3xl md:text-4xl font-led mb-10 text-center">Projects</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
       
       <!-- Project Card: Shine Dana -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Shine Dana">Shine Dana</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">A modern corporate portal providing digital solutions and streamlined services for the Shine Dana enterprise.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://www.shinedana.com" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://www.shinedana.com">Run Live</button>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Shine Dana">Shine Dana</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">A modern corporate portal providing digital solutions and streamlined services for the Shine Dana enterprise.</p>
+        <div class="flex flex-wrap gap-3 md:gap-4 mt-auto w-full">
+          <a href="https://www.shinedana.com" target="_blank" class="futuristic-link text-sm md:text-base">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm ml-auto" data-project-url="https://www.shinedana.com">Run Live</button>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Shine+Dana+Preview" alt="Shine Dana Project Preview">
@@ -1186,12 +1155,12 @@
       </div>
 
       <!-- Project Card: Digital Marketplace MM -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Digital Marketplace MM">Digital Marketplace MM</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">A robust multi-vendor e-commerce platform tailored specifically for the Myanmar digital market ecosystem.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://digitalmarketplacemm.com" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://digitalmarketplacemm.com">Run Live</button>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Digital Marketplace MM">Digital Marketplace MM</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">A robust multi-vendor e-commerce platform tailored specifically for the Myanmar digital market ecosystem.</p>
+        <div class="flex flex-wrap gap-3 md:gap-4 mt-auto w-full">
+          <a href="https://digitalmarketplacemm.com" target="_blank" class="futuristic-link text-sm md:text-base">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+          <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm ml-auto" data-project-url="https://digitalmarketplacemm.com">Run Live</button>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Digital+Marketplace+MM" alt="Digital Marketplace MM Project Preview">
@@ -1200,13 +1169,15 @@
       </div>
 
       <!-- Project Card: DecaVerse -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse: Game Dev Platform">DecaVerse: Game Dev Platform</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations (Genkit) and a scalable architecture.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://deca-verse.vercel.app/">Run Live</button>
-          <a href="case-studies/decaverse.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="DecaVerse">DecaVerse</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">A modern Next.js platform for interactive web games with AI recommendations and scalable architecture.</p>
+        <div class="flex flex-col gap-2 mt-auto w-full">
+          <div class="flex justify-between items-center">
+            <a href="https://deca-verse.vercel.app/" target="_blank" class="futuristic-link text-sm">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm" data-project-url="https://deca-verse.vercel.app/">Run Live</button>
+          </div>
+          <a href="case-studies/decaverse.html" class="futuristic-link text-sm">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=DecaVerse+Preview" alt="DecaVerse Project Preview">
@@ -1215,13 +1186,15 @@
       </div>
 
       <!-- Project Card: Find iPhone Myanmar -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone Myanmar">Find iPhone Myanmar</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin dashboard.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link">Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://findiphonemyanmar.com">Run Live</button>
-          <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Find iPhone MM">Find iPhone MM</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">Stolen phone tracking site with OTP verification and admin dashboard.</p>
+        <div class="flex flex-col gap-2 mt-auto w-full">
+          <div class="flex justify-between items-center">
+            <a href="https://findiphonemyanmar.com" target="_blank" class="futuristic-link text-sm">Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm" data-project-url="https://findiphonemyanmar.com">Run Live</button>
+          </div>
+          <a href="case-studies/find-iphone-myanmar.html" class="futuristic-link text-sm">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=Find+iPhone+Preview" alt="Find iPhone Myanmar Project Preview">
@@ -1230,13 +1203,15 @@
       </div>
 
       <!-- Project Card: PayVia -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688]  duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="PayVia">PayVia</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Built with Laravel and Vue.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://payvia.shop" target="_blank" class="futuristic-link">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://payvia.shop">Run Live</button>
-          <a href="case-studies/payvia.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="PayVia">PayVia</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">POS systems and ecommerce for Myanmar businesses. Built with Laravel and Vue.</p>
+        <div class="flex flex-col gap-2 mt-auto w-full">
+          <div class="flex justify-between items-center">
+            <a href="https://payvia.shop" target="_blank" class="futuristic-link text-sm">Visit Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm" data-project-url="https://payvia.shop">Run Live</button>
+          </div>
+          <a href="case-studies/payvia.html" class="futuristic-link text-sm">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=PayVia+Preview" alt="PayVia Project Preview">
@@ -1245,43 +1220,32 @@
       </div>
 
       <!-- Project Card: MBLogistics Express -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="MBLogistics Express">MBLogistics Express</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://mblogistics.express" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://mblogistics.express">Run Live</button>
-          <a href="case-studies/mblogistics-express.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="MBLogistics">MBLogistics</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">Modern logistics management platform for Myanmar couriers.</p>
+        <div class="flex flex-col gap-2 mt-auto w-full">
+          <div class="flex justify-between items-center">
+            <a href="https://mblogistics.express" target="_blank" class="futuristic-link text-sm">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm" data-project-url="https://mblogistics.express">Run Live</button>
+          </div>
+          <a href="case-studies/mblogistics-express.html" class="futuristic-link text-sm">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=MBLogistics+Preview" alt="MBLogistics Express Project Preview">
           <div class="hologram-scanline"></div>
         </div>
       </div>
-
-      <!-- Project Card: WhisperX.site -->
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="WhisperX.site">WhisperX.site</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">An innovative earn-to-learn study project focused on programming, utilizing the WhisperX speech-to-text API.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://whisperx.site" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://whisperx.site">Run Live</button>
-          <a href="case-studies/whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
-        </div>
-        <div class="hologram-preview">
-          <img src="https://placehold.co/400x250/1a0933/00ffe7?text=WhisperX.site+Preview" alt="WhisperX.site Project Preview">
-          <div class="hologram-scanline"></div>
-        </div>
-      </div>
       
       <!-- Project Card: Ai.whisperX.site -->
-       <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start">
-        <h4 class="project-title text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Ai.whisperX.site">Ai.whisperX.site</h4>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Innovation AI for humanized content, assignments, diagrams, code generation, and debugging.</p>
-        <div class="flex flex-wrap gap-4 mt-auto">
-          <a href="https://ai.whisperx.site" target="_blank" class="futuristic-link">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-          <button class="futuristic-btn px-4 py-2 text-sm" data-project-url="https://ai.whisperx.site">Run Live</button>
-          <a href="case-studies/ai.whisperx.html" class="futuristic-link mt-2">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
+       <div class="project-card glitch-on-hover glass rounded-2xl p-6 md:p-8 shadow-2xl hover:-translate-y-2 hover:shadow-[0_0_32px_#FFD16688] duration-300 flex flex-col items-start lg:col-span-3 lg:max-w-md mx-auto w-full">
+        <h4 class="project-title text-xl md:text-2xl font-semibold text-[#FFD166] mb-2 font-orbitron" data-text="Ai.whisperX.site">Ai.whisperX.site</h4>
+        <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat">Innovation AI for humanized content, assignments, diagrams, code generation, and debugging.</p>
+        <div class="flex flex-col gap-2 mt-auto w-full">
+          <div class="flex justify-between items-center">
+            <a href="https://ai.whisperx.site" target="_blank" class="futuristic-link text-sm">Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+            <button class="futuristic-btn px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm" data-project-url="https://ai.whisperx.site">Run Live</button>
+          </div>
+          <a href="case-studies/ai.whisperx.html" class="futuristic-link text-sm">View Case Study <i class="fa-solid fa-book-open ml-1"></i></a>
         </div>
         <div class="hologram-preview">
           <img src="https://placehold.co/400x250/1a0933/00ffe7?text=ai.WhisperX.site+Preview" alt="ai.WhisperX.site Project Preview">
@@ -1291,50 +1255,47 @@
     </div>
 
     <!-- Feature 2: Real-time Github Stats Integration -->
-    <h4 class="text-3xl font-led mt-16 mb-8 text-center">GitHub Live Data</h4>
+    <h4 class="text-2xl md:text-3xl font-led mt-16 mb-8 text-center">GitHub Live Data</h4>
     <div id="github-stats-container" class="max-w-4xl mx-auto glass rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between mb-16 border-2 border-accent transition-all duration-300">
-        <div class="flex items-center gap-6 mb-4 md:mb-0">
-            <img id="gh-avatar" src="https://placehold.co/80x80/1a0933/00ffe7?text=GH" class="w-20 h-20 rounded-full border-2 border-secondary shadow-[0_0_15px_#00cfff]">
+        <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 mb-6 md:mb-0 text-center md:text-left">
+            <img id="gh-avatar" src="https://placehold.co/80x80/1a0933/00ffe7?text=GH" class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-secondary shadow-[0_0_15px_#00cfff]">
             <div>
-                <h5 class="text-2xl font-orbitron text-white glitch" data-text="Filip2k03">Filip2k03</h5>
-                <p id="gh-bio" class="text-sm font-montserrat text-gray-400">Loading developer profile...</p>
+                <h5 class="text-xl md:text-2xl font-orbitron text-white glitch" data-text="Filip2k03">Filip2k03</h5>
+                <p id="gh-bio" class="text-xs md:text-sm font-montserrat text-gray-400 mt-2 md:mt-0">Loading developer profile...</p>
             </div>
         </div>
-        <div class="flex gap-6 text-center font-share">
-            <div>
-                <p class="text-accent text-3xl font-bold" id="gh-repos">--</p>
-                <p class="text-xs text-gray-400">Public Repos</p>
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-center font-share">
+            <div class="glass p-3 rounded-lg bg-opacity-50 min-w-[80px]">
+                <p class="text-accent text-2xl md:text-3xl font-bold" id="gh-repos">--</p>
+                <p class="text-[0.65rem] md:text-xs text-gray-400 uppercase tracking-widest mt-1">Repos</p>
             </div>
-            <div>
-                <p class="text-accent text-3xl font-bold" id="gh-followers">--</p>
-                <p class="text-xs text-gray-400">Followers</p>
+            <div class="glass p-3 rounded-lg bg-opacity-50 min-w-[80px]">
+                <p class="text-accent text-2xl md:text-3xl font-bold" id="gh-followers">--</p>
+                <p class="text-[0.65rem] md:text-xs text-gray-400 uppercase tracking-widest mt-1">Followers</p>
             </div>
-            <div>
-                <p class="text-accent text-3xl font-bold" id="gh-following">--</p>
-                <p class="text-xs text-gray-400">Following</p>
+            <div class="glass p-3 rounded-lg bg-opacity-50 min-w-[80px]">
+                <p class="text-accent text-2xl md:text-3xl font-bold" id="gh-following">--</p>
+                <p class="text-[0.65rem] md:text-xs text-gray-400 uppercase tracking-widest mt-1">Following</p>
             </div>
         </div>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
-        <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Student Management with Django">Student Management with Django</h5>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">A web-based student management system built using Django.</p>
-        <a href="https://github.com/Filip2k03/student_management-with-django/" target="_blank" class="futuristic-link mt-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 shadow-2xl flex flex-col items-start hover:-translate-y-2 duration-300">
+        <h5 class="project-title text-lg md:text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Student Management Django">Student Management Django</h5>
+        <a href="https://github.com/Filip2k03/student_management-with-django/" target="_blank" class="futuristic-link mt-auto text-sm">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
-        <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="WhisperX Frontend">WhisperX Frontend</h5>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Frontend for WhisperX, a speech-to-text and alignment tool.</p>
-        <a href="https://github.com/Filip2k03/whisperx-frontend" target="_blank" class="futuristic-link mt-auto">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 shadow-2xl flex flex-col items-start hover:-translate-y-2 duration-300">
+        <h5 class="project-title text-lg md:text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="WhisperX Frontend">WhisperX Frontend</h5>
+        <a href="https://github.com/Filip2k03/whisperx-frontend" target="_blank" class="futuristic-link mt-auto text-sm">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
-      <div class="project-card glitch-on-hover glass rounded-2xl p-8 shadow-2xl flex flex-col items-start hover:scale-105 hover:shadow-[0_0_32px_#FFD16688] duration-300">
-        <h5 class="project-title text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Tele AI Poster">Tele AI Poster</h5>
-        <p class="text-[#BC96E6] mb-4 font-montserrat">Telegram bot for automated AI-powered posting.</p>
-        <a href="https://github.com/Filip2k03/tele_ai_poster" target="_blank" class="futuristic-link mt-auto">
+      <div class="project-card glitch-on-hover glass rounded-2xl p-6 shadow-2xl flex flex-col items-start hover:-translate-y-2 duration-300">
+        <h5 class="project-title text-lg md:text-xl font-semibold text-[#BC96E6] mb-2 font-orbitron" data-text="Tele AI Poster">Tele AI Poster</h5>
+        <a href="https://github.com/Filip2k03/tele_ai_poster" target="_blank" class="futuristic-link mt-auto text-sm">
           <i class="fa-brands fa-github mr-2"></i>View on GitHub
         </a>
       </div>
@@ -1342,41 +1303,41 @@
   </section>
 
   <!-- Current Focus Section -->
-  <section id="current-focus" class="py-20 px-6 bg-[#1a0933]">
+  <section id="current-focus" class="py-16 md:py-20 px-4 bg-[#1a0933]">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass robotic-panel rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Current Focus</h3>
-        <div id="current-focus-updates" class="space-y-6 text-[#BC96E6] font-montserrat text-lg">
-          <p>Loading current milestones...</p>
+      <div class="glass robotic-panel rounded-3xl p-6 md:p-10 shadow-xl max-w-3xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron text-center">Current Focus</h3>
+        <div id="current-focus-updates" class="space-y-6 text-[#BC96E6] font-montserrat text-sm md:text-lg">
+          <p class="text-center">Loading current milestones...</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Experience Section -->
-  <section id="experience" class="py-20 px-6">
+  <section id="experience" class="py-16 md:py-20 px-4">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Work Experience</h3>
-        <div class="space-y-6">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div class="glass rounded-3xl p-6 md:p-10 shadow-xl max-w-3xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron text-center md:text-left">Work Experience</h3>
+        <div class="space-y-8">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between border-l-2 border-accent pl-4 md:border-none md:pl-0">
             <div>
-              <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">Myanmar Web Eng</h4>
-              <p class="text-lg text-[#FFD166] font-montserrat">OJT (Internship)</p>
+              <h4 class="text-xl md:text-2xl font-semibold text-[#BC96E6] font-orbitron">Myanmar Web Eng</h4>
+              <p class="text-base md:text-lg text-[#FFD166] font-montserrat">OJT (Internship)</p>
             </div>
-            <div class="text-right md:text-left mt-2 md:mt-0 text-[#BC96E6] font-montserrat">
-              Oct 2024 – Jan 2025 <span class="text-[#FFD166]">(3 months)</span>
+            <div class="text-left md:text-right mt-1 md:mt-0 text-[#BC96E6] font-montserrat text-sm md:text-base opacity-80">
+              Oct 2024 – Jan 2025 <span class="text-[#FFD166] hidden md:inline">(3 months)</span>
             </div>
           </div>
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between border-l-2 border-accent pl-4 md:border-none md:pl-0">
             <div>
-              <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">MIT</h4>
-              <p class="text-lg text-[#FFD166] font-montserrat">Web Developer</p>
+              <h4 class="text-xl md:text-2xl font-semibold text-[#BC96E6] font-orbitron">MIT</h4>
+              <p class="text-base md:text-lg text-[#FFD166] font-montserrat">Web Developer</p>
             </div>
-            <div class="text-right md:text-left mt-2 md:mt-0 text-[#BC96E6] font-montserrat">
-              Mar 2025 – May 2025 <span class="text-[#FFD166]">(2 months)</span>
+            <div class="text-left md:text-right mt-1 md:mt-0 text-[#BC96E6] font-montserrat text-sm md:text-base opacity-80">
+              Mar 2025 – May 2025 <span class="text-[#FFD166] hidden md:inline">(2 months)</span>
             </div>
           </div>
         </div>
@@ -1385,35 +1346,35 @@
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="py-20 px-6 bg-[#2E1F3C]">
+  <section id="education" class="py-16 md:py-20 px-4 bg-[#2E1F3C]">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-3xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Education</h3>
+      <div class="glass rounded-3xl p-6 md:p-10 shadow-xl max-w-3xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron text-center md:text-left">Education</h3>
         <div class="space-y-8">
-          <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
-            <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="http://www.mstinstitute.net/" target="_blank" class="flex-shrink-0">
               <img src="assets/schools/mst.png" onerror="this.src='https://placehold.co/80x80/311C3B/FFD166?text=MST'" alt="MST University logo"
-                class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
+                class="w-16 h-16 md:w-20 md:h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
-              <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">MST University</h4>
-              <p class="text-lg text-[#FFD166] font-montserrat">NCC Level 4 & Level 5</p>
-              <p class="text-[#BC96E6] font-montserrat">2024/2025 – <span class="text-[#FFD166]">Present</span></p>
+              <h4 class="text-xl md:text-2xl font-semibold text-[#BC96E6] font-orbitron">MST University</h4>
+              <p class="text-base md:text-lg text-[#FFD166] font-montserrat">NCC Level 4 & Level 5</p>
+              <p class="text-[#BC96E6] font-montserrat text-sm">2024/2025 – <span class="text-[#FFD166]">Present</span></p>
             </div>
           </div>
-          <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
-            <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0 mb-4 md:mb-0">
-              <img src="assets/schools/cosmo.png" onerror="this.src='https://placehold.co/80x80/311C3B/FFD166?text=Cosmo'" alt="Cosmo Seven Web Engineering School logo"
-                class="w-20 h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
+          <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="https://cosmoseven.com/" target="_blank" class="flex-shrink-0">
+              <img src="assets/schools/cosmo.png" onerror="this.src='https://placehold.co/80x80/311C3B/FFD166?text=Cosmo'" alt="Cosmo Seven School logo"
+                class="w-16 h-16 md:w-20 md:h-20 object-contain rounded-xl border-2 border-[#FFD166] bg-[#311C3B] p-2" />
             </a>
             <div>
-              <h4 class="text-2xl font-semibold text-[#BC96E6] font-orbitron">Cosmo Seven Web Engineering School</h4>
-              <p class="text-lg text-[#FFD166] font-montserrat">Sep 2024 – Feb 2025</p>
-              <ul class="list-disc ml-5 text-[#BC96E6] font-montserrat text-base mt-2 space-y-1">
-                <li><span class="text-[#FFD166]">Module 1:</span> PHP, WordPress, HTML, CSS, Responsive, JS</li>
-                <li><span class="text-[#FFD166]">Module 2:</span> Python, Django, Flask, REST API, Deploy</li>
-                <li><span class="text-[#FFD166]">Module 3:</span> JS, TS, JSX, React, Vue, Vite, Expo, Mobile App</li>
+              <h4 class="text-xl md:text-2xl font-semibold text-[#BC96E6] font-orbitron">Cosmo Seven Web Eng.</h4>
+              <p class="text-base md:text-lg text-[#FFD166] font-montserrat">Sep 2024 – Feb 2025</p>
+              <ul class="list-disc ml-5 text-[#BC96E6] font-montserrat text-sm mt-2 space-y-1 opacity-90">
+                <li><span class="text-[#FFD166]">Mod 1:</span> PHP, WordPress, HTML/CSS, JS</li>
+                <li><span class="text-[#FFD166]">Mod 2:</span> Python, Django, Flask, REST API</li>
+                <li><span class="text-[#FFD166]">Mod 3:</span> React, Vue, Vite, Expo, Mobile App</li>
               </ul>
             </div>
           </div>
@@ -1423,37 +1384,37 @@
   </section>
 
   <!-- Certificates Section -->
-  <section id="certificates" class="py-20 px-6">
+  <section id="certificates" class="py-16 md:py-20 px-4">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Certificates</h3>
+      <div class="glass rounded-3xl p-6 md:p-10 shadow-xl max-w-4xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron text-center">Certificates</h3>
         <div class="certificates-carousel-container relative">
-            <div id="certificates-carousel" class="certificates-carousel flex space-x-6 pb-4">
-                <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=AWS" alt="Certificate 1 for Web Development"
-                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">AWS Solutions Architect</p>
+            <div id="certificates-carousel" class="certificates-carousel flex space-x-4 md:space-x-6 pb-4">
+                <div class="flex-shrink-0 w-48 md:w-56">
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=AWS" alt="Certificate 1"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-32 md:h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-xs md:text-sm font-semibold">AWS Solutions Architect</p>
                 </div>
-                <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=React" alt="Certificate 2 for Frontend Design"
-                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Advanced React Patterns</p>
+                <div class="flex-shrink-0 w-48 md:w-56">
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=React" alt="Certificate 2"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-32 md:h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-xs md:text-sm font-semibold">Advanced React Patterns</p>
                 </div>
-                <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Django" alt="Certificate 3 for Backend Development"
-                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Django REST API Mastery</p>
+                <div class="flex-shrink-0 w-48 md:w-56">
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Django" alt="Certificate 3"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-32 md:h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-xs md:text-sm font-semibold">Django REST API Mastery</p>
                 </div>
-                <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Vue" alt="Certificate 4 for Frontend"
-                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Vue.js & Vite Scaling</p>
+                <div class="flex-shrink-0 w-48 md:w-56">
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=Vue" alt="Certificate 4"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-32 md:h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-xs md:text-sm font-semibold">Vue.js & Vite Scaling</p>
                 </div>
-                <div class="flex-shrink-0 w-56">
-                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=CyberSec" alt="Certificate 5 for Cloud Technologies"
-                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-40 object-cover bg-[#311C3B]" />
-                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-sm font-semibold">Web Application Security</p>
+                <div class="flex-shrink-0 w-48 md:w-56">
+                    <img src="https://placehold.co/224x160/311C3B/FFD166?text=CyberSec" alt="Certificate 5"
+                        class="rounded-xl shadow-lg border-2 border-[#FFD166] w-full h-32 md:h-40 object-cover bg-[#311C3B]" />
+                    <p class="mt-2 text-center text-[#BC96E6] font-montserrat text-xs md:text-sm font-semibold">Web App Security</p>
                 </div>
             </div>
             <button class="carousel-button left" id="cert-prev-btn" aria-label="Previous certificate"><i class="fa-solid fa-chevron-left"></i></button>
@@ -1464,27 +1425,19 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 px-6 bg-[#2E1F3C]">
+  <section id="testimonials" class="py-16 md:py-20 px-4 bg-[#2E1F3C]">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto text-center">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-4xl mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Client Feedback</h3>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Stephan delivered an outstanding corporate platform for Shine Dana. His attention to detail and ability to integrate complex features seamlessly was truly impressive. Highly recommend!"</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Anya Petrova, Tech Director</p>
+      <div class="glass rounded-3xl p-6 md:p-10 shadow-xl max-w-4xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-8 glow font-orbitron">Client Feedback</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="glass rounded-2xl p-5 md:p-6 shadow-lg text-left">
+            <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat italic">"Stephan delivered an outstanding corporate platform for Shine Dana. His attention to detail and ability to integrate complex features seamlessly was truly impressive."</p>
+            <p class="text-[#FFD166] font-orbitron text-sm font-semibold">- Anya Petrova, Tech Director</p>
           </div>
-          <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's expertise in both front-end and back-end development made him an invaluable asset to our project. He's a problem-solver with a keen eye for robust architecture."</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Jax Miller, Lead Developer</p>
-          </div>
-          <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Working with Stephan was a blast. His dedication to clean code and his knack for futuristic UI designs really brought our vision to life. A true full-stack talent!"</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Zai Myat, Founder of Quantum Systems</p>
-          </div>
-          <div class="glass rounded-2xl p-6 shadow-lg text-left">
-            <p class="text-[#BC96E6] mb-4 font-montserrat italic">"Filip's innovative solutions and proactive approach to problem-solving made our marketplace scalable and fast. He's not just a coder; he's a true tech engineer."</p>
-            <p class="text-[#FFD166] font-orbitron font-semibold">- Kyaw Lwin, Project Lead at DataForge Corp</p>
+          <div class="glass rounded-2xl p-5 md:p-6 shadow-lg text-left">
+            <p class="text-[#BC96E6] text-sm md:text-base mb-4 font-montserrat italic">"Filip's expertise in both front-end and back-end development made him an invaluable asset to our project. He's a problem-solver with a keen eye for robust architecture."</p>
+            <p class="text-[#FFD166] font-orbitron text-sm font-semibold">- Jax Miller, Lead Developer</p>
           </div>
         </div>
       </div>
@@ -1492,70 +1445,70 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-20 px-6 bg-[#2E1F3C]">
+  <section id="contact" class="py-16 md:py-20 px-4 bg-[#2E1F3C]">
     <div class="section-scan-overlay"></div>
     <div class="container mx-auto text-center">
-      <div class="glass rounded-3xl p-10 shadow-xl max-w-lg mx-auto">
-        <h3 class="text-4xl font-bold text-[#FFD166] mb-6 glow font-orbitron">Let's Connect</h3>
-        <p class="text-[#BC96E6] mb-8 text-lg font-montserrat">Send me a message and let’s build something great.</p>
-        <form action="mailto:stephanfilip7@gmail.com" method="POST" enctype="text/plain" class="space-y-5">
+      <div class="glass rounded-3xl p-6 md:p-10 shadow-xl max-w-lg mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold text-[#FFD166] mb-4 glow font-orbitron">Let's Connect</h3>
+        <p class="text-[#BC96E6] mb-8 text-sm md:text-lg font-montserrat">Send me a message and let’s build something great.</p>
+        <form action="mailto:stephanfilip7@gmail.com" method="POST" enctype="text/plain" class="space-y-4">
           <input type="text" name="name" placeholder="Your Name" required
-            class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
+            class="w-full px-4 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat text-sm md:text-base">
           <input type="email" name="email" placeholder="Your Email" required
-            class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat">
-          <textarea name="message" placeholder="Your Message" required
-            class="w-full px-5 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat"></textarea>
-          <button type="submit" class="futuristic-btn w-full py-3 text-xl">Send</button>
+            class="w-full px-4 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat text-sm md:text-base">
+          <textarea name="message" placeholder="Your Message" required rows="4"
+            class="w-full px-4 py-3 rounded-xl bg-[#210B2C] text-white border-2 border-[#FFD166] focus:outline-none focus:ring-2 focus:ring-[#FFD166] transition font-montserrat text-sm md:text-base"></textarea>
+          <button type="submit" class="futuristic-btn w-full py-3 text-lg md:text-xl">Send</button>
         </form>
       </div>
     </div>
   </section>
 
   <!-- Chatbot Widget -->
-  <div id="chatbot-widget" style="position:fixed;right:24px;bottom:24px;z-index:100;">
+  <div id="chatbot-widget" class="fixed right-4 bottom-4 md:right-6 md:bottom-6 z-[100]">
     <button id="chatbot-toggle" aria-label="Toggle chatbot"
-      class="bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-4 text-2xl hover:scale-110 transition focus:outline-none">
+      class="bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-3 md:p-4 text-xl md:text-2xl hover:scale-110 transition focus:outline-none">
       <i class="fa-solid fa-robot"></i>
     </button>
-    <div id="chatbot-window" class="hidden glass rounded-2xl shadow-2xl p-4 w-80 max-w-full"
+    <div id="chatbot-window" class="hidden glass rounded-2xl shadow-2xl p-4 w-[calc(100vw-32px)] max-w-sm right-0 absolute bottom-14 md:bottom-16"
       style="margin-bottom:12px;">
-      <div class="font-led text-lg mb-2">🤖 Assistant API</div>
+      <div class="font-led text-base md:text-lg mb-2">🤖 Assistant API</div>
       <div id="chatbot-messages"
-        class="h-40 overflow-y-auto text-[#BC96E6] text-base font-montserrat mb-3 bg-[#210B2C]/60 rounded-lg p-2"></div>
+        class="h-40 overflow-y-auto text-[#BC96E6] text-sm md:text-base font-montserrat mb-3 bg-[#210B2C]/60 rounded-lg p-2"></div>
       <form id="chatbot-form" autocomplete="off" class="flex flex-col gap-2">
-        <textarea id="chatbot-input" rows="1" placeholder="Type your message or a question..." required
-          class="rounded-lg px-3 py-2 bg-[#311C3B] border-2 border-[#FFD166] text-white focus:outline-none resize-none"></textarea>
-        <button type="submit" class="futuristic-btn py-2 text-base">Send</button>
+        <textarea id="chatbot-input" rows="1" placeholder="Type your message..." required
+          class="rounded-lg px-3 py-2 bg-[#311C3B] border-2 border-[#FFD166] text-white focus:outline-none resize-none text-sm"></textarea>
+        <button type="submit" class="futuristic-btn py-2 text-sm">Send</button>
       </form>
-      <button id="clear-chatbot-btn" class="futuristic-btn w-full py-2 text-base mt-2">Clear Chat</button>
+      <button id="clear-chatbot-btn" class="futuristic-btn w-full py-2 text-sm mt-2">Clear Chat</button>
     </div>
   </div>
 
   <!-- Scroll to Top Button -->
   <button id="scrollTopBtn" aria-label="Scroll to top"
-    class="hidden fixed bottom-24 right-6 z-50 bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-3 text-xl hover:scale-110 transition focus:outline-none">
+    class="hidden fixed bottom-20 right-4 md:bottom-24 md:right-6 z-50 bg-[#FFD166] text-[#210B2C] rounded-full shadow-lg p-3 text-xl hover:scale-110 transition focus:outline-none">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
   <!-- Satellite Scanner / Visitor Tracker -->
-  <div id="visitor-tracker" class="hidden md:block" id="hud-3">
-      <p>🛰 NETWORK_ESTABLISHED</p>
+  <div id="visitor-tracker" class="block" id="hud-3">
+      <p class="tracking-widest">🛰 NET_LINK</p>
       <div class="scan-line-pulse"></div>
-      <p class="mt-2">📍 Location: <span id="tracker-location"></span></p>
-      <p>🧾 Session: <span id="tracker-user-id"></span></p>
-      <p>📡 Health: <span id="tracker-signal"></span>%</p>
+      <p class="mt-2 text-left opacity-80">📍 LOC: <span id="tracker-location" class="text-white font-bold"></span></p>
+      <p class="text-left opacity-80">🧾 SES: <span id="tracker-user-id" class="text-white font-bold"></span></p>
+      <p class="text-left opacity-80">📡 HLTH: <span id="tracker-signal" class="text-white font-bold"></span>%</p>
   </div>
 
   <!-- Feature 5: Cyberpunk Flash/Easter Egg Overlay -->
   <div id="cyber-flash-overlay" class="fixed inset-0 bg-red-600 z-[99999] opacity-0 pointer-events-none mix-blend-color-burn transition-opacity duration-100 hidden flex items-center justify-center">
-      <h1 class="text-white font-led text-9xl tracking-widest font-bold">OVERRIDE</h1>
+      <h1 class="text-white font-led text-6xl md:text-9xl tracking-widest font-bold">OVERRIDE</h1>
   </div>
 
   <!-- Footer -->
   <footer
-    class="relative flex flex-col md:flex-row items-end md:items-center justify-between py-6 px-6 bg-[#210B2C] text-[#BC96E6] text-lg glass font-montserrat mt-10">
-    <div id="footer-ufo-shooter" class="mr-4">
-      <svg id="footer-ufo-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" style="cursor:pointer;">
+    class="relative flex flex-col md:flex-row items-center justify-between py-6 px-4 md:px-6 bg-[#210B2C] text-[#BC96E6] text-sm md:text-lg glass font-montserrat mt-10">
+    <div id="footer-ufo-shooter" class="mb-4 md:mb-0 md:mr-4">
+      <svg id="footer-ufo-svg" width="70" height="60" viewBox="0 0 90 80" fill="none" style="cursor:pointer;" class="md:w-[90px] md:h-[80px]">
         <ellipse cx="45" cy="50" rx="30" ry="12" fill="#1a0933" stroke="var(--secondary)" stroke-width="4" />
         <ellipse cx="45" cy="50" rx="24" ry="8" fill="var(--accent)33" />
         <ellipse cx="45" cy="42" rx="12" ry="6" fill="var(--accent)" stroke="#FFD166" stroke-width="2" />
@@ -1569,11 +1522,11 @@
         <ellipse cx="50" cy="4" rx="8" ry="2" fill="var(--accent)" opacity="0.7" />
       </svg>
     </div>
-    <span class="block text-base md:text-lg" id="footer-copyright-text">&copy; 2026 Stephan Filip — Full Stack Developer | <a
+    <span class="block text-center" id="footer-copyright-text">&copy; 2026 Stephan Filip — Full Stack Developer | <a
         href="https://payvia.shop" class="futuristic-link">PayVia</a></span>
   </footer>
   <div id="ufo-shot-msg"
-    style="display:none;position:fixed;left:110px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:2rem;font-weight:bold;color:var(--accent);text-shadow:0 0 12px var(--secondary),0 0 24px var(--accent),0 0 8px var(--danger);pointer-events:none;white-space:nowrap;">
+    style="display:none;position:fixed;left:10px;bottom:110px;z-index:101;font-family:'Orbitron','Share Tech Mono',monospace;font-size:1.5rem;font-weight:bold;color:var(--accent);text-shadow:0 0 12px var(--secondary),0 0 24px var(--accent),0 0 8px var(--danger);pointer-events:none;white-space:nowrap; md:font-size:2rem; md:left:110px;">
     <span id="ufo-shot-text"></span>
   </div>
 
@@ -1592,7 +1545,6 @@
 
 
   <script>
-    // --- Global Variables / Initial Setup ---
     const TERMINAL_TEXT_ID = 'terminal-text';
     const TERMINAL_CURSOR_ID = 'terminal-cursor';
     const TERMINAL_DISPLAY_ID = 'terminal-display';
@@ -1687,19 +1639,19 @@
     const skillGraphData = {
         nodes: [
             { id: "HTML/CSS", group: "frontend", proficiency: 90 },
-            { id: "JavaScript/React", group: "frontend", proficiency: 85 },
-            { id: "Tailwind/Bootstrap", group: "frontend", proficiency: 95 },
-            { id: "PHP/Laravel", group: "backend", proficiency: 80 },
-            { id: "Python/Django", group: "backend", proficiency: 85 },
-            { id: "MySQL/MongoDB", group: "database", proficiency: 90 },
+            { id: "JS/React", group: "frontend", proficiency: 85 },
+            { id: "Tailwind", group: "frontend", proficiency: 95 },
+            { id: "Laravel", group: "backend", proficiency: 80 },
+            { id: "Django", group: "backend", proficiency: 85 },
+            { id: "MySQL", group: "database", proficiency: 90 },
             { id: "REST API", group: "cloud", proficiency: 95 },
-            { id: "Firebase/AWS", group: "cloud", proficiency: 75 },
+            { id: "AWS", group: "cloud", proficiency: 75 },
             { id: "C#", group: "backend", proficiency: 60 },
             { id: "Expo", group: "mobile", proficiency: 70 },
-            { id: "Android Studio", group: "mobile", proficiency: 65 },
+            { id: "Android", group: "mobile", proficiency: 65 },
             { id: "Kotlin", group: "mobile", proficiency: 60 },
             { id: "XML", group: "mobile", proficiency: 70 },
-            { id: "Vue/Vite", group: "frontend", proficiency: 75 },
+            { id: "Vue", group: "frontend", proficiency: 75 },
             { id: "Next.js", group: "frontend", proficiency: 80 }
         ]
     };
@@ -1731,17 +1683,17 @@
             this.updateToggleButton();
             document.addEventListener('click', this.firstInteractionHandler.bind(this), { once: true });
             document.addEventListener('keydown', this.firstInteractionHandler.bind(this), { once: true });
+            document.addEventListener('touchstart', this.firstInteractionHandler.bind(this), { once: true });
         },
         firstInteractionHandler() {
             this.hasInteracted = true;
             Object.values(this.sounds).forEach(audio => {
                 if (audio) {
                     audio.volume = 0; 
-                    audio.play().catch(e => console.warn("Silent audio play failed (expected on some browsers):", e));
+                    audio.play().catch(e => console.warn("Silent play failed:", e));
                     audio.volume = 1; 
                 }
             });
-            console.log("First user interaction detected, audio unlocked.");
         },
         play(soundName) {
             if (this.hasInteracted && !this.isMuted && this.sounds[soundName]) {
@@ -1782,7 +1734,7 @@
       canvas.height = window.innerHeight;
       
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+=";
-      const fontSize = 16;
+      const fontSize = window.innerWidth < 480 ? 10 : 16;
       const columns = canvas.width / fontSize;
       const drops = [];
       
@@ -1792,7 +1744,7 @@
         ctx.fillStyle = "rgba(15, 6, 23, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        ctx.fillStyle = "#00ffe7"; // Accent color
+        ctx.fillStyle = "#00ffe7"; 
         ctx.font = fontSize + "px 'Share Tech Mono'";
         
         for(let i = 0; i < drops.length; i++) {
@@ -1823,7 +1775,6 @@
                 document.getElementById('gh-avatar').src = data.avatar_url;
                 document.getElementById('gh-bio').textContent = data.bio || "Full Stack Web Developer";
                 
-                // Animate Numbers
                 gsap.to(document.getElementById('gh-repos'), { innerHTML: data.public_repos, duration: 2, snap: { innerHTML: 1 } });
                 gsap.to(document.getElementById('gh-followers'), { innerHTML: data.followers, duration: 2, snap: { innerHTML: 1 } });
                 gsap.to(document.getElementById('gh-following'), { innerHTML: data.following, duration: 2, snap: { innerHTML: 1 } });
@@ -1835,13 +1786,15 @@
         }
     }
 
-    // --- Feature 3: Draggable HUD Elements ---
+    // --- Feature 3: Draggable HUD Elements (Touch support included) ---
     function makeDraggable(elementId) {
         const elmnt = document.getElementById(elementId);
         if(!elmnt) return;
         
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        
         elmnt.onmousedown = dragMouseDown;
+        elmnt.ontouchstart = dragTouchStart;
 
         function dragMouseDown(e) {
             e = e || window.event;
@@ -1851,6 +1804,15 @@
             document.onmouseup = closeDragElement;
             document.onmousemove = elementDrag;
         }
+        
+        function dragTouchStart(e) {
+            e = e || window.event;
+            const touch = e.targetTouches[0];
+            pos3 = touch.clientX;
+            pos4 = touch.clientY;
+            document.ontouchend = closeDragElement;
+            document.ontouchmove = elementDragTouch;
+        }
 
         function elementDrag(e) {
             e = e || window.event;
@@ -1859,15 +1821,31 @@
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
+            updatePos();
+        }
+        
+        function elementDragTouch(e) {
+            e = e || window.event;
+            const touch = e.targetTouches[0];
+            pos1 = pos3 - touch.clientX;
+            pos2 = pos4 - touch.clientY;
+            pos3 = touch.clientX;
+            pos4 = touch.clientY;
+            updatePos();
+        }
+        
+        function updatePos() {
             elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
             elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            elmnt.style.right = 'auto'; // Disable right/bottom alignments once dragged
+            elmnt.style.right = 'auto'; 
             elmnt.style.bottom = 'auto';
         }
 
         function closeDragElement() {
             document.onmouseup = null;
             document.onmousemove = null;
+            document.ontouchend = null;
+            document.ontouchmove = null;
         }
     }
 
@@ -1891,7 +1869,6 @@
             overlay.classList.remove('hidden');
             SoundManager.play('terminalError');
             
-            // Flashing sequence
             gsap.to(overlay, {opacity: 0.8, duration: 0.1, yoyo: true, repeat: 5, onComplete: () => {
                 overlay.classList.add('hidden');
                 keySequence = "";
@@ -1899,8 +1876,6 @@
         }
     });
 
-
-    // --- Helper Functions ---
     function botSay(msg) {
       document.getElementById(CHATBOT_MESSAGES_ID).innerHTML += `<div class="mb-1"><b>Bot:</b> ${msg}</div>`;
       document.getElementById(CHATBOT_MESSAGES_ID).scrollTop = document.getElementById(CHATBOT_MESSAGES_ID).scrollHeight;
@@ -1914,7 +1889,6 @@
 
     // --- 7. Terminal Intro with System Boot Progress ---
     function typeTerminal() {
-      // Progress Bar logic alongside typing
       gsap.to("#boot-progress-container", {opacity: 1, duration: 0.5});
       gsap.to("#boot-progress-bar", {width: "100%", duration: 2.5, ease: "power2.inOut"});
 
@@ -1926,15 +1900,15 @@
           document.getElementById(TERMINAL_TEXT_ID).textContent += "\n";
           termCharIdx = 0;
           termIdx++;
-          setTimeout(typeTerminal, 500);
+          setTimeout(typeTerminal, 400);
         }
       } else {
         terminalFinishedTyping = true; 
         setTimeout(() => {
-          document.getElementById('terminal-intro').style.transition = "opacity 0.7s";
+          document.getElementById('terminal-intro').style.transition = "opacity 0.6s";
           document.getElementById('terminal-intro').style.opacity = 0;
-          setTimeout(() => document.getElementById('terminal-intro').remove(), 700);
-        }, 700);
+          setTimeout(() => document.getElementById('terminal-intro').remove(), 600);
+        }, 600);
       }
     }
 
@@ -1949,40 +1923,40 @@
         ];
         const randomMsg = factMsgs[Math.floor(Math.random() * factMsgs.length)];
         const terminalTextElement = document.getElementById(TERMINAL_TEXT_ID);
-        terminalTextElement.textContent = ""; 
-        let charIndex = 0;
-        function typeRandomMessage() {
-          if (charIndex < randomMsg.length) {
-            terminalTextElement.textContent += randomMsg[charIndex++];
-            setTimeout(typeRandomMessage, 30); 
-          }
+        if(terminalTextElement) {
+            terminalTextElement.textContent = ""; 
+            let charIndex = 0;
+            function typeRandomMessage() {
+            if (charIndex < randomMsg.length) {
+                terminalTextElement.textContent += randomMsg[charIndex++];
+                setTimeout(typeRandomMessage, 30); 
+            }
+            }
+            typeRandomMessage();
         }
-        typeRandomMessage();
       }
     }
 
-    // --- Animate Robot Head ---
     const robot = document.getElementById('robot-container');
     let ticking = false;
     function animateRobot() {
-      const amplitude = 40;
+      const amplitude = window.innerWidth < 480 ? 20 : 40;
       const period = 600;
       const y = amplitude * Math.sin(window.scrollY / period * 2 * Math.PI);
       gsap.to(robot, { y, duration: 0.6, ease: "power2.out" });
       ticking = false;
     }
 
-    // --- Chatbot Logic ---
     function showOptions() {
       botSay(
         `How would you like to contact me?<br>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showPhone(); SoundManager.play('click');">Phone</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showtg(); SoundManager.play('click');">Telegram</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showfb(); SoundManager.play('click');">Facebook</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showwa(); SoundManager.play('click');">WhatsApp</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showgh(); SoundManager.play('click');">GitHub</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showli(); SoundManager.play('click');">LinkedIn</button>
-        <button class="futuristic-btn my-1 px-3 py-1" onclick="showup(); SoundManager.play('click');">Upwork</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showPhone(); SoundManager.play('click');">Phone</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showtg(); SoundManager.play('click');">Telegram</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showfb(); SoundManager.play('click');">Facebook</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showwa(); SoundManager.play('click');">WhatsApp</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showgh(); SoundManager.play('click');">GitHub</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showli(); SoundManager.play('click');">LinkedIn</button>
+        <button class="futuristic-btn my-1 px-3 py-1 text-xs" onclick="showup(); SoundManager.play('click');">Upwork</button>
         `
       );
     }
@@ -1994,7 +1968,6 @@
       SoundManager.play('click'); 
     }
 
-    // --- Typing effect for roles ---
     const heroTerminalInput = document.getElementById(HERO_TERMINAL_INPUT_ID);
     let currentInputText = "";
     let inputTypingTimeout;
@@ -2014,11 +1987,10 @@
             if (charIndex < targetText.length) {
                 currentInputText = targetText.substring(0, charIndex + 1);
                 heroTerminalInput.value = currentInputText;
-                SoundManager.sounds.terminalType.play().catch(() => {}); 
                 charIndex++;
                 inputTypingTimeout = setTimeout(typeChar, 70); 
             } else {
-                inputTypingTimeout = setTimeout(eraseText, 1200); 
+                inputTypingTimeout = setTimeout(eraseText, 1500); 
             }
         }
 
@@ -2027,12 +1999,11 @@
             if (charIndex > 0) {
                 currentInputText = targetText.substring(0, charIndex - 1);
                 heroTerminalInput.value = currentInputText;
-                SoundManager.sounds.terminalType.play().catch(() => {}); 
                 charIndex--;
                 inputTypingTimeout = setTimeout(eraseText, 30); 
             } else {
                 currentRoleIndex++; 
-                inputTypingTimeout = setTimeout(typeChar, 400); 
+                inputTypingTimeout = setTimeout(typeChar, 500); 
             }
         }
 
@@ -2044,12 +2015,11 @@
         clearTimeout(inputTypingTimeout); 
         const logLines = [
             "ACCESSING_LOGS...",
-            "INITIATING_DECRYPTION_PROTOCOL_V2.1...",
+            "INITIATING_DECRYPTION_PROTOCOL...",
             "AUTHENTICATION_SUCCESSFUL.",
-            "LOG_ENTRY_001: SYSTEM_BOOT_SEQUENCE_COMPLETE",
-            "LOG_ENTRY_002: NETWORK_INTEGRITY_CHECK_OK",
-            "LOG_ENTRY_003: USER_FILIP_LOGIN_SUCCESS",
-            "LOG_ENTRY_004: PORTFOLIO_V4_ONLINE",
+            "LOG_ENTRY_001: SYSTEM_BOOT",
+            "LOG_ENTRY_002: NET_INTEGRITY_OK",
+            "LOG_ENTRY_003: FILIP_LOGIN_SUCCESS",
             "LOG_ACCESS_COMPLETE."
         ];
         let currentLogLine = 0;
@@ -2062,13 +2032,12 @@
             if (currentLogLine < logLines.length) {
                 if (charIndex < logLines[currentLogLine].length) {
                     heroTerminalInput.value += logLines[currentLogLine][charIndex++];
-                    SoundManager.sounds.terminalType.play().catch(() => {});
-                    setTimeout(typeLogLine, 40); 
+                    setTimeout(typeLogLine, 30); 
                 } else {
                     heroTerminalInput.value += "\n";
                     charIndex = 0;
                     currentLogLine++;
-                    setTimeout(typeLogLine, 300); 
+                    setTimeout(typeLogLine, 250); 
                 }
             } else {
                 setTimeout(() => {
@@ -2081,7 +2050,6 @@
         typeLogLine();
     }
 
-    // Feature 6: Expanded Interactive Commands
     function handleHeroCommand(command) {
         if (!heroTerminalInput) return;
 
@@ -2092,7 +2060,7 @@
 
         switch(command) {
             case 'help':
-                response = "Commands: 'about', 'skills', 'projects', 'contact', 'matrix', 'date', 'clear', 'sudo'.";
+                response = "Commands: 'about', 'skills', 'projects', 'contact', 'matrix', 'date', 'clear'.";
                 break;
             case 'about':
                 response = "Stephan is a Full Stack Developer passionate about robust backend solutions.";
@@ -2125,7 +2093,7 @@
                 }
                 break;
             case 'date':
-                response = "Current Sys Date: " + new Date().toDateString();
+                response = "Sys Date: " + new Date().toDateString();
                 break;
             case 'clear':
                 heroTerminalInput.value = "";
@@ -2139,11 +2107,6 @@
             case 'access log':
                 simulateLogAccess(); 
                 return; 
-            case 'download credentials':
-                response = "Initiating secure download of credentials...";
-                const resumeLink = document.getElementById(HERO_BTN_RESUME_ID);
-                if (resumeLink) resumeLink.click(); 
-                break;
             default:
                 response = `Command '${command}' not recognized. Type 'help' for options.`;
                 SoundManager.play('terminalError'); 
@@ -2154,11 +2117,10 @@
             if (heroTerminalInput) heroTerminalInput.value = ""; 
             isTypingRole = true; 
             typeRoleIntoInput(); 
-        }, 3000); 
+        }, 2500); 
         SoundManager.play('chatbot'); 
     }
 
-    // --- Footer UFO Message Feature ---
     const ufoShotMsg = document.getElementById('ufo-shot-msg');
     const ufoShotText = document.getElementById('ufo-shot-text');
     const ufoBeamSVG = document.getElementById('ufo-beam');
@@ -2169,22 +2131,25 @@
       const msg = rareMsgs[Math.floor(Math.random() * rareMsgs.length)];
       ufoShotText.textContent = msg;
       ufoShotMsg.style.display = 'block';
-      ufoShotMsg.style.left = '110px';
-      ufoShotMsg.style.bottom = '110px';
+      
+      // Ensure UFO text isn't offscreen on mobile
+      const startLeft = window.innerWidth < 480 ? 20 : 110;
+      ufoShotMsg.style.left = startLeft + 'px';
       ufoShotMsg.style.opacity = '1';
+      
       SoundManager.play('ufo'); 
-      let pos = 110, opacity = 1;
+      let pos = startLeft, opacity = 1;
 
       gsap.to(ufoBeamSVG, { opacity: 0.7, duration: 0.4, yoyo: true, repeat: 1, onComplete: () => {
         gsap.to(ufoBeamSVG, { opacity: 0, duration: 0.4 });
       }});
 
       function animateShot() {
-        pos += 24;
-        opacity -= 0.03;
+        pos += window.innerWidth < 480 ? 12 : 24; // slower on mobile
+        opacity -= window.innerWidth < 480 ? 0.05 : 0.03;
         ufoShotMsg.style.left = pos + 'px';
         ufoShotMsg.style.opacity = opacity;
-        if (pos < window.innerWidth - 300 && opacity > 0) {
+        if (pos < window.innerWidth - 100 && opacity > 0) {
           requestAnimationFrame(animateShot);
         } else {
           ufoShotMsg.style.display = 'none';
@@ -2193,26 +2158,21 @@
       animateShot();
     }
 
-    // --- Scroll to top button ---
     const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-    // --- Parallax Effect ---
     const hero = document.querySelector('section.relative.text-center');
-    const heroBg1 = hero.querySelector('div > .w-72');
-    const heroBg2 = hero.querySelector('div > .w-40');
+    const heroBg1 = hero.querySelector('.bg-\\[var\\(--accent\\)\\]');
+    const heroBg2 = hero.querySelector('.bg-\\[\\#FFD166\\]');
 
-    // --- Shooting Star Animation ---
     function animateShootingStar() {
       const star = document.getElementById('shooting-star');
       if (!star) return; 
 
       gsap.set(star, { left: '-60px', opacity: 1 });
-      gsap.to(star, { left: '100vw', duration: 3.5, ease: "power1.in", opacity: 0, onComplete: () => {
+      gsap.to(star, { left: '100vw', duration: window.innerWidth < 480 ? 2 : 3.5, ease: "power1.in", opacity: 0, onComplete: () => {
         gsap.set(star, { left: '-60px', opacity: 0 });
       }});
     }
 
-    // --- Theme Toggle Functionality ---
     function toggleTheme() {
         document.body.classList.toggle('light-theme');
         saveThemePreference(document.body.classList.contains('light-theme') ? 'light' : 'dark');
@@ -2243,7 +2203,6 @@
         }
     }
 
-    // --- DNA-style Skill Visualizer ---
     function createDnaSkillVisualizer(data) {
         const container = document.getElementById(SKILL_GRAPH_CONTAINER_ID);
         if (!container) return;
@@ -2256,7 +2215,7 @@
 
         svg.selectAll("*").remove();
 
-        const helixRadius = 100;
+        const helixRadius = 120; // Slightly wider
         const helixPitch = 0.05; 
         const helixLength = height - 100; 
         const startY = 50;
@@ -2271,35 +2230,21 @@
         const helixPoints2 = [];
         for (let y = startY; y <= endY; y += 1) {
             const angle = y * helixPitch;
-            helixPoints1.push({
-                x: width / 2 + helixRadius * Math.cos(angle),
-                y: y
-            });
-            helixPoints2.push({
-                x: width / 2 + helixRadius * Math.cos(angle + Math.PI),
-                y: y
-            });
+            helixPoints1.push({ x: width / 2 + helixRadius * Math.cos(angle), y: y });
+            helixPoints2.push({ x: width / 2 + helixRadius * Math.cos(angle + Math.PI), y: y });
         }
 
-        const helix1 = svg.append("path")
-            .attr("class", "dna-helix")
-            .attr("d", lineGenerator(helixPoints1));
-
-        const helix2 = svg.append("path")
-            .attr("class", "dna-helix")
-            .attr("d", lineGenerator(helixPoints2));
+        const helix1 = svg.append("path").attr("class", "dna-helix").attr("d", lineGenerator(helixPoints1));
+        const helix2 = svg.append("path").attr("class", "dna-helix").attr("d", lineGenerator(helixPoints2));
 
         const pathLength1 = helix1.node().getTotalLength();
         const pathLength2 = helix2.node().getTotalLength();
 
-        helix1.attr("stroke-dasharray", pathLength1 + " " + pathLength1)
-              .attr("stroke-dashoffset", pathLength1);
-        helix2.attr("stroke-dasharray", pathLength2 + " " + pathLength2)
-              .attr("stroke-dashoffset", pathLength2);
+        helix1.attr("stroke-dasharray", pathLength1 + " " + pathLength1).attr("stroke-dashoffset", pathLength1);
+        helix2.attr("stroke-dasharray", pathLength2 + " " + pathLength2).attr("stroke-dashoffset", pathLength2);
 
         gsap.to(helix1.node(), { strokeDashoffset: 0, duration: 2, ease: "power2.out" });
         gsap.to(helix2.node(), { strokeDashoffset: 0, duration: 2, ease: "power2.out", delay: 0.5 });
-
 
         const nodesData = data.nodes.map((d, i) => {
             const yPos = startY + (i / (data.nodes.length - 1)) * helixLength;
@@ -2325,43 +2270,29 @@
         nodeGroups.append("text")
             .attr("class", "dna-node-text")
             .attr("dy", "0.35em")
-            .attr("x", d => d.x > width / 2 ? 10 : -10) 
+            .attr("x", d => d.x > width / 2 ? 15 : -15) 
             .attr("text-anchor", d => d.x > width / 2 ? "start" : "end")
+            .style("font-size", "14px") // bigger text for mobile readability
             .text(d => d.id);
 
         gsap.to(nodeGroups.nodes(), {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "back.out(1.7)",
+            opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.7)",
             scrollTrigger: {
-                trigger: `#${SKILL_GRAPH_CONTAINER_ID}`,
-                start: "top center",
-                toggleActions: "play reverse play reverse",
-                once: true 
+                trigger: `#${SKILL_GRAPH_CONTAINER_ID}`, start: "top center", toggleActions: "play reverse play reverse", once: true 
             }
         });
 
-        nodeGroups.on("mouseover", function(event, d) {
-            d3.select(this).classed("highlight", true);
-        })
-        .on("mouseout", function(event, d) {
-            d3.select(this).classed("highlight", false);
-        });
+        nodeGroups.on("mouseover", function(event, d) { d3.select(this).classed("highlight", true); })
+        .on("mouseout", function(event, d) { d3.select(this).classed("highlight", false); });
 
         window.filterDnaSkills = function(category) {
             const allNodeGroups = svg.selectAll(".dna-node-group");
             allNodeGroups.each(function(d) {
                 const nodeGroup = d3.select(this);
                 if (category === 'all' || d.group === category) {
-                    nodeGroup.transition().duration(300)
-                        .style("opacity", 1)
-                        .attr("display", null); 
+                    nodeGroup.transition().duration(300).style("opacity", 1).attr("display", null); 
                 } else {
-                    nodeGroup.transition().duration(300)
-                        .style("opacity", 0.2)
-                        .attr("display", "none"); 
+                    nodeGroup.transition().duration(300).style("opacity", 0.2).attr("display", "none"); 
                 }
             });
         };
@@ -2374,26 +2305,21 @@
     function scrollCertificates(direction) {
       const carousel = document.getElementById(CERTIFICATES_CAROUSEL_ID);
       if (!carousel) return;
-
-      const scrollAmount = 280; 
-      carousel.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth'
-      });
+      const scrollAmount = window.innerWidth < 480 ? 200 : 280; 
+      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
       SoundManager.play('click'); 
     }
 
     function fetchLatestUpdates() {
       const updatesContainer = document.getElementById(CURRENT_FOCUS_UPDATES_ID);
       if (!updatesContainer) return;
-
       let html = '';
       currentFocusUpdates.forEach(update => {
         html += `
           <div class="current-focus-item p-4 rounded-lg border-l-4 border-[var(--secondary)] shadow-md">
-            <p class="text-sm text-[#FFD166] font-orbitron">${update.date}</p>
-            <h4 class="text-xl font-semibold text-[var(--accent)] mb-1">${update.title}</h4>
-            <p>${update.description}</p>
+            <p class="text-xs md:text-sm text-[#FFD166] font-orbitron">${update.date}</p>
+            <h4 class="text-lg md:text-xl font-semibold text-[var(--accent)] mb-1">${update.title}</h4>
+            <p class="text-sm md:text-base">${update.description}</p>
           </div>
         `;
       });
@@ -2403,69 +2329,27 @@
     function animateHeroButtons() {
       const btnProjects = document.getElementById(HERO_BTN_PROJECTS_ID);
       const btnResume = document.getElementById(HERO_BTN_RESUME_ID);
-
       if (!btnProjects || !btnResume) return; 
 
       const createHoverAnimation = (element) => {
-        gsap.to(element, {
-          scale: 1.12,
-          y: -4,
-          rotate: -2,
-          background: "var(--btn-hover-bg)",
-          boxShadow: "var(--btn-hover-shadow)",
-          color: "var(--danger)",
-          duration: 0.2,
-          ease: "power2.out",
-          overwrite: true
-        });
+        gsap.to(element, { scale: 1.08, y: -4, rotate: -1, background: "var(--btn-hover-bg)", boxShadow: "var(--btn-hover-shadow)", color: "var(--danger)", duration: 0.2, ease: "power2.out", overwrite: true });
       };
-
       const reverseHoverAnimation = (element) => {
-        gsap.to(element, {
-          scale: 1,
-          y: 0,
-          rotate: 0,
-          background: "var(--btn-bg)",
-          boxShadow: "var(--btn-shadow)",
-          color: "var(--btn-text)",
-          duration: 0.2,
-          ease: "power2.out",
-          overwrite: true
-        });
+        gsap.to(element, { scale: 1, y: 0, rotate: 0, background: "var(--btn-bg)", boxShadow: "var(--btn-shadow)", color: "var(--btn-text)", duration: 0.2, ease: "power2.out", overwrite: true });
       };
 
       btnProjects.addEventListener('mouseenter', () => createHoverAnimation(btnProjects));
       btnProjects.addEventListener('mouseleave', () => reverseHoverAnimation(btnProjects));
       btnResume.addEventListener('mouseenter', () => {
-        gsap.to(btnResume, {
-          scale: 1.05, 
-          y: -2,
-          background: "rgba(255,209,102,0.133)", 
-          boxShadow: "0 0 16px rgba(255,209,102,0.5)", 
-          color: "var(--accent)", 
-          duration: 0.2,
-          ease: "power2.out",
-          overwrite: true
-        });
+        gsap.to(btnResume, { scale: 1.05, y: -2, background: "rgba(255,209,102,0.133)", boxShadow: "0 0 16px rgba(255,209,102,0.5)", color: "var(--accent)", duration: 0.2, ease: "power2.out", overwrite: true });
       });
       btnResume.addEventListener('mouseleave', () => {
-        gsap.to(btnResume, {
-          scale: 1,
-          y: 0,
-          background: "transparent",
-          boxShadow: "none",
-          color: "#FFD166",
-          duration: 0.2,
-          ease: "power2.out",
-          overwrite: true
-        });
+        gsap.to(btnResume, { scale: 1, y: 0, background: "transparent", boxShadow: "none", color: "#FFD166", duration: 0.2, ease: "power2.out", overwrite: true });
       });
     }
 
     function applyFlickerToGlowElements() {
-        document.querySelectorAll('.glow').forEach(element => {
-            element.classList.add('flicker');
-        });
+        document.querySelectorAll('.glow').forEach(element => { element.classList.add('flicker'); });
     }
 
     function scrambleFooterText() {
@@ -2479,11 +2363,8 @@
 
         const scrambleInterval = setInterval(() => {
             textElement.textContent = originalText.split('').map((char, index) => {
-                if (index < iterations / 2) {
-                    return originalText[index];
-                }
-                const randomChar = chars[Math.floor(Math.random() * chars.length)];
-                return randomChar;
+                if (index < iterations / 2) return originalText[index];
+                return chars[Math.floor(Math.random() * chars.length)];
             }).join('');
 
             if (iterations >= totalIterations) {
@@ -2492,17 +2373,13 @@
             }
             iterations += 1;
         }, 50); 
-
-        setTimeout(() => {
-            setInterval(scrambleFooterText, 30000); 
-        }, 10000); 
+        setTimeout(() => { setInterval(scrambleFooterText, 30000); }, 10000); 
     }
 
     function setupSectionScanlines() {
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
             if (section.id === 'hero-section') return;
-
             const overlay = section.querySelector('.section-scan-overlay');
             if (overlay) {
                 const observer = new IntersectionObserver((entries) => {
@@ -2511,9 +2388,7 @@
                             gsap.fromTo(overlay,
                                 { scaleY: 0, opacity: 0, transformOrigin: 'top' },
                                 { scaleY: 1, opacity: 1, duration: 0.5, ease: "power2.out",
-                                  onComplete: () => {
-                                      gsap.to(overlay, { scaleY: 0, opacity: 0, duration: 0.5, ease: "power2.in", delay: 0.5 });
-                                  }
+                                  onComplete: () => { gsap.to(overlay, { scaleY: 0, opacity: 0, duration: 0.5, ease: "power2.in", delay: 0.5 }); }
                                 }
                             );
                         }
@@ -2527,32 +2402,19 @@
     function setupHologramProfile() {
         const aboutSection = document.getElementById(ABOUT_SECTION_ID);
         const hologramCube = document.getElementById(HOLOGRAM_PROFILE_CUBE_ID);
-
         if (!aboutSection || !hologramCube) return;
 
         aboutSection.addEventListener('mousemove', (e) => {
             const { left, top, width, height } = aboutSection.getBoundingClientRect();
             const x = (e.clientX - left) / width; 
             const y = (e.clientY - top) / height; 
-
             const rotateX = (y - 0.5) * 20; 
             const rotateY = (x - 0.5) * -20; 
-
-            gsap.to(hologramCube, {
-                rotationX: rotateX,
-                rotationY: rotateY,
-                duration: 0.5,
-                ease: "power1.out"
-            });
+            gsap.to(hologramCube, { rotationX: rotateX, rotationY: rotateY, duration: 0.5, ease: "power1.out" });
         });
 
         aboutSection.addEventListener('mouseleave', () => {
-            gsap.to(hologramCube, {
-                rotationX: 15, 
-                rotationY: -15, 
-                duration: 0.8,
-                ease: "elastic.out(1, 0.5)" 
-            });
+            gsap.to(hologramCube, { rotationX: 15, rotationY: -15, duration: 0.8, ease: "elastic.out(1, 0.5)" });
         });
     }
 
@@ -2568,10 +2430,10 @@
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         hudTime.textContent = `TIME: ${timeString}`;
-        hudWeather.textContent = `WEATHER: CLEAR // 24C`; 
-        hudBattery.textContent = `POWER: ${Math.floor(Math.random() * 5) + 95}%`; 
-        hudStatus.textContent = `STATUS: OPTIMAL`; 
-        hudUserId.textContent = `USER: ADMIN // SEC-${Math.floor(Math.random() * 99) + 1}`; 
+        hudWeather.textContent = `WTHR: CLEAR // 24C`; 
+        hudBattery.textContent = `PWR: ${Math.floor(Math.random() * 5) + 95}%`; 
+        hudStatus.textContent = `STS: OPTIMAL`; 
+        hudUserId.textContent = `USR: ADMIN // SEC-${Math.floor(Math.random() * 99) + 1}`; 
     }
 
     function setupVisitorTracker() {
@@ -2593,17 +2455,10 @@
     function setupCustomCursorAndSpotlight() {
         const customCursor = document.querySelector(CUSTOM_CURSOR_SELECTOR);
         const spotlightEffect = document.querySelector(SPOTLIGHT_EFFECT_SELECTOR);
-
         if (!customCursor || !spotlightEffect) return;
 
         document.addEventListener('mousemove', (e) => {
-            gsap.to(customCursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.05, 
-                ease: "none"
-            });
-
+            gsap.to(customCursor, { x: e.clientX, y: e.clientY, duration: 0.05, ease: "none" });
             spotlightEffect.style.setProperty('--mouse-x', `${e.clientX}px`);
             spotlightEffect.style.setProperty('--mouse-y', `${e.clientY}px`);
         });
@@ -2651,12 +2506,7 @@
         });
 
         const miniNavDots = document.querySelectorAll('.mini-nav-dot');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5 
-        };
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.3 };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -2691,11 +2541,7 @@
 
     function setupKeyboardNavigation() {
         document.addEventListener('keydown', (event) => {
-            // Ignore if user is typing in input fields
-            if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'textarea') {
-                return;
-            }
-            
+            if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'textarea') return;
             const key = event.key;
             const sectionIndex = parseInt(key) - 1; 
 
@@ -2722,6 +2568,7 @@
                 if (url) {
                     iframe.src = url;
                     modalOverlay.classList.add('visible');
+                    document.body.style.overflow = 'hidden'; // Stop background scrolling
                     SoundManager.play('click'); 
                 }
             });
@@ -2730,6 +2577,7 @@
         closeBtn.addEventListener('click', () => {
             modalOverlay.classList.remove('visible');
             iframe.src = ''; 
+            document.body.style.overflow = 'auto';
             SoundManager.play('click'); 
         });
 
@@ -2737,6 +2585,7 @@
             if (event.target === modalOverlay) {
                 modalOverlay.classList.remove('visible');
                 iframe.src = ''; 
+                document.body.style.overflow = 'auto';
                 SoundManager.play('click');
             }
         });
@@ -2745,47 +2594,39 @@
             if (event.key === 'Escape' && modalOverlay.classList.contains('visible')) {
                 modalOverlay.classList.remove('visible');
                 iframe.src = '';
+                document.body.style.overflow = 'auto';
                 SoundManager.play('click');
             }
         });
     }
 
-    // --- Event Listeners and Initializations ---
     window.addEventListener('DOMContentLoaded', function () {
       typeTerminal();
       loadThemePreference(); 
       SoundManager.init(); 
       
-      setupMatrixRain(); // Feature 1 Trigger
-      fetchGitHubStats(); // Feature 2 Trigger
+      setupMatrixRain(); 
+      fetchGitHubStats(); 
       
-      // Feature 3 Trigger (Making HUDs Draggable)
       makeDraggable('hud-1');
       makeDraggable('hud-2');
-      makeDraggable('hud-3'); // Draggable visitor tracker
+      makeDraggable('hud-3'); 
 
       setInterval(() => {
         const termCursor = document.getElementById(TERMINAL_CURSOR_ID);
-        if (termCursor) {
-          termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
-        }
+        if (termCursor) termCursor.style.opacity = termCursor.style.opacity === "0" ? "1" : "0";
       }, 400);
 
       const terminalDisplay = document.getElementById(TERMINAL_DISPLAY_ID);
-      if (terminalDisplay) {
-        terminalDisplay.addEventListener('click', randomTerminalFact);
-      }
+      if (terminalDisplay) terminalDisplay.addEventListener('click', randomTerminalFact);
       
-      gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: 2.8 });
-      gsap.from(".glass", { duration: 1.2, opacity: 0, y: 40, stagger: 0.3, delay: 3 });
+      gsap.from("section", { duration: 1.3, opacity: 0, stagger: 0.4, delay: window.innerWidth < 480 ? 1.5 : 2.8 });
+      gsap.from(".glass", { duration: 1.2, opacity: 0, y: window.innerWidth < 480 ? 20 : 40, stagger: 0.3, delay: window.innerWidth < 480 ? 1.8 : 3 });
 
       const robotContainer = document.getElementById('robot-container');
       if (robotContainer) {
         window.addEventListener('scroll', () => {
-          if (!ticking) {
-            window.requestAnimationFrame(animateRobot);
-            ticking = true;
-          }
+          if (!ticking) { window.requestAnimationFrame(animateRobot); ticking = true; }
         });
         gsap.fromTo(robotContainer, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 1 });
       }
@@ -2822,15 +2663,10 @@
           let found = false;
           for (const key in aiAnswers) {
             if (lower.includes(key)) {
-              botSay(aiAnswers[key]);
-              found = true;
-              break;
+              botSay(aiAnswers[key]); found = true; break;
             }
           }
-          if (found) {
-            document.getElementById(CHATBOT_INPUT_ID).value = "";
-            return;
-          }
+          if (found) { document.getElementById(CHATBOT_INPUT_ID).value = ""; return; }
 
           const phonePattern = /^[\d\s\-\+\(\)]{7,20}$/;
           if (phonePattern.test(val) || (lower.includes("phone number") || lower.includes("contact number"))) {
@@ -2856,12 +2692,11 @@
             if (event.key === 'Enter') {
                 event.preventDefault(); 
                 handleHeroCommand(this.value);
-                this.value = ''; 
             }
         });
       }
 
-      setInterval(autoShootUFO, 8000);
+      setInterval(autoShootUFO, 12000);
 
       if (scrollTopBtn) { 
         window.addEventListener('scroll', () => {
@@ -2890,14 +2725,10 @@
       setInterval(animateShootingStar, 15000);
 
       const themeToggleBtn = document.getElementById(THEME_TOGGLE_BTN_ID);
-      if (themeToggleBtn) { 
-        themeToggleBtn.addEventListener('click', toggleTheme);
-      }
+      if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
 
       const soundToggleBtn = document.getElementById(SOUND_TOGGLE_BTN_ID);
-      if (soundToggleBtn) { 
-        soundToggleBtn.addEventListener('click', () => SoundManager.toggleMute());
-      }
+      if (soundToggleBtn) soundToggleBtn.addEventListener('click', () => SoundManager.toggleMute());
 
       createDnaSkillVisualizer(skillGraphData);
 
@@ -2941,7 +2772,6 @@
     window.showgh = function () { botSay('My GitHub: <b>github.com/Filip2k03</b><br><a href="https://github.com/Filip2k03" target="_blank" class="futuristic-link">Open GitHub</a>'); };
     window.showli = function () { botSay('My LinkedIn: <b>linkedin.com/in/stephanfilip7</b><br><a href="https://www.linkedin.com/in/stephanfilip7" target="_blank" class="futuristic-link">Open LinkedIn</a>'); };
     window.showup = function () { botSay('My Upwork: <b>upwork.com/freelancers/~01b7c4e3e5e7b8b6c6</b><br><a href="https://www.upwork.com/freelancers/~01b7c4e3e5e7b8b6c6" target="_blank" class="futuristic-link">Open Upwork</a>'); };
-
   </script>
 </body>
 
